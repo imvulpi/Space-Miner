@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="arrow_up_universal.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="4"
+     inkscape:cx="46.375"
+     inkscape:cy="47.25"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1097" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1097"
+       inkscape:label="arrow_down"
+       transform="translate(58.409598,59.801479)"
+       style="fill:#000000"
+       inkscape:export-filename="arrow_down.png"
+       inkscape:export-xdpi="328.42087"
+       inkscape:export-ydpi="328.42087">
+      <rect
+         style="fill:#f9f9f9;fill-rule:evenodd;stroke:none;stroke-width:0.337116;stroke-linecap:round;stroke-linejoin:bevel;paint-order:fill markers stroke"
+         id="rect234-6"
+         width="3.7712362"
+         height="13.199327"
+         x="-76.988197"
+         y="-5.6154547"
+         transform="matrix(0.70710678,0.70710678,0.70710678,-0.70710678,0,0)"
+         inkscape:label="left"
+         inkscape:export-filename="white\arrow_up_8x5.png"
+         inkscape:export-xdpi="10.885516"
+         inkscape:export-ydpi="10.885516" />
+      <rect
+         style="fill:#f9f9f9;fill-rule:evenodd;stroke:none;stroke-width:0.337116;stroke-linecap:round;stroke-linejoin:bevel;paint-order:fill markers stroke"
+         id="rect234-6-3"
+         width="3.7712362"
+         height="13.199327"
+         x="3.812875"
+         y="63.788628"
+         transform="matrix(0.70710678,-0.70710678,-0.70710678,-0.70710678,0,0)"
+         inkscape:label="left" />
+    </g>
+  </g>
+</svg>

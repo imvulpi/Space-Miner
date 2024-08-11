@@ -1,0 +1,22 @@
+{
+	"Prospector": {
+		"Name": "Prospector",
+		"FuelCapacity": 200,
+		"MaxSpeed": 400,
+		"Acceleration": 100,
+		"CargoCapacity": 100,
+		"RotationSpeed": 9,
+		"Weapons": [
+			{
+				"Name": "Laser Cannon",
+				"Damage": 20,
+				"FireRate": 1.5
+			},
+			{
+				"Name": "Missile Launcher",
+				"Damage": 50,
+				"FireRate": 0.8
+			}
+		]
+	}
+}
