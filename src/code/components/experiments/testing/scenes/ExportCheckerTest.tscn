@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://blnbe6nxjeg80"]
+[gd_scene load_steps=2 format=3 uid="uid://bgxrwq0ac7t6i"]
 
-[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/ExportCheckerTest.cs" id="1_t07y8"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/ExportCheckerTest/ExportCheckerTest.cs" id="1_t07y8"]
 
 [node name="ExportCheckerTest" type="Node2D"]
 script = ExtResource("1_t07y8")

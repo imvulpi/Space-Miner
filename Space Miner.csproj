@@ -6,4 +6,47 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>SpaceMiner</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="src\code\components\experiments\testing\scenes\dependency_injection\**" />
+    <EmbeddedResource Remove="src\code\components\experiments\testing\scenes\dependency_injection\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" />
+    <Compile Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\DI.AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\DI.csproj.nuget.dgspec.json" />
+    <Content Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\project.assets.json" />
+    <Content Include="src\code\components\commons\godot\GruInject\.vs\GruInject\v17\DocumentLayout.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\code\components\commons\godot\GruInject\.gitattributes" />
+    <None Include="src\code\components\commons\godot\GruInject\.gitignore" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\DI.AssemblyInfoInputs.cache" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\DI.assets.cache" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\DI.csproj.AssemblyReference.cache" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\DI.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\DI.csproj.nuget.g.props" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\DI.csproj.nuget.g.targets" />
+    <None Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\project.nuget.cache" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\DesignTimeBuild\.dtbcache.v2" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\FileContentIndex\4924f2e4-b326-417f-96c2-40c419474b68.vsidx" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\FileContentIndex\8e26879c-a653-4ba7-979c-4c75d9971625.vsidx" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\FileContentIndex\b80b626f-8397-4ee0-9f62-18595e2f0876.vsidx" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\FileContentIndex\dd6593e6-d3ab-4431-b32a-31a87dc5aae2.vsidx" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\FileContentIndex\eb772b87-bfda-447a-b79d-355c8e4496ec.vsidx" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\GruInject\v17\.futdcache.v2" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\ProjectEvaluation\di.metadata.v7.bin" />
+    <None Include="src\code\components\commons\godot\GruInject\.vs\ProjectEvaluation\di.projects.v7.bin" />
+    <None Include="src\code\components\commons\godot\GruInject\GruInject.csproj" />
+    <None Include="src\code\components\commons\godot\GruInject\README.md" />
+    <None Include="src\code\components\experiments\testing\DependencyInjectionTest.tscn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\bin\Debug\" />
+    <Folder Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\refint\" />
+    <Folder Include="src\code\components\commons\godot\GruInject\.godot\mono\temp\obj\Debug\ref\" />
+    <Folder Include="src\code\components\experiments\testing\scenes\" />
+    <Folder Include="src\code\components\experiments\testing\scripts\dependency_injection\" />
+  </ItemGroup>
 </Project>

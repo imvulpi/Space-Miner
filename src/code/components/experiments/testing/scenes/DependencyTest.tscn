@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://db34js338kxym"]
+
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/DependencyTest/DependencyNode.cs" id="1_qx322"]
+
+[node name="Dependency" type="GraphElement"]
+script = ExtResource("1_qx322")
