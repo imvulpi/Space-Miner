@@ -1,4 +1,4 @@
-﻿namespace GruInject.API.Attributes
+﻿namespace GruInject.API.Initializators
 {
     public class InstanceInitializator
     {

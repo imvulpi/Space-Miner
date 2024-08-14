@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System;
 
-namespace SpaceMiner.src.components.commons.godot.exports
+namespace SpaceMiner.src.code.components.commons.godot.exports
 {
     /// <summary>
     /// This will not check non-nullable values or for default values of these non-nullable types
@@ -23,7 +23,8 @@ namespace SpaceMiner.src.components.commons.godot.exports
                     nullCount++;
                 }
             }
-            if(nullCount > 0) {
+            if (nullCount > 0)
+            {
                 string errorMessage = $"{nullCount} Export {(nullCount == 1 ? "value is" : "values are")} not set somewhere";
                 GD.PushError(errorMessage);
             }
@@ -58,7 +59,8 @@ namespace SpaceMiner.src.components.commons.godot.exports
 
         private bool CheckEmptyAndWarn(params object[] objects)
         {
-            if (objects == null || objects.Length == 0) {
+            if (objects == null || objects.Length == 0)
+            {
                 string errorMessage = "there is no objects in the ExportChecker";
                 GD.PushWarning(errorMessage);
                 return true;

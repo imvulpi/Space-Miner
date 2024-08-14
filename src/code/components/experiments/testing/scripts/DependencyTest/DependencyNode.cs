@@ -1,12 +1,13 @@
 using Godot;
 using GruInject.API.Attributes;
+using GruInject.API.Initializators;
 
 public partial class DependencyNode : GraphElement
 {
 	[Inject] public DependencyTestClass TestClass { get; set; }
     public override void _EnterTree()
     {
-		InstanceInitializator.CurrentInstanceInitializator.InitializeInstance(this);
+		InstanceInitializator.CurrentInstanceInitializator.InitializeNodeInstance(this);
     }
 
     public override void _Ready()

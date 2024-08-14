@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://chumc5xglf56b"]
+
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/API/Start/GruInjectStart.cs" id="1_hb8i6"]
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/Example/Dependentiaries/GruNodeDependentiary.cs" id="2_tl5xa"]
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/Example/Dependentiaries/GruNode2DDependentiary.cs" id="3_y6g0r"]
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/Example/Dependentiaries/GruControlDependentiary.cs" id="4_hc1jo"]
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/Example/Dependentiaries/GruNode3DDependentiary.cs" id="5_cgaxf"]
+[ext_resource type="Script" path="res://src/code/components/commons/godot/GruInject/Example/Dependentiaries/CustomTypeDependentiary.cs" id="5_rlwfo"]
+
+[node name="GruStartNode" type="Node"]
+script = ExtResource("1_hb8i6")
+
+[node name="GruNodeDependentiary" type="Node" parent="."]
+script = ExtResource("2_tl5xa")
+
+[node name="GruNode2DDependentiary" type="Node2D" parent="."]
+script = ExtResource("3_y6g0r")
+
+[node name="GruControlDependentiary" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_hc1jo")
+
+[node name="GruNode3DDependentiary" type="Node3D" parent="."]
+script = ExtResource("5_cgaxf")
+
+[node name="CustomNodeDependentiary" type="CPUParticles2D" parent="."]
+position = Vector2(10, 0)
+script = ExtResource("5_rlwfo")
+
+[node name="View" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="View"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="View"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "This is an GruInject example.
+To see it in action look at the godot output.
+Check the scripts attached to objects to understand more."
+horizontal_alignment = 1
+vertical_alignment = 1

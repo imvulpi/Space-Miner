@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using GruInject.API.Attributes;
+using GruInject.API.Initializators;
 using GruInject.Core.Injection;
 
 namespace GruInject.API

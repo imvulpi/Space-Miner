@@ -3,7 +3,7 @@ using GruInject.API.Initializators;
 
 namespace GruInject.API.Nodes
 {
-    public partial class GruNode3D : Node3D
+    public partial class GruControl : Control
     {
         private bool _wasInitialized = false;
         
