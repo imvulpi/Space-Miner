@@ -38,7 +38,7 @@ namespace GruInject.Core.Injection
             var ctor = type.GetConstructors()
                            .Where(c => c.IsPublic)
                            .OrderByDescending(c => c.GetParameters().Length)
-                           .FirstOrDefault()
+                           .LastOrDefault()
                        ?? throw new InvalidOperationException($"No suitable constructor found on type '{type}'");
 
             

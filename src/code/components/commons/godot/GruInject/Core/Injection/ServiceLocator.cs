@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Godot;
-using GruInject.API;
-using GruInject.API.Attributes;
+using GruInject.API.Initializators;
 using GruInject.API.Nodes;
 using GruInject.Core.Registration;
 
@@ -10,7 +9,7 @@ namespace GruInject.Core.Injection
 {
     public class ServiceLocator : IDisposable, IInstanceInitializator
     {
-        private readonly Registration.InstanceProvider _instanceProvider;
+        private readonly InstanceProvider _instanceProvider;
         private readonly InstanceFiller _instanceFiller;
         private bool _enableCircularDependencyDetection;
         private CircularDependencyDetection _circularDependencyDetection;
@@ -25,7 +24,7 @@ namespace GruInject.Core.Injection
             _injectAttributes = injectAttributes;
             _enableCircularDependencyDetection = enableCircularDependencyDetection;
             _instanceFiller = new InstanceFiller(injectAttributes);
-            _instanceProvider =  new Registration.InstanceProvider(allowOnlyRegisteredInstances, _instanceFiller);
+            _instanceProvider =  new InstanceProvider(allowOnlyRegisteredInstances, _instanceFiller);
             _circularDependencyDetection = new CircularDependencyDetection();
         }
         
@@ -56,12 +55,24 @@ namespace GruInject.Core.Injection
 
             return _instanceProvider.Get(type);
         }
+        private void LinkAsChild(ServiceLocator serviceLocator)
+        {
+            _childServiceLocator = serviceLocator;
+        }
+
+        public void Dispose()
+        {
+            _childServiceLocator?.Dispose();
+            _instanceProvider.Dispose();
+            _instanceFiller.Dispose();
+        }
 
         public void InitializeGruInstance(GruNode gruNode)
         {
             _instanceFiller.FillInstance(gruNode, _instanceProvider.Get);
             _instanceFiller.InitializeMethods(gruNode, _instanceProvider.Get);
         }
+
         public void InitializeGruInstance(GruNode2D gruNode)
         {
             _instanceFiller.FillInstance(gruNode, _instanceProvider.Get);
@@ -74,22 +85,16 @@ namespace GruInject.Core.Injection
             _instanceFiller.InitializeMethods(gruNode, _instanceProvider.Get);
         }
 
-        public void InitializeInstance<T>(T node) where T : Node
+        public void InitializeGruInstance(GruControl gruNode)
+        {
+            _instanceFiller.FillInstance(gruNode, _instanceProvider.Get);
+            _instanceFiller.InitializeMethods(gruNode, _instanceProvider.Get);
+        }
+
+        public void InitializeNodeInstance<T>(T node) where T : Node
         {
             _instanceFiller.FillInstance(node, _instanceProvider.Get);
             _instanceFiller.InitializeMethods(node, _instanceProvider.Get);
-        }
-
-        private void LinkAsChild(ServiceLocator serviceLocator)
-        {
-            _childServiceLocator = serviceLocator;
-        }
-
-        public void Dispose()
-        {
-            _childServiceLocator?.Dispose();
-            _instanceProvider.Dispose();
-            _instanceFiller.Dispose();
         }
     }
 }

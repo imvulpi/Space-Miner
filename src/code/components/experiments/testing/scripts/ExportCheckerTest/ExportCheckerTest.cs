@@ -1,5 +1,5 @@
 using Godot;
-using SpaceMiner.src.components.commons.godot.exports;
+using SpaceMiner.src.code.components.commons.godot.exports;
 using System;
 
 public partial class ExportCheckerTest : Node
