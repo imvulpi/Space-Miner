@@ -16,7 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GruInjectStart="*res://src/code/components/commons/godot/GruInject/Start/GruInjectStart.cs"
+GruInjectStart="*res://src/code/components/commons/godot/GruInject/API/Start/GruInjectStart.cs"
 
 [debug]
 

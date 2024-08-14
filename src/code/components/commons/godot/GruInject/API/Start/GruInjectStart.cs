@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using Godot;
 using GruInject.API.Attributes;
 
-namespace GruInject.Start
+namespace GruInject.API.Start
 {
-    /// <summary>
-    /// Main GruInject node, could be added in autoloads in godot for comfort
-    /// </summary>
+    // AutoLoad this node or make sure it remains in the current scene. 
     public partial class GruInjectStart : Node
     {
-        private API.GruInject _gruInject;
+        private GruInject _gruInject;
 
         public override void _EnterTree()
         {
+            GD.Print("AJ. Start GruInject");
             _gruInject = new API.GruInject(
                 new List<Type>() {typeof(AutoSpawnAttribute)},
                 new List<Type>() {typeof(InjectAttribute)});
-            _gruInject.Start();
+            _gruInject.Start();//Comment me if comment below is uncommented
+            //_gruInject.Start(false, false); //Uncomment me to allow unregistered instances.
+            //if you want to track circular dependencies set first parameter in Start to true.
             base._EnterTree();
         }
 

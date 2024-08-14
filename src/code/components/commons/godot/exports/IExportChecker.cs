@@ -1,5 +1,4 @@
-﻿
-namespace SpaceMiner.src.components.commons.godot.exports
+﻿namespace SpaceMiner.src.code.components.commons.godot.exports
 {
     internal interface IExportChecker
     {

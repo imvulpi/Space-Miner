@@ -1,11 +1,12 @@
 ﻿using Godot;
-using GruInject.API.Attributes;
+using GruInject.API.Initializators;
 
 namespace GruInject.API.Nodes
 {
-    public partial class GruNode: Node
+    public partial class GruNode : Node
     {
         private bool _wasInitialized = false;
+        
         public override void _EnterTree()
         {
             if (!_wasInitialized)
