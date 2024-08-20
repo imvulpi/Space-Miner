@@ -8,7 +8,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.audio
     [RegisterTransient]
     public class AudioSettings : IUserSettingCheckable, IAudioSettings, IAudioSettingModify, IAudioSettingsReceive
     {
-        public AudioSettings() { }
+        public AudioSettings() { 
+            SetDefaultValues();
+        }
         public AudioSettings(float masterVolume, float soundEffectsVolume, float musicVolume)
         {
             MasterVolume = masterVolume;
@@ -53,6 +55,13 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.audio
         public float GetFractional(float volume)
         {
             return volume / 100;
+        }
+
+        private void SetDefaultValues()
+        {
+            MasterVolume = MasterVolume == 0 ? MasterVolume = 100 : MasterVolume;
+            SoundEffectsVolume = SoundEffectsVolume == 0 ? SoundEffectsVolume = 100 : SoundEffectsVolume;
+            MusicVolume = MusicVolume == 0 ? MusicVolume = 100 : MusicVolume;
         }
     }
 }

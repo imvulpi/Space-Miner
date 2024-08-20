@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch
 {
-    public class AspectType
+    public class AspectTypes
     {
         public const string IGNORE = "ignore";
         public const string KEEP = "keep";

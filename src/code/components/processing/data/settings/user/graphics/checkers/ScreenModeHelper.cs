@@ -8,11 +8,11 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         public bool CheckScreenMode(string screenMode)
         {
             screenMode = screenMode.ToLower();
-            if (screenMode == StringScreenMode.WINDOWED ||
-                screenMode == StringScreenMode.MINIMIZED ||
-                screenMode == StringScreenMode.MAXIMIZED ||
-                screenMode == StringScreenMode.FULLSCREEN ||
-                screenMode == StringScreenMode.EXCLUSIVE_FULLSCREEN)
+            if (screenMode == StringScreenModes.WINDOWED ||
+                screenMode == StringScreenModes.MINIMIZED ||
+                screenMode == StringScreenModes.MAXIMIZED ||
+                screenMode == StringScreenModes.FULLSCREEN ||
+                screenMode == StringScreenModes.EXCLUSIVE_FULLSCREEN)
             {
                 return true;
             }

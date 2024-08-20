@@ -9,7 +9,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics
 {
     public interface IGraphicsSettingReceive
     {
-        public IGraphicsSettingsChecker Checker {get; set;}
+        public IGraphicsSettingsChecker Checker {get;}
         public string ScreenMode { get; }
         public string AspectType { get; }
         public string Resolution { get; }

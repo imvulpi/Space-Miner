@@ -2,9 +2,9 @@
 using SpaceMiner.src.code.components.processing.data.settings.user.graphics;
 using SpaceMiner.src.code.components.processing.data.settings.user.misc;
 
-namespace SpaceMiner.src.code.components.processing.data.settings.interfaces
+namespace SpaceMiner.src.code.components.processing.data.settings.user
 {
-    public interface IUserSettingsModify : ISettingModify
+    public interface IUserSettingsModify
     {
         public string Username { get; set; }
         public GraphicsSettings GraphicsSettings { get; set; }

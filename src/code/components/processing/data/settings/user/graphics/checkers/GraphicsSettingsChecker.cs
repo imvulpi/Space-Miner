@@ -16,6 +16,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
                 CheckScreenResolution(graphicsSettings.Resolution),
                 CheckGraphicsQuality(graphicsSettings.GraphicsQuality),
                 CheckVSync(graphicsSettings.VSync),
+                CheckChunkDistance(graphicsSettings.ChunkDistance),
             };
             if (bools.Any(a => a == false))
             {
@@ -26,11 +27,11 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
 
         public bool CheckAspectType(string value)
         {
-            if (value == AspectType.IGNORE ||
-                value == AspectType.KEEP ||
-                value == AspectType.KEEP_WIDTH ||
-                value == AspectType.KEEP_HEIGHT ||
-                value == AspectType.EXPAND)
+            if (value == AspectTypes.IGNORE ||
+                value == AspectTypes.KEEP ||
+                value == AspectTypes.KEEP_WIDTH ||
+                value == AspectTypes.KEEP_HEIGHT ||
+                value == AspectTypes.EXPAND)
             {
                 return true;
             }
@@ -40,7 +41,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         public bool CheckGraphicsQuality(string value)
         {
             value = value.ToLower();
-            if (value == GraphicsQuality.HIGH || value == GraphicsQuality.MEDIUM || value == GraphicsQuality.LOW)
+            if (value == GraphicsQualities.HIGH || value == GraphicsQualities.MEDIUM || value == GraphicsQualities.LOW)
             {
                 return true;
             }
@@ -50,11 +51,11 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         public bool CheckScreenMode(string value)
         {
             value = value.ToLower();
-            if (value == StringScreenMode.WINDOWED ||
-                value == StringScreenMode.MINIMIZED ||
-                value == StringScreenMode.MAXIMIZED ||
-                value == StringScreenMode.FULLSCREEN ||
-                value == StringScreenMode.EXCLUSIVE_FULLSCREEN)
+            if (value == StringScreenModes.WINDOWED ||
+                value == StringScreenModes.MINIMIZED ||
+                value == StringScreenModes.MAXIMIZED ||
+                value == StringScreenModes.FULLSCREEN ||
+                value == StringScreenModes.EXCLUSIVE_FULLSCREEN)
             {
                 return true;
             }
@@ -74,6 +75,12 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         public bool CheckVSync(string value)
         {
             return new VSyncHelper().CheckVSync(value);
+        }
+
+        public bool CheckChunkDistance(int value)
+        {
+            if(value > ChunkDistances.MAX_CHUNK_DISTANCE || value < ChunkDistances.MIN_CHUNK_DISTANCE) { return false; }
+            return true;
         }
     }
 }

@@ -11,21 +11,42 @@ config_version=5
 [application]
 
 config/name="Space Miner"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="spaceminer"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GruInjectStart="*res://src/code/components/commons/godot/GruInject/API/Start/GruInjectStart.cs"
+MainBootNode="*res://src/code/components/processing/boot/MainBootNode.cs"
 
 [debug]
 
-file_logging/log_path="./game_data/logs.txt"
+file_logging/log_path="user://logs/logs.txt"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
 
 [dotnet]
 
 project/assembly_name="Space Miner"
 project/solution_directory="./src/code/components"
+
+[input]
+
+ScrollDown={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":16,"position":Vector2(333, 7),"global_position":Vector2(337, 48),"factor":1.0,"button_index":5,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+ScrollUp={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(333, 17),"global_position":Vector2(337, 58),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [rendering]
 

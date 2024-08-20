@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.vsync;
 using SpaceMiner.src.code.components.processing.data.settings.user.graphics.helpers;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,10 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         private readonly string[] allowedVSyncModes = new string[] { "disabled", "enabled", "adaptive", "mailbox" };
         private readonly Dictionary<VSyncMode, string> vsyncModesStrings = new()
         {
-            { VSyncMode.Disabled, "disabled" },
-            { VSyncMode.Enabled, "enabled" },
-            { VSyncMode.Adaptive, "adaptive" },
-            { VSyncMode.Mailbox, "disabled" },
+            { VSyncMode.Disabled, VsyncModes.DISABLED },
+            { VSyncMode.Enabled, VsyncModes.ENABLED },
+            { VSyncMode.Adaptive, VsyncModes.ADAPTIVE },
+            { VSyncMode.Mailbox, VsyncModes.MAILBOX },
         };
         public bool CheckVSync(string mode)
         {
