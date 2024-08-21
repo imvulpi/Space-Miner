@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgrumb1oqlxnv"]
+
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_srv04"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/SimpleMenuButton.cs" id="2_hbg6y"]
+[ext_resource type="PackedScene" uid="uid://bnuuko3tkpin5" path="res://src/code/components/experiments/testing/scenes/MenusTest/SimpleMenu.tscn" id="3_oh3up"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/EscOverridenButton.cs" id="4_w2uhs"]
+[ext_resource type="PackedScene" uid="uid://dhwrf1cmxdf2c" path="res://src/code/components/experiments/testing/scenes/MenusTest/EscOverridenMenu.tscn" id="5_alxs6"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/PassingMenuButton.cs" id="6_axtup"]
+[ext_resource type="PackedScene" uid="uid://c7mryr5meyv8k" path="res://src/code/components/experiments/testing/scenes/MenusTest/AdvancedMenu.tscn" id="6_k4btl"]
+[ext_resource type="PackedScene" uid="uid://clf42wnm6nsbw" path="res://src/code/components/experiments/testing/scenes/MenusTest/advanced_example/MainAdvancedMenuExample.tscn" id="8_cxg51"]
+
+[node name="MainMenuTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="MainText" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -95.0
+offset_right = 240.0
+offset_bottom = -63.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 32
+text = "Main Menu TEST!"
+
+[node name="AboutButtonsLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.5
+offset_top = -11.5
+offset_right = 115.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 16
+text = "Press buttons below to test different menus:"
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.36
+anchor_top = 0.552
+anchor_right = 0.665
+anchor_bottom = 0.552
+offset_left = -298.72
+offset_top = 0.303955
+offset_right = 268.92
+offset_bottom = 128.304
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Simple" type="Button" parent="Buttons"]
+layout_mode = 1
+offset_right = 376.0
+offset_bottom = 40.0
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 16
+text = "Simple Show/Close Menu"
+script = ExtResource("2_hbg6y")
+SimpleMenu = ExtResource("3_oh3up")
+
+[node name="EscOverriden" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 16
+text = "ESC overriden Menu"
+script = ExtResource("4_w2uhs")
+EscOverridenMenu = ExtResource("5_alxs6")
+
+[node name="Advanced" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 376.0
+grow_vertical = 0
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 16
+text = "Advanced Show/Close Menu"
+script = ExtResource("6_axtup")
+MenuContainerScene = ExtResource("6_k4btl")
+
+[node name="EscOverriden2" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -312.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_srv04")
+theme_override_font_sizes/font_size = 16
+text = "Advanced usage example"
+script = ExtResource("6_axtup")
+MenuContainerScene = ExtResource("8_cxg51")

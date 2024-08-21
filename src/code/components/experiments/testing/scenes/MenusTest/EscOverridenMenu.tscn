@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhwrf1cmxdf2c"]
+
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/EscOverridenControl.cs" id="1_36wej"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_mf3ss"]
+
+[node name="EscOverridenMenu" type="Control" node_paths=PackedStringArray("HiddenControl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_36wej")
+HiddenControl = NodePath("HiddenControl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.627451)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mf3ss")
+theme_override_constants/line_spacing = 16
+theme_override_font_sizes/font_size = 32
+text = "ESC OVERRIDEN MENU
+Try pressing ESC!"
+
+[node name="HiddenControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HiddenControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Label" type="Label" parent="HiddenControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -75.0
+offset_right = 80.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mf3ss")
+theme_override_font_sizes/font_size = 32
+text = "NICE!"
+
+[node name="Explanation" type="Label" parent="HiddenControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mf3ss")
+theme_override_font_sizes/font_size = 16
+text = "See how this  doesn't close the menu with the ESC pressed?
+That's because the ESC is overriden to show this menu instead"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressEsc" type="Label" parent="HiddenControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 76.0
+offset_right = 80.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mf3ss")
+theme_override_font_sizes/font_size = 24
+text = "Now try pressing ESC again"

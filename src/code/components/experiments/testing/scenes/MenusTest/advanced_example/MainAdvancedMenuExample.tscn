@@ -1,0 +1,107 @@
+[gd_scene load_steps=6 format=3 uid="uid://clf42wnm6nsbw"]
+
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/advanced_example/MainAdvancedMenuExample.cs" id="1_ie0qr"]
+[ext_resource type="PackedScene" uid="uid://dsc4opub1u78w" path="res://src/code/components/experiments/testing/scenes/MenusTest/advanced_example/GraphicsMenuExample.tscn" id="2_cv0dq"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_n2brl"]
+[ext_resource type="PackedScene" uid="uid://b5v2xfpnwg4xl" path="res://src/code/components/experiments/testing/scenes/MenusTest/advanced_example/AudioMenuExample.tscn" id="3_y4eib"]
+[ext_resource type="PackedScene" uid="uid://d3jjo7l22wf1y" path="res://src/code/components/experiments/testing/scenes/MenusTest/advanced_example/MiscMenuExample.tscn" id="4_ccmr7"]
+
+[node name="MainAdvancedMenuExample" type="Control" node_paths=PackedStringArray("GraphicsButton", "AudioButton", "MiscButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ie0qr")
+GraphicsButton = NodePath("Buttons/Graphics")
+AudioButton = NodePath("Buttons/Audio")
+MiscButton = NodePath("Buttons/Misc")
+GraphicsScene = ExtResource("2_cv0dq")
+AudioScene = ExtResource("3_y4eib")
+MiscScene = ExtResource("4_ccmr7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1.8049e-07, 0.0805287, 0.0805287, 0.784314)
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -146.0
+offset_right = 208.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Graphics" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_right = 140.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme = ExtResource("2_n2brl")
+theme_override_font_sizes/font_size = 32
+text = "GRAPHICS"
+
+[node name="Audio" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -28.0
+offset_right = 140.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.00284007
+theme = ExtResource("2_n2brl")
+theme_override_font_sizes/font_size = 32
+text = "AUDIO"
+
+[node name="Misc" type="Button" parent="Buttons"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -140.0
+offset_top = -56.0
+offset_right = 140.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("2_n2brl")
+theme_override_font_sizes/font_size = 32
+text = "MISC
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.424
+anchor_top = 0.246
+anchor_right = 0.424
+anchor_bottom = 0.246
+offset_left = -48.448
+offset_top = -8.408
+offset_right = 94.552
+offset_bottom = 14.592
+grow_horizontal = 2
+text = "CHECK GRAPHICS: "

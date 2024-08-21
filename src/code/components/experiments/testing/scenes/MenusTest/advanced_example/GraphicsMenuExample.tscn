@@ -1,0 +1,231 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsc4opub1u78w"]
+
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_nnnv4"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/MenusTest/advanced_example/GraphicsMenuExample.cs" id="1_tqybq"]
+[ext_resource type="PackedScene" uid="uid://doofp36380hc7" path="res://src/code/components/experiments/testing/scenes/MenusTest/advanced_example/GraphicsSpecialMenu.tscn" id="2_m2wx2"]
+
+[node name="GraphicsMenuExample" type="Control" node_paths=PackedStringArray("SpecialButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tqybq")
+SpecialButton = NodePath("Special setting/Button")
+MenuScene = ExtResource("2_m2wx2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="Special setting" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 105.0
+offset_top = 95.0
+offset_right = -181.0
+offset_bottom = 215.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Special setting"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_right = 480.0
+offset_bottom = 16.0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 32
+text = "Special setting"
+
+[node name="Button" type="Button" parent="Special setting"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -56.0
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 103.0
+offset_top = 217.0
+offset_right = -98.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting1" type="Control" parent="Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 90.0
+grow_horizontal = 2
+
+[node name="Settings1Label" type="Label" parent="Settings/Setting1"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 313.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 24
+text = "Text"
+horizontal_alignment = 1
+
+[node name="Settings1TextEdit" type="TextEdit" parent="Settings/Setting1"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -12.0
+offset_right = -155.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Set me"
+
+[node name="Setting2" type="Control" parent="Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 90.0
+offset_bottom = 180.0
+grow_horizontal = 2
+
+[node name="Settings1Label" type="Label" parent="Settings/Setting2"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 313.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 24
+text = "Text"
+horizontal_alignment = 1
+
+[node name="Settings1TextEdit" type="TextEdit" parent="Settings/Setting2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -12.0
+offset_right = -155.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Set me"
+
+[node name="Setting3" type="Control" parent="Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 180.0
+offset_bottom = 270.0
+grow_horizontal = 2
+
+[node name="Settings1Label" type="Label" parent="Settings/Setting3"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 313.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 24
+text = "Text"
+horizontal_alignment = 1
+
+[node name="Settings1TextEdit" type="TextEdit" parent="Settings/Setting3"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -12.0
+offset_right = -155.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Set me"
+
+[node name="Setting4" type="Control" parent="Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 270.0
+offset_bottom = 360.0
+grow_horizontal = 2
+
+[node name="Settings1Label" type="Label" parent="Settings/Setting4"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
+offset_right = 313.0
+offset_bottom = 12.0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 24
+text = "Text"
+horizontal_alignment = 1
+
+[node name="Settings1TextEdit" type="TextEdit" parent="Settings/Setting4"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -12.0
+offset_right = -155.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_nnnv4")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Set me"
