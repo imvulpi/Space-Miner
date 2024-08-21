@@ -50,14 +50,14 @@ public partial class AdvancedScrollbar : VScrollBar
 	{
 
         Vector2 mousePos = GetGlobalMousePosition();
-        Control firstNode = UIPositionLocator.GetChildNodeAtPosition(GetParent(), mousePos);
+        Control firstNode = new UIPositionLocator().GetChildNodeAtPosition(GetParent(), mousePos);
         ItemList itemNode = null;
         try
 		{
             itemNode = (ItemList)firstNode;
         }catch (InvalidCastException){}
             GD.Print(itemNode);
-		if (itemNode == null || (itemNode != null && !ItemListHelper.IsItemListScrollable(itemNode) || !itemNode.Visible))
+		if (itemNode == null || (itemNode != null && !new ItemListHelper().IsItemListScrollable(itemNode) || !itemNode.Visible))
 		{
             if (Input.IsActionJustPressed("ScrollDown"))
             {

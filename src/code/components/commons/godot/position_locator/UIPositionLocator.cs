@@ -5,13 +5,13 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
 {
     public class UIPositionLocator
     {
-        public static Control GetChildNodeAtPosition(Node parentNode, Vector2 position, UIPositionLocatorType type = UIPositionLocatorType.ZIndex, bool onlyVisible = true, int currentDepth = 0, int maxDepth = 4)
+        public Control GetChildNodeAtPosition(Node parentNode, Vector2 position, UIPositionLocatorType type = UIPositionLocatorType.ZIndex, bool onlyVisible = true, int currentDepth = 0, int maxDepth = 4)
         {
             List<(Control, int)> childAndDepth = GetAllChildrenNodesAtPosition(parentNode, position, new List<(Control, int)>(), onlyVisible);
             return GetFinalNode(childAndDepth, type);
         }
 
-        private static List<(Control, int)> GetAllChildrenNodesAtPosition(Node parentNode, Vector2 position, List<(Control, int)> childList, bool onlyVisible = true, int currentDepth = 0, int maxDepth = 4)
+        private List<(Control, int)> GetAllChildrenNodesAtPosition(Node parentNode, Vector2 position, List<(Control, int)> childList, bool onlyVisible = true, int currentDepth = 0, int maxDepth = 4)
         {
             int childCount = parentNode.GetChildCount(true);
             if (currentDepth < maxDepth)
@@ -36,7 +36,7 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
             return childList;
         }
 
-        private static bool CheckVisibilityRules(Control node, bool onlyVisible)
+        private bool CheckVisibilityRules(Control node, bool onlyVisible)
         {
             if (onlyVisible && node.Visible)
             {
@@ -52,7 +52,7 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
             }
         }
 
-        private static Control GetFinalNode(List<(Control, int)> childAndDepth, UIPositionLocatorType findType)
+        private Control GetFinalNode(List<(Control, int)> childAndDepth, UIPositionLocatorType findType)
         {
             if (findType == UIPositionLocatorType.Shallow)
             {
@@ -69,7 +69,7 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
             return null;
         }
 
-        private static Control GetBiggestZIndex(List<(Control, int)> nodesDeeps)
+        private Control GetBiggestZIndex(List<(Control, int)> nodesDeeps)
         {
             int biggestZIndex = int.MinValue;
             Control currentFitNode = null;
@@ -90,7 +90,7 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
             return null;
         }
 
-        private static Control GetShallowest(List<(Control, int)> nodesDeeps)
+        private Control GetShallowest(List<(Control, int)> nodesDeeps)
         {
             int smallestDepth = int.MaxValue;
             Control currentFitNode = null;
@@ -110,7 +110,7 @@ namespace SpaceMiner.src.code.components.commons.godot.position_locator
             return null;
         }
 
-        private static bool IsPositionInElement(Vector2 position, Control element)
+        private bool IsPositionInElement(Vector2 position, Control element)
         {
             Vector2 minPosition = element.GlobalPosition;
             Vector2 maxPosition = new Vector2(element.GlobalPosition.X + element.Size.X, element.GlobalPosition.Y + element.Size.Y);

@@ -9,7 +9,7 @@ namespace SpaceMiner.scripts.commons.godot
 {
     public class ItemListHelper
     {
-        public static bool IsItemListScrollable(ItemList list)
+        public bool IsItemListScrollable(ItemList list)
         {
             if (list == null)
             {
