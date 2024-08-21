@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bu65giqgig6rx"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bu65giqgig6rx"]
 
 [ext_resource type="StyleBox" uid="uid://cidm5pgpvataw" path="res://src/resources/themes/button/blue_transparent/blue_transparent_disabled.tres" id="1_qd3t3"]
 [ext_resource type="StyleBox" uid="uid://d2mwnsb2adjxn" path="res://src/resources/themes/button/blue_transparent/blue_transparent_focused.tres" id="2_m5d0c"]
@@ -7,7 +7,6 @@
 [ext_resource type="StyleBox" uid="uid://dypvp2reeomtj" path="res://src/resources/themes/button/blue_transparent/blue_transparent_normal.tres" id="4_u2nrq"]
 [ext_resource type="StyleBox" uid="uid://2let2tlbhq0k" path="res://src/resources/themes/button/blue_transparent/blue_transparent_pressed.tres" id="5_y2l1e"]
 [ext_resource type="StyleBox" uid="uid://dlkii4y3rr0u5" path="res://src/resources/themes/panels/panel_background_1.tres" id="6_vidx3"]
-[ext_resource type="StyleBox" uid="uid://gkl5q6v5c5s7" path="res://src/components/user/ui/components/scrollbars/grabber_style.tres" id="7_8trqj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qew2k"]
 bg_color = Color(0, 0.670588, 0.835294, 1)
@@ -71,6 +70,6 @@ MenuButton/constants/outline_size = 0
 MenuButton/font_sizes/font_size = 8
 OptionButton/constants/h_separation = 4
 Tree/font_sizes/font_size = 16
-VScrollBar/styles/grabber = ExtResource("7_8trqj")
-VScrollBar/styles/grabber_highlight = ExtResource("7_8trqj")
-VScrollBar/styles/grabber_pressed = ExtResource("7_8trqj")
+VScrollBar/styles/grabber = null
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
