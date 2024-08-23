@@ -31,12 +31,12 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics
 
         private void SetDefaultValues()
         {
-            ScreenMode ??= StringScreenModes.WINDOWED;
-            AspectType ??= AspectTypes.KEEP;
+            ScreenMode ??= "windowed";
+            AspectType ??= "keep";
             Vector2I screenSize = DisplayServer.ScreenGetSize();
             Resolution ??= $"{screenSize.X}x{screenSize.Y}";
-            GraphicsQuality ??= GraphicsQualities.HIGH;
-            VSync ??= VsyncModes.DISABLED;
+            GraphicsQuality ??= "high";
+            VSync ??= "disabled";
             if (ChunkDistance == 0) {
                 ChunkDistance = ChunkDistances.DEFAULT_CHUNK_DISTANCE;
             }

@@ -1,8 +1,12 @@
-﻿using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
+﻿using Godot;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.vsync;
 using SpaceMiner.src.code.components.processing.data.settings.user.graphics.helpers;
+using System;
 using System.Linq;
+using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.checkers
 {
@@ -27,39 +31,35 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
 
         public bool CheckAspectType(string value)
         {
-            if (value == AspectTypes.IGNORE ||
-                value == AspectTypes.KEEP ||
-                value == AspectTypes.KEEP_WIDTH ||
-                value == AspectTypes.KEEP_HEIGHT ||
-                value == AspectTypes.EXPAND)
-            {
-                return true;
-            }
-            return false;
+            AspectType aspectType = new AspectTypeHelper().GetAspectType(value);
+            return true;
         }
 
         public bool CheckGraphicsQuality(string value)
         {
             value = value.ToLower();
-            if (value == GraphicsQualities.HIGH || value == GraphicsQualities.MEDIUM || value == GraphicsQualities.LOW)
+            try
             {
-                return true;
+                GraphicsQuality quality = new GraphicsQualitiesHelper().GetGraphicsQuality(value);
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool CheckScreenMode(string value)
         {
             value = value.ToLower();
-            if (value == StringScreenModes.WINDOWED ||
-                value == StringScreenModes.MINIMIZED ||
-                value == StringScreenModes.MAXIMIZED ||
-                value == StringScreenModes.FULLSCREEN ||
-                value == StringScreenModes.EXCLUSIVE_FULLSCREEN)
-            {
-                return true;
+            try {
+                WindowMode screenMode = new ScreenModesHelper().GetScreenMode(value);
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool CheckScreenResolution(string value)
@@ -74,7 +74,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
 
         public bool CheckVSync(string value)
         {
-            return new VSyncHelper().CheckVSync(value);
+            new VsyncModesHelper().GetVSyncMode(value);
         }
 
         public bool CheckChunkDistance(int value)
