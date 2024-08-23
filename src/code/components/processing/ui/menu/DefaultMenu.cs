@@ -54,11 +54,18 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
             return false;
         }
 
-        public void Open(Node connectNode)
+        /// <summary>
+        /// Adds the menu to current scene
+        /// </summary>
+        /// <param name="connectNode">Node the menu should be connected to. If ConnectNode property was set leave this default</param>
+        public void Open(Node connectNode = null)
         {
             if(Manager != null && connectNode != null)
             {
                 connectNode.AddChild(MenuNode);
+            }else if (connectNode == null && ConnectToNode != null)
+            {
+                ConnectToNode.AddChild(MenuNode);
             }
             else
             {
