@@ -4,13 +4,16 @@ using SpaceMiner.src.code.components.commons.godot.project_settings.display.grap
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
 using SpaceMiner.src.code.components.commons.other.paths;
+using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
+using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
+using System;
 using System.IO;
 using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.controllers
 {
-    public partial class UserSettingControllerNode : GruNode2D, IUserSettingController
+    public partial class UserSettingControllerNode : GruNode2D, IUserSettingController, IMenuContainer
     {
         public UserSettings Setting { get; set; }
         public SettingCoupler SettingCoupler { get; set; }
@@ -41,6 +44,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         [Export] public Button ApplyButton {  get; set; }
         [Export] public Button CancelButton { get; set; }
         [Export] public Button CloseButton { get; set; }
+        public IMenuManager MenuManager { get; set; }
+        public IMenu Menu { get; set; }
+
         public override void _Ready()
         {
             Setting = new(Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.USER_SETTING));
@@ -73,9 +79,21 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             ApplyButton.Pressed += ApplyButton_Pressed;
             CancelButton.Pressed += CancelButton_Pressed;
             CloseButton.Pressed += CloseButton_Pressed;
-        
-            // TODO: Implement menu way.
-            // ESC Opens Save setting menu, ESC again closes it with no changes.
+
+            Menu.EscActionDelegate = SettingEscPressed;
+        }
+
+        public override void _Process(double delta)
+        {
+            if (Input.IsActionJustPressed("Esc"))
+            {
+                SaveSettingMenu.Visible = !SaveSettingMenu.Visible;
+            }
+        }
+
+        private bool SettingEscPressed(IMenuManager manager)
+        {
+            return true;
         }
 
         private void VsyncList_ItemSelected(long index)
@@ -106,13 +124,13 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         private void CancelButton_Pressed()
         {
             SettingCoupler.Load(Setting); // Cancels the setting
-            // Quit setting menu
+            Menu.Close();
         }
 
         private void ApplyButton_Pressed()
         {
             SettingCoupler.Save(Setting);
-            // Quit setting menu
+            Menu.Close();
         }
 
         private void BackButton_Pressed()
