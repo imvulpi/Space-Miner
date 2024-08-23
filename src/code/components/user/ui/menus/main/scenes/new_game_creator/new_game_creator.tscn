@@ -1,0 +1,230 @@
+[gd_scene load_steps=8 format=3 uid="uid://6ubm60jedm8g"]
+
+[ext_resource type="Script" path="res://scripts/ui/menus/gameCreation/components/WorldTypesDropdown.cs" id="1_3r6sf"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://graphics/themes/panels/menus/menu_theme.tres" id="1_jhwu0"]
+[ext_resource type="Script" path="res://scripts/ui/menus/gameCreation/CreationMenuManager.cs" id="1_lgrk0"]
+[ext_resource type="Texture2D" uid="uid://cxjgivi4saey7" path="res://graphics/ui/icons/arrow_down/white/arrow_down_16x10.png" id="2_a74uj"]
+[ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://graphics/fonts/prstart.ttf" id="3_8b06x"]
+[ext_resource type="StyleBox" uid="uid://dmcnu18oj5no5" path="res://graphics/themes/panels/panel_style_1.tres" id="3_d11q6"]
+[ext_resource type="Script" path="res://scripts/ui/menus/gameCreation/components/DifficultyDropdown.cs" id="4_wuj1n"]
+
+[node name="NewGameCreator" type="Control" node_paths=PackedStringArray("LineEdit", "WorldTypeButton", "DifficultyButton", "CreateButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lgrk0")
+LineEdit = NodePath("Control/SaveName/LineEdit")
+WorldTypeButton = NodePath("Control/WorldType/WorldTypeShowMenu")
+DifficultyButton = NodePath("Control/Difficulty/DifficultyShowMenu")
+CreateButton = NodePath("Control/CreateButton")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -337.5
+offset_top = -272.0
+offset_right = 337.5
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveName" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -275.0
+offset_top = 150.0
+offset_right = 275.0
+offset_bottom = 220.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/SaveName"]
+visible = false
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.1667
+offset_right = 176.0
+offset_bottom = 11.1667
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "Save Name"
+
+[node name="LineEdit" type="LineEdit" parent="Control/SaveName"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+placeholder_text = "Save Name"
+
+[node name="WorldType" type="Control" parent="Control" node_paths=PackedStringArray("ActivationButton", "ActivatedList")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -275.0
+offset_top = 220.0
+offset_right = 275.0
+offset_bottom = 290.0
+grow_horizontal = 2
+script = ExtResource("1_3r6sf")
+ActivationButton = NodePath("WorldTypeShowMenu")
+ActivatedList = NodePath("../WorldTypes")
+
+[node name="Label" type="Label" parent="Control/WorldType"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.1667
+offset_right = 176.0
+offset_bottom = 11.1667
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "World Type"
+
+[node name="WorldTypeShowMenu" type="Button" parent="Control/WorldType"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "Error"
+icon = ExtResource("2_a74uj")
+icon_alignment = 2
+
+[node name="Difficulty" type="Control" parent="Control" node_paths=PackedStringArray("ActivationButton", "ActivatedList")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -275.0
+offset_top = 290.0
+offset_right = 275.0
+offset_bottom = 360.0
+grow_horizontal = 2
+script = ExtResource("4_wuj1n")
+ActivationButton = NodePath("DifficultyShowMenu")
+ActivatedList = NodePath("../Difficulties")
+
+[node name="Label" type="Label" parent="Control/Difficulty"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.1667
+offset_right = 176.0
+offset_bottom = 11.1667
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "Difficulty"
+
+[node name="DifficultyShowMenu" type="Button" parent="Control/Difficulty"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "Error"
+icon = ExtResource("2_a74uj")
+icon_alignment = 2
+
+[node name="WorldTypes" type="ItemList" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 95.0
+offset_top = 102.0
+offset_right = 275.0
+offset_bottom = 183.0
+grow_horizontal = 2
+theme_override_constants/v_separation = 8
+theme_override_fonts/font = ExtResource("3_8b06x")
+theme_override_styles/panel = ExtResource("3_d11q6")
+theme_override_styles/focus = ExtResource("3_d11q6")
+item_count = 2
+item_0/text = "Prebuild"
+item_1/text = "Generated"
+item_1/disabled = true
+
+[node name="Difficulties" type="ItemList" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 95.5
+offset_top = 172.0
+offset_right = 275.5
+offset_bottom = 284.0
+grow_horizontal = 2
+theme_override_constants/v_separation = 8
+theme_override_fonts/font = ExtResource("3_8b06x")
+theme_override_styles/panel = ExtResource("3_d11q6")
+theme_override_styles/focus = ExtResource("3_d11q6")
+item_count = 3
+item_0/text = "Hard"
+item_1/text = "Medium"
+item_2/text = "Easy"
+
+[node name="CreateButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.823
+anchor_top = 0.598
+anchor_right = 0.823
+anchor_bottom = 0.598
+offset_left = -62.025
+offset_top = 49.884
+offset_right = 57.975
+offset_bottom = 89.884
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_jhwu0")
+theme_override_font_sizes/font_size = 16
+text = "Create"

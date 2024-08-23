@@ -7,7 +7,7 @@ using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 public partial class MenuController : Node
 {
 	public IMenuManager MenuManager { get; set; }
-	public string MainScenePath = "res://src/code/components/user/ui/main/scenes/main_menu.tscn";
+	public string MainScenePath = "res://src/code/components/user/ui/menus/game/scenes/game_menu.tscn";
 	public override void _Ready()
 	{
         if (!ResourceLoader.Exists(MainScenePath))
