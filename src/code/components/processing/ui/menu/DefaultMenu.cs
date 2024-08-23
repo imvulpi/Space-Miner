@@ -25,7 +25,7 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
             }
             else
             {
-                GD.PushError("Menu was not registered");
+                GD.PushError("Menu was not registered in a MenuManager | can't Close() ");
             }
         }
 
@@ -37,7 +37,7 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
             }
             else
             {
-                GD.PushError("Menu was not registered");
+                GD.PushError("Menu was not registered in a MenuManager | can't Delete()");
             }
 
             ConnectToNode.RemoveChild(MenuNode);
@@ -62,7 +62,14 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
             }
             else
             {
-                GD.PushError("Menu not registered or connect node is null");
+                if(Manager == null)
+                {
+                    GD.PushError("Menu was not registered in a MenuManager | can't Open()");
+                }
+                else
+                {
+                    GD.PushError("Menu connecting node was not provided | can't Open()");
+                }
             }
         }
     }

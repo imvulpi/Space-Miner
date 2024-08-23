@@ -13,6 +13,5 @@ namespace SpaceMiner.src.code.components.processing.ui.menu.interfaces
         Node ConnectToNode { get; set; }
         Func<IMenuManager, bool> EscActionDelegate { get; set; }
         IMenuManager Manager { get; set; }
-        // Menu controller
     }
 }

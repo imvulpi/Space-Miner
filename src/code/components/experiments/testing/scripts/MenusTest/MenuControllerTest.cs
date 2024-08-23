@@ -14,7 +14,6 @@ public partial class MenuControllerTest : Control
 		{
 			MainMenuAction = (IMenuManager manager) =>
 			{
-				GD.Print("Here!");
 				DefaultMenu menu = new()
 				{
 					MenuNode = MainMenuScene.Instantiate(),

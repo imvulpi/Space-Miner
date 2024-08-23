@@ -25,7 +25,6 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
                 }
                 else
                 {
-                    GD.Print("Closing current menu");
                     IMenu menu = Menus[Menus.Count - 1];
                     if (menu.EscActionDelegate.Invoke(this) == false)
                     {
