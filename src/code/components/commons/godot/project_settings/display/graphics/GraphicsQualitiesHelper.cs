@@ -44,8 +44,8 @@ namespace SpaceMiner.src.code.components.commons.godot.project_settings.display.
 
     public enum GraphicsQuality
     {
-        Low,
+        High,
         Medium,
-        High
+        Low,
     }
 }

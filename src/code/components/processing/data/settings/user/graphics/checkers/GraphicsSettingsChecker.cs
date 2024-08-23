@@ -15,47 +15,10 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
         public bool Check(GraphicsSettings graphicsSettings)
         {
             bool[] bools = new bool[] {
-                CheckScreenMode(graphicsSettings.ScreenMode),
-                CheckAspectType(graphicsSettings.AspectType),
                 CheckScreenResolution(graphicsSettings.Resolution),
-                CheckGraphicsQuality(graphicsSettings.GraphicsQuality),
-                CheckVSync(graphicsSettings.VSync),
                 CheckChunkDistance(graphicsSettings.ChunkDistance),
             };
             if (bools.Any(a => a == false))
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckAspectType(string value)
-        {
-            AspectType aspectType = new AspectTypeHelper().GetAspectType(value);
-            return true;
-        }
-
-        public bool CheckGraphicsQuality(string value)
-        {
-            value = value.ToLower();
-            try
-            {
-                GraphicsQuality quality = new GraphicsQualitiesHelper().GetGraphicsQuality(value);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckScreenMode(string value)
-        {
-            value = value.ToLower();
-            try {
-                WindowMode screenMode = new ScreenModesHelper().GetScreenMode(value);
-            }
-            catch (Exception)
             {
                 return false;
             }
@@ -70,11 +33,6 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics.
                 return false;
             }
             return true;
-        }
-
-        public bool CheckVSync(string value)
-        {
-            new VsyncModesHelper().GetVSyncMode(value);
         }
 
         public bool CheckChunkDistance(int value)

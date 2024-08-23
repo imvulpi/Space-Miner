@@ -3,7 +3,7 @@ using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size
 {
-    public class ScreenModesHelper
+    public class WindowModesHelper
     {
         private const string WINDOWED = "windowed";
         private const string MINIMIZED = "minimized";
@@ -11,7 +11,7 @@ namespace SpaceMiner.src.code.components.commons.godot.project_settings.display.
         private const string FULLSCREEN = "fullscreen";
         private const string EXCLUSIVE_FULLSCREEN = "exclusive_fullscreen";
        
-        public WindowMode? GetScreenMode(string mode, bool provideDefaultValue = false)
+        public WindowMode? GetWindowMode(string mode, bool provideDefaultValue = false)
         {
             switch(mode)
             {
@@ -30,7 +30,7 @@ namespace SpaceMiner.src.code.components.commons.godot.project_settings.display.
             }
         }
 
-        public string GetScreenMode(WindowMode screenMode, bool provideDefaultValue = false)
+        public string GetWindowMode(WindowMode screenMode, bool provideDefaultValue = false)
         {
             switch (screenMode)
             {

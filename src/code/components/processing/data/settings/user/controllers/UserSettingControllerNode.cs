@@ -1,8 +1,12 @@
 ﻿    using Godot;
 using GruInject.API.Nodes;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
+using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
 using SpaceMiner.src.code.components.commons.other.paths;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using System.IO;
+using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.controllers
 {
@@ -12,11 +16,15 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         public SettingCoupler SettingCoupler { get; set; }
         [ExportGroup("Settings")]
         [ExportSubgroup("Graphics")]
-        [Export] public Button ScreenModeButton {  get; set; }
+        [Export] public Button WindowModeButton {  get; set; }
+        [Export] public ItemList WindowModeList {  get; set; }
         [Export] public Button AspectTypeButton { get; set; }
+        [Export] public ItemList AspectTypeList { get; set; }
         [Export] public Button ResolutionButton { get; set; }
         [Export] public Button GraphicsQualityButton {  get; set; }
+        [Export] public ItemList GraphicsQualityList { get; set; }
         [Export] public Button VsyncButton { get; set; }
+        [Export] public ItemList VsyncList { get; set; }
         [ExportSubgroup("Audio")]
         [Export] public HSlider MasterVolumeSlider {  get; set; }
         [Export] public Label MasterVolumeLabel { get; set; }
@@ -39,21 +47,21 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             SettingCoupler = new();
             SettingCoupler.Load(Setting);
 
-            ScreenModeButton.Renamed += ScreenModeBtn_Renamed;
-            AspectTypeButton.Renamed += AspectTypeButton_Renamed;
+            GraphicsQualityList.ItemSelected += GraphicsQualityList_ItemSelected;
+            WindowModeList.ItemSelected += WindowModeList_ItemSelected;
+            AspectTypeList.ItemSelected += AspectTypeList_ItemSelected;
+            VsyncList.ItemSelected += VsyncList_ItemSelected;
             ResolutionButton.Renamed += ResolutionButton_Renamed;
-            GraphicsQualityButton.Renamed += GraphicsQualityButton_Renamed;
-            VsyncButton.Renamed += VsyncButton_Renamed;
             MasterVolumeSlider.ValueChanged += MasterVolumeSlider_ValueChanged;
             MusicVolumeSlider.ValueChanged += MusicVolumeSlider_ValueChanged;
             SoundsEffectsVolumeSlider.ValueChanged += SoundsEffectsVolumeSlider_ValueChanged;
             ErrorLoggingCheck.Pressed += ErrorLoggingCheck_Pressed;
 
-            ScreenModeButton.Text = Setting.GraphicsSettings.ScreenMode;
-            AspectTypeButton.Text = Setting.GraphicsSettings.AspectType;
+            WindowModeButton.Text = Setting.GraphicsSettings.WindowMode.ToString();
+            AspectTypeButton.Text = Setting.GraphicsSettings.AspectType.ToString();
             ResolutionButton.Text = Setting.GraphicsSettings.Resolution;
-            GraphicsQualityButton.Text = Setting.GraphicsSettings.GraphicsQuality;
-            VsyncButton.Text = Setting.GraphicsSettings.VSync;
+            GraphicsQualityButton.Text = Setting.GraphicsSettings.GraphicsQuality.ToString();
+            VsyncButton.Text = Setting.GraphicsSettings.VSync.ToString();
             MasterVolumeSlider.Value = Setting.AudioSettings.MasterVolume;
             MusicVolumeSlider.Value = Setting.AudioSettings.MusicVolume;
             SoundsEffectsVolumeSlider.Value = Setting.AudioSettings.SoundEffectsVolume;
@@ -68,6 +76,26 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         
             // TODO: Implement menu way.
             // ESC Opens Save setting menu, ESC again closes it with no changes.
+        }
+
+        private void VsyncList_ItemSelected(long index)
+        {
+            Setting.GraphicsSettings.VSync = (VSyncMode)index;
+        }
+
+        private void AspectTypeList_ItemSelected(long index)
+        {
+            Setting.GraphicsSettings.AspectType = (AspectType)index;
+        }
+
+        private void WindowModeList_ItemSelected(long index)
+        {
+            Setting.GraphicsSettings.WindowMode = (WindowMode)index;
+        }
+
+        private void GraphicsQualityList_ItemSelected(long index)
+        {
+            Setting.GraphicsSettings.GraphicsQuality = (GraphicsQuality)index;
         }
 
         private void CloseButton_Pressed()
@@ -120,30 +148,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             Setting.AudioSettings.MasterVolume = floatValue;
             MasterVolumeLabel.Text = floatValue.ToString();
         }
-
-        private void VsyncButton_Renamed()
-        {
-            Setting.GraphicsSettings.VSync = VsyncButton.Text;
-        }
-
-        private void GraphicsQualityButton_Renamed()
-        {
-            Setting.GraphicsSettings.GraphicsQuality = GraphicsQualityButton.Text;
-
-        }
         private void ResolutionButton_Renamed()
         {
             Setting.GraphicsSettings.Resolution = ResolutionButton.Text;
-        }
-
-        private void AspectTypeButton_Renamed()
-        {
-            Setting.GraphicsSettings.AspectType = AspectTypeButton.Text;
-        }
-
-        private void ScreenModeBtn_Renamed()
-        {
-            Setting.GraphicsSettings.ScreenMode = ScreenModeButton.Text;
         }
     }
 }

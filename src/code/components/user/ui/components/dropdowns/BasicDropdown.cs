@@ -12,7 +12,6 @@ public partial class BasicDropdown : Button
 
     private void List_ItemSelected(long index)
     {
-        GD.Print("List Item Selected");
         Text = List.GetItemText((int)index);
         EmitSignal("renamed");
         List.Visible = false;
@@ -20,7 +19,6 @@ public partial class BasicDropdown : Button
 
     private void BasicDropdown_Pressed()
     {
-        GD.Print("Pressed");
         if(List.Visible) {
             List.Visible = false;
             return;

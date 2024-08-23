@@ -56,7 +56,6 @@ public partial class AdvancedScrollbar : VScrollBar
 		{
             itemNode = (ItemList)firstNode;
         }catch (InvalidCastException){}
-            GD.Print(itemNode);
 		if (itemNode == null || (itemNode != null && !new ItemListHelper().IsItemListScrollable(itemNode) || !itemNode.Visible))
 		{
             if (Input.IsActionJustPressed("ScrollDown"))

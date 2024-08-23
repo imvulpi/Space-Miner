@@ -12,7 +12,6 @@ namespace GruInject.API.Start
 
         public override void _EnterTree()
         {
-            GD.Print("AJ. Start GruInject");
             _gruInject = new API.GruInject(
                 new List<Type>() {typeof(AutoSpawnAttribute)},
                 new List<Type>() {typeof(InjectAttribute)});

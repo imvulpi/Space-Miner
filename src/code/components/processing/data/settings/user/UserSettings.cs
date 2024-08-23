@@ -29,7 +29,6 @@ public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsMod
     }
 
     public UserSettings() {
-        GD.Print(Path);
         Username = "Unnamed";
         GraphicsSettings = new GraphicsSettings();
         AudioSettings = new AudioSettings();
@@ -45,6 +44,7 @@ public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsMod
             GraphicsSettings = settings.GraphicsSettings;
             AudioSettings = settings.AudioSettings;
             MiscSettings = settings.MiscSettings;
+            Check();
         }
         else
         {

@@ -1,4 +1,5 @@
 ﻿using Godot;
+using JsonEnumTest;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
@@ -7,6 +8,7 @@ using SpaceMiner.src.code.components.processing.data.settings.user.graphics.chec
 using SpaceMiner.src.code.components.processing.data.settings.user.graphics.helpers;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics
 {
@@ -22,21 +24,21 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics
             SetDefaultValues();
         }
         [JsonIgnore] public IGraphicsSettingsChecker Checker { get; set; }
-        public string ScreenMode { get; set; }
-        public string AspectType { get; set; }
+        [FallbackJsonConverter(typeof(DefaultEnumConverter<WindowMode>), WindowMode.Windowed)]
+        public WindowMode WindowMode { get; set; }
+        [FallbackJsonConverter(typeof(DefaultEnumConverter<AspectType>), AspectType.Keep)]
+        public AspectType AspectType { get; set; }
         public string Resolution { get; set; }
-        public string GraphicsQuality { get; set; }
-        public string VSync { get; set; }
+        [FallbackJsonConverter(typeof(DefaultEnumConverter<GraphicsQuality>), GraphicsQuality.Medium)]
+        public GraphicsQuality GraphicsQuality { get; set; }
+        [FallbackJsonConverter(typeof(DefaultEnumConverter<VSyncMode>), VSyncMode.Disabled)]
+        public VSyncMode VSync { get; set; }
         public int ChunkDistance { get; set; }
 
         private void SetDefaultValues()
         {
-            ScreenMode ??= "windowed";
-            AspectType ??= "keep";
-            Vector2I screenSize = DisplayServer.ScreenGetSize();
+            Vector2I screenSize = ScreenGetSize();
             Resolution ??= $"{screenSize.X}x{screenSize.Y}";
-            GraphicsQuality ??= "high";
-            VSync ??= "disabled";
             if (ChunkDistance == 0) {
                 ChunkDistance = ChunkDistances.DEFAULT_CHUNK_DISTANCE;
             }

@@ -7,16 +7,20 @@
 [ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://src/resources/graphics/ui/fonts/prstart.ttf" id="7_4fjg4"]
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="8_cgm0r"]
 [ext_resource type="StyleBox" uid="uid://dmcnu18oj5no5" path="res://src/resources/themes/panels/panel_style_1.tres" id="8_ordiy"]
-[ext_resource type="StyleBox" uid="uid://gkl5q6v5c5s7" path="res://src/resources/themes/grabbers/grabber_style.tres" id="9_sy7mf"]
+[ext_resource type="StyleBox" path="res://src/resources/themes/grabbers/grabber_style.tres" id="9_sy7mf"]
 [ext_resource type="PackedScene" uid="uid://cv1b67txf12dh" path="res://src/code/components/user/ui/menus/settings/scenes/save_settings_menu.tscn" id="16_uy8m5"]
 
-[node name="SettingsMenu" type="Node2D" node_paths=PackedStringArray("ScreenModeButton", "AspectTypeButton", "ResolutionButton", "GraphicsQualityButton", "VsyncButton", "MasterVolumeSlider", "MasterVolumeLabel", "MusicVolumeSlider", "MusicVolumeLabel", "SoundsEffectsVolumeSlider", "SoundsEffectsVolumeLabel", "ErrorLoggingCheck", "BackButton", "SaveSettingMenu", "ApplyButton", "CancelButton", "CloseButton")]
+[node name="SettingsMenu" type="Node2D" node_paths=PackedStringArray("WindowModeButton", "WindowModeList", "AspectTypeButton", "AspectTypeList", "ResolutionButton", "GraphicsQualityButton", "GraphicsQualityList", "VsyncButton", "VsyncList", "MasterVolumeSlider", "MasterVolumeLabel", "MusicVolumeSlider", "MusicVolumeLabel", "SoundsEffectsVolumeSlider", "SoundsEffectsVolumeLabel", "ErrorLoggingCheck", "BackButton", "SaveSettingMenu", "ApplyButton", "CancelButton", "CloseButton")]
 script = ExtResource("1_47vvp")
-ScreenModeButton = NodePath("CanvasLayer/Interactive/Graphics/ScreenMode/ScreenModesShowMenu")
+WindowModeButton = NodePath("CanvasLayer/Interactive/Graphics/WindowMode/WindowModesShowMenu")
+WindowModeList = NodePath("CanvasLayer/Interactive/Graphics/ScreenModeList")
 AspectTypeButton = NodePath("CanvasLayer/Interactive/Graphics/AspectType/AspectRatioShowMenu")
+AspectTypeList = NodePath("CanvasLayer/Interactive/Graphics/AspectRatioList")
 ResolutionButton = NodePath("CanvasLayer/Interactive/Graphics/Resolution/ResolutionShowMenu")
 GraphicsQualityButton = NodePath("CanvasLayer/Interactive/Graphics/GraphicsQuality/GraphicsQualityShowMenu")
+GraphicsQualityList = NodePath("CanvasLayer/Interactive/Graphics/GraphicsQualityList")
 VsyncButton = NodePath("CanvasLayer/Interactive/Graphics/VSync/VSyncShowMenu")
+VsyncList = NodePath("CanvasLayer/Interactive/Graphics/VSyncList")
 MasterVolumeSlider = NodePath("CanvasLayer/Interactive/Audio/MasterAudio/HSlider")
 MasterVolumeLabel = NodePath("CanvasLayer/Interactive/Audio/MasterAudio/Label")
 MusicVolumeSlider = NodePath("CanvasLayer/Interactive/Audio/MusicAudio/HSlider")
@@ -89,7 +93,7 @@ text = "Graphics
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ScreenMode" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="WindowMode" type="Control" parent="CanvasLayer/Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -100,7 +104,7 @@ offset_right = 250.0
 offset_bottom = 140.0
 grow_horizontal = 2
 
-[node name="ScreenModeLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/ScreenMode"]
+[node name="WindowModeLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/WindowMode"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -116,7 +120,7 @@ text = "Screen Mode
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ScreenModesShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/ScreenMode" node_paths=PackedStringArray("List")]
+[node name="WindowModesShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/WindowMode" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -331,16 +335,19 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 123.0
 offset_top = 126.0
-offset_right = 321.0
-offset_bottom = 209.0
+offset_right = 393.0
+offset_bottom = 235.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
-item_count = 2
-item_0/text = "Fullscreen"
-item_1/text = "Windowed"
+item_count = 5
+item_0/text = "Windowed"
+item_1/text = "Minimized"
+item_2/text = "Maximized"
+item_3/text = "Fullscreen"
+item_4/text = "Exclusive Full"
 
 [node name="AspectRatioList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
 visible = false
@@ -352,7 +359,7 @@ anchor_right = 0.5
 offset_left = 126.0
 offset_top = 197.0
 offset_right = 355.0
-offset_bottom = 373.0
+offset_bottom = 309.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
@@ -360,11 +367,11 @@ theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
 item_count = 5
 fixed_column_width = 1
-item_0/text = "ignore"
-item_1/text = "keep"
-item_2/text = "keep_width"
-item_3/text = "keep_height"
-item_4/text = "expand"
+item_0/text = "Ignore"
+item_1/text = "Keep"
+item_2/text = "Keep width"
+item_3/text = "Keep height"
+item_4/text = "Expand"
 
 [node name="ResolutionList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
 visible = false
@@ -427,8 +434,8 @@ theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
 item_count = 4
 fixed_column_width = 1
-item_0/text = "Enabled"
-item_1/text = "Disabled"
+item_0/text = "Disabled"
+item_1/text = "Enabled"
 item_2/text = "Adaptive"
 item_3/text = "Mailbox"
 
