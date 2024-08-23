@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bu65giqgig6rx"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bu65giqgig6rx"]
 
 [ext_resource type="StyleBox" uid="uid://cidm5pgpvataw" path="res://src/resources/themes/button/blue_transparent/blue_transparent_disabled.tres" id="1_qd3t3"]
 [ext_resource type="StyleBox" uid="uid://d2mwnsb2adjxn" path="res://src/resources/themes/button/blue_transparent/blue_transparent_focused.tres" id="2_m5d0c"]
@@ -71,6 +71,6 @@ MenuButton/constants/outline_size = 0
 MenuButton/font_sizes/font_size = 8
 OptionButton/constants/h_separation = 4
 Tree/font_sizes/font_size = 16
-VScrollBar/styles/grabber = ExtResource("7_8trqj")
-VScrollBar/styles/grabber_highlight = ExtResource("7_8trqj")
-VScrollBar/styles/grabber_pressed = ExtResource("7_8trqj")
+VScrollBar/styles/grabber = null
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null

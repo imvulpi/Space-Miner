@@ -1,0 +1,113 @@
+[gd_scene load_steps=2 format=3 uid="uid://0qvcmwj6y47g"]
+
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_sxr2c"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="MainMenuComponents" type="CanvasLayer" parent="."]
+
+[node name="Background" type="Control" parent="MainMenuComponents"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="MainMenuComponents/Background"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.870588)
+metadata/_edit_use_anchors_ = true
+
+[node name="Buttons" type="Control" parent="MainMenuComponents"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -96.0
+offset_right = 80.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="MainMenuComponents/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = -0.317708
+anchor_right = 0.625
+anchor_bottom = -0.317708
+offset_left = -80.0
+offset_top = 21.0
+offset_right = 80.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "PLAY"
+
+[node name="SettingsButton" type="Button" parent="MainMenuComponents/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.151042
+anchor_right = 0.625
+anchor_bottom = 0.151042
+offset_left = -80.0
+offset_top = -9.0
+offset_right = 80.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "SETTINGS"
+
+[node name="Save" type="Button" parent="MainMenuComponents/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.671875
+anchor_right = 0.5
+anchor_bottom = 0.671875
+offset_left = -100.0
+offset_top = -49.0
+offset_right = 100.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "SAVE"
+
+[node name="QuitButton" type="Button" parent="MainMenuComponents/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.375
+anchor_top = 0.932292
+anchor_right = 0.625
+anchor_bottom = 0.932292
+offset_left = -80.0
+offset_top = -39.0
+offset_right = 80.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "SAVE & QUIT"

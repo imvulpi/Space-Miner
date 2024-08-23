@@ -23,12 +23,7 @@ MainBootNode="*res://src/code/components/processing/boot/MainBootNode.cs"
 
 [debug]
 
-file_logging/log_path="user://logs/logs.txt"
-
-[display]
-
-window/size/viewport_width=960
-window/size/viewport_height=540
+file_logging/log_path="./game_data/logs.txt"
 
 [dotnet]
 
