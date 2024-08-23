@@ -1,9 +1,10 @@
 using Godot;
 using SpaceMiner.src.code.components.commons.godot.scenes;
+using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 
-public partial class MainMenuController : Node
+public partial class MenuController : Node
 {
 	public IMenuManager MenuManager { get; set; }
 	public string MainScenePath = "res://src/code/components/user/ui/main/scenes/main_menu.tscn";
@@ -26,8 +27,13 @@ public partial class MainMenuController : Node
 		{
 			ConnectToNode = this,
 			MenuNode = new SceneHelper().GetNodeFromScene(MainScenePath),
-			Manager = menuManager
 		};
+		if(main.MenuNode is IMenuContainer container)
+		{
+			container.Menu = main;
+			container.MenuManager = menuManager;
+		}
+		MenuManager.RegisterMenu(main);
 		main.Open();
 	}
 

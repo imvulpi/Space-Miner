@@ -30,9 +30,9 @@ SoundsEffectsVolumeLabel = NodePath("CanvasLayer/Interactive/Audio/SoundEffectsA
 ErrorLoggingCheck = NodePath("CanvasLayer/Interactive/Other/ErrorLogging/CheckBox")
 BackButton = NodePath("CanvasLayer/BackButton")
 SaveSettingMenu = NodePath("CanvasLayer/SaveSettingsMenu")
-ApplyButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/SaveButton")
-CancelButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/CancelButton")
-CloseButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/CloseButton")
+ApplyButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/Buttons/SaveButton")
+CancelButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/Buttons/CancelButton")
+CloseButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/CloseWrapper/CloseButton")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
