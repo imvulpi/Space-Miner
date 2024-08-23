@@ -7,6 +7,7 @@
 [ext_resource type="StyleBox" uid="uid://dypvp2reeomtj" path="res://src/resources/themes/button/blue_transparent/blue_transparent_normal.tres" id="4_u2nrq"]
 [ext_resource type="StyleBox" uid="uid://2let2tlbhq0k" path="res://src/resources/themes/button/blue_transparent/blue_transparent_pressed.tres" id="5_y2l1e"]
 [ext_resource type="StyleBox" uid="uid://dlkii4y3rr0u5" path="res://src/resources/themes/panels/panel_background_1.tres" id="6_vidx3"]
+[ext_resource type="StyleBox" path="res://src/resources/themes/grabbers/grabber_style.tres" id="7_8trqj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qew2k"]
 bg_color = Color(0, 0.670588, 0.835294, 1)
