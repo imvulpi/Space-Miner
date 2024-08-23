@@ -1,6 +1,7 @@
 using Godot;
 using GruInject.API.Attributes;
 using GruInject.API.Initializators;
+using SpaceMiner.src.code.components.processing.ui.menu;
 
 public partial class DependencyNode : GraphElement
 {
