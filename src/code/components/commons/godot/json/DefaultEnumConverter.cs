@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SpaceMiner.src.code.components.commons.errors;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -20,9 +21,40 @@ namespace JsonEnumTest
                 {
                     return enumValue;
                 }
+
+                GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"JSON {enumString} value repair attempt"));
+                T? repairedValue = TryFindValue(enumString);
+                if (repairedValue != null)
+                {
+                    GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"JSON Value Repair", $"Succesfully repaired JSON value {enumString} to {repairedValue}"));
+                    return (T)repairedValue;
+                }
+                else
+                {
+                    GD.PushError(new PrettyError(PrettyErrorType.Failed, "JSON Value Repair", $"Could not repair {enumString} JSON value."));
+                    GD.PushError(new PrettyError(PrettyErrorType.Invalid, $"Invalid value ({enumString})", $"Value ({enumString}) is invalid ({typeToConvert.Name})"));
+                    GD.Print(new PrettyInfo("Defaulted", $"{typeToConvert.Name}", "Value was defaulted"));
+                    return (T)DefaultValue;
+                }
             }
-            GD.PushError($"Invalid value on {typeToConvert.FullName}! Trying to default to {DefaultValue}");
-            return (T)DefaultValue;
+            else
+            {
+                GD.PushError(new PrettyError(PrettyErrorType.Invalid, $"Invalid value", $"Invalid {typeToConvert.Name} value, should be a string."));
+                GD.Print(new PrettyInfo("Defaulted", $"{typeToConvert.Name}", "Value was defaulted"));
+                return (T)DefaultValue;
+            }
+        }
+
+        private T? TryFindValue(string invalidValue)
+        {
+            string[] types = Enum.GetNames<T>();
+            foreach (string type in types)
+            {
+                if (type.Contains(invalidValue) && Enum.TryParse<T>(type, out T result)){
+                    return result;
+                }
+            }
+            return null;
         }
 
         public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
