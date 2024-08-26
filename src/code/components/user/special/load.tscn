@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://c61q6ff5quxf6"]
+[gd_scene load_steps=21 format=3 uid="uid://c61q6ff5quxf6"]
 
 [ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://src/resources/graphics/ui/fonts/prstart.ttf" id="1_5djpl"]
+[ext_resource type="Script" path="res://src/code/components/processing/special/load/EntryLoad.cs" id="1_whia3"]
 [ext_resource type="Texture2D" uid="uid://b8lpx0lew0b8g" path="res://src/resources/graphics/ui/components/loading_circle/AppearDissapearCircleWhite.png" id="2_fg2it"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbwxo"]
@@ -123,21 +124,22 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Load" type="Node2D"]
+[node name="Load" type="Node"]
+script = ExtResource("1_whia3")
 
-[node name="Control" type="Control" parent="."]
+[node name="Visual" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 960.0
 offset_bottom = 540.0
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="ColorRect" parent="Visual"]
 layout_mode = 0
 offset_right = 960.0
 offset_bottom = 540.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Visual"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -154,9 +156,11 @@ theme_override_fonts/font = ExtResource("1_5djpl")
 theme_override_font_sizes/font_size = 32
 text = "Loading"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visual"]
 position = Vector2(589, 270)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_d5qal")
 autoplay = "default"
 frame_progress = 0.350374
+
+[node name="Components" type="Node" parent="."]
