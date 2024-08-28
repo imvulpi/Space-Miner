@@ -12,7 +12,6 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-[RegisterSingleton]
 public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsModify, IUserSettingsReceive, IUserSettingCheckable
 {
     public string Username { get; set; }

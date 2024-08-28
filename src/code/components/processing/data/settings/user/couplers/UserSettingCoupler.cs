@@ -1,4 +1,5 @@
-﻿using SpaceMiner.src.code.components.commons.other.paths;
+﻿using Godot;
+using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using SpaceMiner.src.code.components.processing.data.settings.interfaces;
 using System.IO;
@@ -12,26 +13,15 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.couplers
         }
         public void Load(ISetting setting)
         {
+            setting.Path ??= Path.Join(OS.GetUserDataDir(), ExternalPaths.USER_SETTING);
             string jsonText = File.ReadAllText(setting.Path);
             setting.Load(jsonText);
         }
-
-        public void Load(ISetting setting, string path)
-        {
-            string jsonText = File.ReadAllText(path);
-            setting.Load(jsonText);
-        }
-
         public void Save(ISetting setting)
         {
+            setting.Path ??= Path.Join(OS.GetUserDataDir(), ExternalPaths.USER_SETTING);
             string jsonText = setting.GetData();
             File.WriteAllText(setting.Path, jsonText);
-        }
-
-        public void Save(ISetting setting, string path)
-        {
-            string jsonText = setting.GetData();
-            File.WriteAllText(path, jsonText);
         }
     }
 }

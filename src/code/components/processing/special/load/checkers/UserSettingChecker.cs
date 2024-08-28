@@ -1,6 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
-using SpaceMiner.src.code.components.commons.other.paths;
+using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using System;
 using System.IO;
