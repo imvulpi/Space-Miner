@@ -62,7 +62,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {
                 GD.Print(new PrettyInfo(PrettyInfoType.Checking, "Save Directory"));
-                if (DirectoryHelper.ValidateUserDirectories(Path.Join(ExternalPaths.SAVES_DIR, saveSettingReceive.SaveName)))
+                if (DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName)))
                 {
                     GD.Print(new PrettyInfo(PrettyInfoType.Successful, "Save Directory Checked"));
                     return Path.Join(SavesPath, saveSettingReceive.SaveName, ExternalPaths.SAVES_SETTING);

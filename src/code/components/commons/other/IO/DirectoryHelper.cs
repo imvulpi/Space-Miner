@@ -22,36 +22,33 @@ namespace SpaceMiner.src.code.components.commons.other.IO
             foreach (string stringPath in paths)
             {
                 continuousPath = Path.Join(continuousPath, stringPath);
-                if (File.GetAttributes(continuousPath) == FileAttributes.Directory)
+                if (File.Exists(continuousPath) || Directory.Exists(continuousPath))
                 {
-                    directoriesList.Add(stringPath);
+                    FileAttributes attributes = File.GetAttributes(continuousPath);
+                    if (attributes == FileAttributes.Directory)
+                    {
+                        directoriesList.Add(continuousPath);
+                    }
+                }
+                else
+                {
+                    directoriesList.Add(continuousPath);
                 }
             }
             return directoriesList.ToArray();
         }
 
         /// <summary>
-        /// Checks or corrects directories in the user:// path. <br></br>NOTE: doesn't check validity of the user:// directory and path. |
-        /// This is why it's faster than EssentialDirectoryChecker which checks all directories leading to a path.
+        /// Checks or corrects directories in a path<br></br>
         /// </summary>
-        /// <param name="relativePath">A relative path to the godots user:// path</param>
         /// <returns>Is validated<br></br>Will return false in the first instance of unfixable error</returns>
-        public static bool ValidateUserDirectories(string relativePath)
+        public static bool ValidateUserDirectories(string path)
         {
-            string userPath = OS.GetUserDataDir();
-            string continuousPath = "";
-            foreach(var path in GetParentDirectories(relativePath))
+            foreach (var dirPath in GetParentDirectories(path))
             {
-                continuousPath = Path.Join(continuousPath, path);
-                string fullPath = Path.Combine(userPath, continuousPath);
-                if(!Directory.Exists(fullPath))
+                if(!ValidateDirectory(dirPath, true))
                 {
-                    try
-                    {
-                        Directory.CreateDirectory(fullPath);
-                    }catch(Exception) {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;

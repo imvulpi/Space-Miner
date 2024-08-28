@@ -28,15 +28,14 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
             for (int i = 0; i < dirs.Length; i++)
             {
                 string currentPath = dirs[i];
-                continuousPath = Path.Join(continuousPath, currentPath);
-                if (!Directory.Exists(continuousPath))
+                if (!Directory.Exists(currentPath))
                 {
-                    GD.PushWarning(new PrettyWarning(PrettyWarningType.NotFound, $"{continuousPath}", "Essential directory does not exist."));
+                    GD.PushWarning(new PrettyWarning(PrettyWarningType.NotFound, $"{currentPath}", "Essential directory does not exist."));
                     try
                     {
-                        GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"{continuousPath}", $"Directory Repair Attempt"));
-                        Directory.CreateDirectory(continuousPath);
-                        GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"{continuousPath}", $"Directory repaired!"));
+                        GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt"));
+                        Directory.CreateDirectory(currentPath);
+                        GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"{currentPath}", $"Directory repaired!"));
                     }
                     catch (Exception ex)
                     {

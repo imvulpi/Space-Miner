@@ -1,25 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bc8r4qepvrbt7"]
+[gd_scene load_steps=2 format=3 uid="uid://bc8r4qepvrbt7"]
 
-[ext_resource type="Script" path="res://scripts/ui/menus/gameLoader/GameLoaderMenuManager.cs" id="1_2hotl"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_bl7h1"]
-[ext_resource type="PackedScene" uid="uid://csta4b1js56ed" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/game_save_item.tscn" id="1_mt48m"]
-[ext_resource type="Script" path="res://scripts/ui/components/scrollbars/ScrollSettingsMenu.cs" id="2_kqrdb"]
-[ext_resource type="PackedScene" uid="uid://xnolu346tmvx" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/save_confirmation_menu.tscn" id="3_pkyw7"]
-[ext_resource type="PackedScene" uid="uid://6ig4raj2tcyu" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/delete_save_confirmation_menu.tscn" id="4_qlv5j"]
 
-[node name="GameLoaderMenu" type="Control" node_paths=PackedStringArray("Saves", "Scroll")]
+[node name="GameLoaderMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2hotl")
-Saves = NodePath("Saves")
-Scroll = NodePath("VScrollBar")
-ControlSaveItem = ExtResource("1_mt48m")
-SaveConfirmationMenu = ExtResource("3_pkyw7")
-DeleteMenu = ExtResource("4_qlv5j")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -40,7 +29,7 @@ offset_right = 0.0799561
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="." node_paths=PackedStringArray("scrollableNode")]
+[node name="VScrollBar" type="VScrollBar" parent="."]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -54,5 +43,3 @@ offset_bottom = 256.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_bl7h1")
-script = ExtResource("2_kqrdb")
-scrollableNode = NodePath("../Saves")
