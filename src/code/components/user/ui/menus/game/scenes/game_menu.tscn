@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://0qvcmwj6y47g"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/main/MainMenuNodeController.cs" id="1_ubj0l"]
-[ext_resource type="PackedScene" uid="uid://qm5y16bjnlgm" path="res://src/code/components/user/ui/menus/settings/scenes/settings_menu.tscn" id="2_gxeob"]
-[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_sxr2c"]
+[ext_resource type="Script" path="res://src/code/components/processing/ui/menus/game/GameMenuController.cs" id="1_xauy1"]
+[ext_resource type="PackedScene" uid="uid://qm5y16bjnlgm" path="res://src/code/components/user/ui/menus/settings/scenes/settings_menu.tscn" id="2_51yjw"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="3_q0xpw"]
 
-[node name="MainMenu" type="Node2D" node_paths=PackedStringArray("ResumeButton", "SettingsButton", "SaveButton", "SaveAndQuitButton")]
-script = ExtResource("1_ubj0l")
+[node name="GameMenu" type="Node2D" node_paths=PackedStringArray("ResumeButton", "SettingsButton", "SaveButton", "SaveAndQuitButton")]
+script = ExtResource("1_xauy1")
 ResumeButton = NodePath("MainMenuComponents/Buttons/PlayButton")
 SettingsButton = NodePath("MainMenuComponents/Buttons/SettingsButton")
 SaveButton = NodePath("MainMenuComponents/Buttons/Save")
 SaveAndQuitButton = NodePath("MainMenuComponents/Buttons/QuitButton")
-SettingsScene = ExtResource("2_gxeob")
+SettingsScene = ExtResource("2_51yjw")
 
 [node name="MainMenuComponents" type="CanvasLayer" parent="."]
 
@@ -65,7 +65,7 @@ offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_default_cursor_shape = 2
-theme = ExtResource("2_sxr2c")
+theme = ExtResource("3_q0xpw")
 theme_override_font_sizes/font_size = 16
 text = "PLAY"
 
@@ -82,7 +82,7 @@ offset_right = 80.0
 offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_sxr2c")
+theme = ExtResource("3_q0xpw")
 theme_override_font_sizes/font_size = 16
 text = "SETTINGS"
 
@@ -99,7 +99,7 @@ offset_right = 100.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_sxr2c")
+theme = ExtResource("3_q0xpw")
 theme_override_font_sizes/font_size = 16
 text = "SAVE"
 
@@ -116,6 +116,6 @@ offset_right = 80.0
 offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_sxr2c")
+theme = ExtResource("3_q0xpw")
 theme_override_font_sizes/font_size = 16
 text = "SAVE & QUIT"

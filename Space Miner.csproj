@@ -9,4 +9,7 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\code\components\user\ui\menus\main\scenes\game_loader\" />
+  </ItemGroup>
 </Project>

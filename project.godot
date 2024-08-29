@@ -13,7 +13,7 @@ config_version=5
 config/name="Space Miner"
 run/main_scene="res://src/code/components/user/special/load.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="spaceminer"
+config/custom_user_dir_name=".spaceminer"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 

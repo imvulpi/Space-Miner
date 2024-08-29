@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c61q6ff5quxf6"]
+[gd_scene load_steps=22 format=3 uid="uid://bmpp2hol5j1wr"]
 
 [ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://src/resources/graphics/ui/fonts/prstart.ttf" id="1_5djpl"]
 [ext_resource type="Script" path="res://src/code/components/processing/special/load/EntryLoad.cs" id="1_whia3"]
 [ext_resource type="Texture2D" uid="uid://b8lpx0lew0b8g" path="res://src/resources/graphics/ui/components/loading_circle/AppearDissapearCircleWhite.png" id="2_fg2it"]
+[ext_resource type="PackedScene" uid="uid://c61knoeisws56" path="res://src/code/components/user/ui/menus/main/scenes/main_menu.tscn" id="2_xwlci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbwxo"]
 atlas = ExtResource("2_fg2it")
@@ -126,6 +127,7 @@ animations = [{
 
 [node name="Load" type="Node"]
 script = ExtResource("1_whia3")
+MainMenuScene = ExtResource("2_xwlci")
 
 [node name="Visual" type="Control" parent="."]
 layout_mode = 3
@@ -162,5 +164,3 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_d5qal")
 autoplay = "default"
 frame_progress = 0.350374
-
-[node name="Components" type="Node" parent="."]

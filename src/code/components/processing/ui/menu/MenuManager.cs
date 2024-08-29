@@ -21,7 +21,7 @@ namespace SpaceMiner.src.code.components.processing.ui.menu
             {
                 if (Menus.Count == 0)
                 {
-                    MainMenuAction.Invoke(this);
+                    MainMenuAction?.Invoke(this);
                 }
                 else
                 {

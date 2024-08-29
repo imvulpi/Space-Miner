@@ -1,9 +1,9 @@
-﻿    using Godot;
+﻿using Godot;
 using GruInject.API.Nodes;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
-using SpaceMiner.src.code.components.commons.other.paths;
+using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
@@ -13,7 +13,7 @@ using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.controllers
 {
-    public partial class UserSettingControllerNode : GruNode2D, IUserSettingController, IMenuContainer
+    public partial class UserSettingControllerNode : Node2D, IUserSettingController, IMenuContainer
     {
         public UserSettings Setting { get; set; }
         public SettingCoupler SettingCoupler { get; set; }
