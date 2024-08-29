@@ -73,7 +73,11 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             }
         }
 
-        public void CreateSave(GameSaveSettings settings, Node connectNode)
+        /// <summary>
+        /// This function creates the game scene
+        /// </summary>
+        /// <param name="settings">NOTE: Must contain SaveName</param>
+        public void CreateSave(GameSaveSettings settings)
         {
             string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
             if (!DirectoryHelper.ValidateDirectory(path, false))
@@ -81,29 +85,43 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 GD.PushError(new PrettyError(PrettyErrorType.Critical, $"{path}", "Directory validation failed, can't continue with the game creation."));
             }
 
-            Node gameNode = SetGameScene(settings);
-
-            if (gameNode != null)
-            {
-                connectNode.AddChild(gameNode);
-            }
+            PackedScene gameScene = GetGameScene(settings);
+            ResourceSaver.Save(gameScene, Path.Join(path, ExternalPaths.SAVE_FILE));
         }
 
-        private Node SetGameScene(GameSaveSettings settings)
+        private PackedScene GetGameScene(GameSaveSettings settings)
         {
             if (Godot.FileAccess.FileExists(InternalPaths.GAME_SCENE))
             {
                 string gameSceneString = Godot.FileAccess.GetFileAsString(InternalPaths.GAME_SCENE);
                 string destPath = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
-                if (DirectoryHelper.ValidateDirectory(destPath))
+                if (DirectoryHelper.ValidateDirectory(destPath, true) && gameSceneString != "" && Godot.FileAccess.GetOpenError() == Error.Ok)
                 {
-                    File.WriteAllText(Path.Join(destPath, "game.tscn"), gameSceneString);
-                    return ResourceLoader.Load<PackedScene>(InternalPaths.GAME_SCENE).Instantiate();
+                    try
+                    {
+                        File.WriteAllText(Path.Join(destPath, "game.tscn"), gameSceneString);
+                        return ResourceLoader.Load<PackedScene>(InternalPaths.GAME_SCENE);
+                    }
+                    catch (Exception ex)
+                    {
+                        PrettyError fileIOError = new PrettyError(PrettyErrorType.Failed, $"{ex.Message}");
+                        GD.PushError(fileIOError);
+                        throw;
+                    }
+                }
+                else if(gameSceneString == "")
+                {
+                    // Godot error
+                    Error fileAccessError = Godot.FileAccess.GetOpenError();
+                    PrettyError formattedIOError = new PrettyError(PrettyErrorType.Error, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
+                    GD.PushError(formattedIOError);
+                    throw new Exception(formattedIOError.ToString());
                 }
                 return null;
             }
             else
             {
+                GD.PushError(new PrettyError(PrettyErrorType.NotFound, $"{InternalPaths.GAME_SCENE}"));
                 return null;
             }
         }

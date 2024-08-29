@@ -23,7 +23,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
 
             if (setting.Path != null)
             {
-                string jsonText = File.ReadAllText(setting.Path);
+                string jsonText = File.ReadAllText(Path.Join(setting.Path, ExternalPaths.SAVES_SETTING));
                 setting.Load(jsonText);
             }
             else
@@ -38,7 +38,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             if (setting.Path != null)
             {
                 string json = setting.GetData();
-                File.WriteAllText(setting.Path, json);
+                File.WriteAllText(Path.Join(setting.Path, ExternalPaths.SAVES_SETTING), json);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
                 if (DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName)))
                 {
                     GD.Print(new PrettyInfo(PrettyInfoType.Successful, "Save Directory Checked"));
-                    return Path.Join(SavesPath, saveSettingReceive.SaveName, ExternalPaths.SAVES_SETTING);
+                    return Path.Join(SavesPath, saveSettingReceive.SaveName);
                 }
                 else
                 {

@@ -57,13 +57,13 @@ public partial class GameLoaderMenuController : Control
         CheckSaveHolderHeight();
     }
 
-    private void SaveNode_LoadSaveEvent(GameSaveItem obj)
+    private void SaveNode_LoadSaveEvent(object obj)
     {
 		Node LoadConfirmationMenu = LoadSaveConfirmationMenu.Instantiate();
 
-		if(LoadConfirmationMenu is SaveConfirmationDialog confirmationMenu)
+		if(LoadConfirmationMenu is SaveConfirmationDialog confirmationMenu && obj is GameSaveItem saveObj)
         {
-			confirmationMenu.SaveName = obj.NameLabel.Text;
+			confirmationMenu.SaveName = saveObj.NameLabel.Text;
             AddChild(LoadConfirmationMenu);
 
             confirmationMenu.Decision += (bool shouldLoad) =>
@@ -72,7 +72,7 @@ public partial class GameLoaderMenuController : Control
 				{
 					GameSaveSettings settings = new GameSaveSettings()
 					{
-						SaveName = obj.NameLabel.Text,
+						SaveName = saveObj.NameLabel.Text,
 					};
 					new GameSaveManager(settings).Load(GetTree());
 				}
@@ -89,24 +89,24 @@ public partial class GameLoaderMenuController : Control
 		}
     }
 
-    private void SaveNode_OnDeleteGameSaveItem(GameSaveItem obj)
+    private void SaveNode_OnDeleteGameSaveItem(object obj)
     {
         GD.Print("DELETE");
         Node DeleteConfirmationMenu = DeleteSaveConfirmationMenu.Instantiate();
 
-		if(DeleteConfirmationMenu is SaveConfirmationDialog confirmationMenu)
+		if(DeleteConfirmationMenu is SaveConfirmationDialog confirmationMenu && obj is GameSaveItem saveObj)
 		{
-			confirmationMenu.SaveName = obj.NameLabel.Text;
+			confirmationMenu.SaveName = saveObj.NameLabel.Text;
             AddChild(DeleteConfirmationMenu);
             confirmationMenu.Decision += (bool shouldDelete) =>
 			{
 				if (shouldDelete)
 				{
-					new GameSaveHelper().DeleteSave(obj.NameLabel.Text);
-                    cumulativeHeight -= (int)obj.Size.Y;
-                    SavesHolder.RemoveChild(obj);
-                    saveNodes.Remove(obj);
-                    obj.QueueFree();
+					new GameSaveHelper().DeleteSave(saveObj.NameLabel.Text);
+                    cumulativeHeight -= (int)saveObj.Size.Y;
+                    SavesHolder.RemoveChild(saveObj);
+                    saveNodes.Remove(saveObj);
+                    saveObj.QueueFree();
                     RepositionNodes();
                     CheckSaveHolderHeight();
                     RemoveChild(DeleteConfirmationMenu);
