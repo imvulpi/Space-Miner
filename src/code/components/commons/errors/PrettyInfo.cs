@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.commons.errors
 {
-    internal class PrettyInfo
+    public class PrettyInfo
     {
         public PrettyInfoType? InfoType { get; set; }
         public string CustomInfoType { get; set; }

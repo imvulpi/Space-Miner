@@ -8,7 +8,7 @@ namespace SpaceMiner.src.code.components.commons.errors
 {
     public enum PrettyWarningType
     {
-        Warning,
+        GeneralWarning,
         Corrected,
         NotFound
     }

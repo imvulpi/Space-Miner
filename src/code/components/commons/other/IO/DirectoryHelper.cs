@@ -67,7 +67,7 @@ namespace SpaceMiner.src.code.components.commons.other.IO
             {
                 if (shouldLog)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.NotFound, $"{path}", "Directory not found"));
+                    GD.PushError(new PrettyError(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found"));
                     GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"{path}"));
                 }
                 try
@@ -75,13 +75,13 @@ namespace SpaceMiner.src.code.components.commons.other.IO
                     Directory.CreateDirectory(path);
                     if (shouldLog)
                     {
-                        GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"{path} created successfully."));
+                        GD.Print(new PrettyInfo(PrettyInfoType.Success, $"{path} created successfully."));
                     }
                     return true;
                 }
                 catch(Exception ex)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.Failed, $"{ex}", $"{path} Repair failed"));
+                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ex}", $"{path} Repair failed"));
                     return false;
                 }
             }

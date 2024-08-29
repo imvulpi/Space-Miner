@@ -71,7 +71,7 @@ public partial class MainMenuController : Control, IMenuContainer
         }
         else
         {
-            GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "LatestSave", "No latest save found."));
+            GD.Print(new PrettyInfo(PrettyInfoType.GeneralInfo, "LatestSave", "No latest save found."));
         }
     }
 

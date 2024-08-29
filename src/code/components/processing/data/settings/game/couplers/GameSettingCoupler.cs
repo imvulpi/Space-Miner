@@ -64,12 +64,12 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
                 GD.Print(new PrettyInfo(PrettyInfoType.Checking, "Save Directory"));
                 if (DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName)))
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Successful, "Save Directory Checked"));
+                    GD.Print(new PrettyInfo(PrettyInfoType.Success, "Save Directory Checked"));
                     return Path.Join(SavesPath, saveSettingReceive.SaveName);
                 }
                 else
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.Failed, "Save directory could not be corrected"));
+                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, "Save directory could not be corrected"));
                     return null;
                 }
             }

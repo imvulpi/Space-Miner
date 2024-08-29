@@ -69,7 +69,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Failed, $"{saveName} Removal", "Could not remove the save, because it does not exist"));
+                GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{saveName} Removal", "Could not remove the save, because it does not exist"));
             }
         }
 
@@ -104,7 +104,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                     }
                     catch (Exception ex)
                     {
-                        PrettyError fileIOError = new PrettyError(PrettyErrorType.Failed, $"{ex.Message}");
+                        PrettyError fileIOError = new PrettyError(PrettyErrorType.OperationFailed, $"{ex.Message}");
                         GD.PushError(fileIOError);
                         throw;
                     }
@@ -113,7 +113,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 {
                     // Godot error
                     Error fileAccessError = Godot.FileAccess.GetOpenError();
-                    PrettyError formattedIOError = new PrettyError(PrettyErrorType.Error, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
+                    PrettyError formattedIOError = new PrettyError(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
                     GD.PushError(formattedIOError);
                     throw new Exception(formattedIOError.ToString());
                 }
@@ -121,7 +121,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.NotFound, $"{InternalPaths.GAME_SCENE}"));
+                GD.PushError(new PrettyError(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}"));
                 return null;
             }
         }

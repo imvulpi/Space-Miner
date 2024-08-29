@@ -1,6 +1,6 @@
 ﻿namespace SpaceMiner.src.code.components.commons.errors
 {
-    internal class PrettyError
+    public class PrettyError
     {
         public PrettyErrorType? ErrorType { get; set; }
         public string CustomErrorType { get; set; }

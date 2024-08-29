@@ -7,7 +7,7 @@ public partial class EntryLoad : Node
     [Export] public PackedScene MainMenuScene { get; set; }
     public override void _Ready()
 	{
-        GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "Entry", "Entry process started."));
+        GD.Print(new PrettyInfo(PrettyInfoType.GeneralInfo, "Entry", "Entry process started."));
 
         // Checking
         new EssentialDirectoryChecker().Check();
@@ -15,7 +15,7 @@ public partial class EntryLoad : Node
 
         // Loading
         CallDeferred("LoadMainMenu");
-        GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "Entry", "Entry process ended."));
+        GD.Print(new PrettyInfo(PrettyInfoType.GeneralInfo, "Entry", "Entry process ended."));
     }
 
     private void LoadMainMenu()

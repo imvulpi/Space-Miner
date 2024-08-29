@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.commons.errors
 {
-    internal class PrettyWarning
+    public class PrettyWarning
     {
         public PrettyWarningType? WarningType { get; set; }
         public string CustomWarningType { get; set; }

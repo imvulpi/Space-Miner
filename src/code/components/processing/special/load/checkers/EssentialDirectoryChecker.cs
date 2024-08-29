@@ -35,11 +35,11 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                     {
                         GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt"));
                         Directory.CreateDirectory(currentPath);
-                        GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"{currentPath}", $"Directory repaired!"));
+                        GD.Print(new PrettyInfo(PrettyInfoType.Success, $"{currentPath}", $"Directory repaired!"));
                     }
                     catch (Exception ex)
                     {
-                        GD.PushError(new PrettyError(PrettyErrorType.Error, $"{ex.Message}"));
+                        GD.PushError(new PrettyError(PrettyErrorType.GeneralError, $"{ex.Message}"));
                         return false;
                     }
                 }

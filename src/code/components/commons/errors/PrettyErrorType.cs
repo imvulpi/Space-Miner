@@ -8,14 +8,29 @@ namespace SpaceMiner.src.code.components.commons.errors
 {
     public enum PrettyErrorType
     {
-        Error,
+        /// <summary>
+        /// Represents a general error that does not fit into more specific categories.
+        /// </summary>
+        GeneralError,
+
+        /// <summary>
+        /// Indicates a critical error that requires immediate attention and resolution.
+        /// </summary>
         Critical,
-        Failed,
+
+        /// <summary>
+        /// Denotes a failure that occurred during an operation or task.
+        /// </summary>
+        OperationFailed,
+
+        /// <summary>
+        /// Signifies that the input or state provided is invalid or incorrect.
+        /// </summary>
         Invalid,
-        Timeout,
-        Unhandled,
-        Corrupted,
-        DependencyFailed,
-        NotFound,
+
+        /// <summary>
+        /// Represents an error where a required resource could not be found.
+        /// </summary>
+        ResourceNotFound,
     }
 }

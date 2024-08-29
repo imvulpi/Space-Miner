@@ -35,7 +35,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             }
             else
             {
-                string errorMessage = new PrettyError(PrettyErrorType.NotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
+                string errorMessage = new PrettyError(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
                 GD.PushError(errorMessage);
                 throw new Exception(errorMessage);
             }
@@ -55,14 +55,14 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 }
                 else
                 {
-                    string errorMessage = new PrettyError(PrettyErrorType.Failed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed").ToString();
+                    string errorMessage = new PrettyError(PrettyErrorType.OperationFailed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed").ToString();
                     GD.PushError(errorMessage);
                     throw new Exception(errorMessage);
                 }
             }
             else
             {
-                string errorMessage = new PrettyError(PrettyErrorType.NotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
+                string errorMessage = new PrettyError(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
                 GD.PushError(errorMessage);
                 throw new Exception(errorMessage);
             }

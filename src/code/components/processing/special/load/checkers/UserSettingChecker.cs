@@ -47,7 +47,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                     }
                     else
                     {
-                        GD.PushError(new PrettyError(PrettyErrorType.Failed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful"));
+                        GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful"));
                     }
                 }
             }
@@ -65,7 +65,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                 }
                 catch (Exception ex)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.Failed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}"));
+                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}"));
                 }
             }
         }

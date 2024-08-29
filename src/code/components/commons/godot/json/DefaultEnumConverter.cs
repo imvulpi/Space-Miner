@@ -26,12 +26,12 @@ namespace JsonEnumTest
                 T? repairedValue = TryFindValue(enumString);
                 if (repairedValue != null)
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Successful, $"JSON Value Repair", $"Succesfully repaired JSON value {enumString} to {repairedValue}"));
+                    GD.Print(new PrettyInfo(PrettyInfoType.Success, $"JSON Value Repair", $"Succesfully repaired JSON value {enumString} to {repairedValue}"));
                     return (T)repairedValue;
                 }
                 else
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.Failed, "JSON Value Repair", $"Could not repair {enumString} JSON value."));
+                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, "JSON Value Repair", $"Could not repair {enumString} JSON value."));
                     GD.PushError(new PrettyError(PrettyErrorType.Invalid, $"Invalid value ({enumString})", $"Value ({enumString}) is invalid ({typeToConvert.Name})"));
                     GD.Print(new PrettyInfo("Defaulted", $"{typeToConvert.Name}", "Value was defaulted"));
                     return (T)DefaultValue;
