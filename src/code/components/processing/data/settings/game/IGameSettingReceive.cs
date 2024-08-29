@@ -12,5 +12,6 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game
         string SaveName { get; }
         WorldType WorldType { get; }
         GameDifficulty GameDifficulty { get; }
+        DateTime LastPlayed { get; }
     }
 }

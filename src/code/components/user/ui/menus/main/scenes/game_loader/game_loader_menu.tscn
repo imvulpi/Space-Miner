@@ -1,14 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://bc8r4qepvrbt7"]
+[gd_scene load_steps=8 format=3 uid="uid://bc8r4qepvrbt7"]
 
+[ext_resource type="Script" path="res://src/code/components/processing/ui/menus/main/load_game/GameLoaderMenuController.cs" id="1_80slh"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_bl7h1"]
+[ext_resource type="PackedScene" uid="uid://xnolu346tmvx" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/save_confirmation_menu.tscn" id="2_eukja"]
+[ext_resource type="PackedScene" uid="uid://6ig4raj2tcyu" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/delete_save_confirmation_menu.tscn" id="3_bbjb4"]
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="3_fu7de"]
+[ext_resource type="PackedScene" uid="uid://csta4b1js56ed" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/game_save_item.tscn" id="4_y6n5m"]
+[ext_resource type="StyleBox" path="res://src/resources/themes/grabbers/grabber_style.tres" id="6_y2ur8"]
 
-[node name="GameLoaderMenu" type="Control"]
+[node name="GameLoaderMenu" type="Control" node_paths=PackedStringArray("SavesHolder", "ScrollBar", "SavesWrapper")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_80slh")
+LoadSaveConfirmationMenu = ExtResource("2_eukja")
+DeleteSaveConfirmationMenu = ExtResource("3_bbjb4")
+SaveItem = ExtResource("4_y6n5m")
+SavesHolder = NodePath("SavesWrapper/Saves")
+ScrollBar = NodePath("VScrollBar")
+SavesWrapper = NodePath("SavesWrapper")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -19,27 +32,39 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="Saves" type="Control" parent="."]
+[node name="SavesWrapper" type="Control" parent="."]
 layout_mode = 1
-anchor_left = 0.036
-anchor_right = 0.952
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.439999
-offset_right = 0.0799561
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="."]
+[node name="Saves" type="Control" parent="SavesWrapper"]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -260.0
-offset_right = -10.0
-offset_bottom = 256.0
+anchor_right = 0.952
+anchor_bottom = 1.0
+offset_right = 5.07996
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VScrollBar" type="VScrollBar" parent="." node_paths=PackedStringArray("scrollableNode")]
+z_index = 10
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.973
+anchor_right = 0.973
+anchor_bottom = 1.0
+offset_left = -10.0801
+offset_top = 18.0
+offset_right = 9.91992
+offset_bottom = -30.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_bl7h1")
+theme_override_styles/grabber = ExtResource("6_y2ur8")
+script = ExtResource("3_fu7de")
+scrollableNode = NodePath("../SavesWrapper/Saves")
+speed = 16.0

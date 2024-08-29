@@ -11,6 +11,9 @@ namespace SpaceMiner.src.code.components.commons.other.paths.internal_paths
     /// </summary>
     public partial class InternalPaths
     {
-        public const string PREMADE_SCENE = "res://src/code/components/user/special/premade.tscn";
+        /// <summary>
+        /// Plain game
+        /// </summary>
+        public const string GAME_SCENE = "res://src/code/components/user/special/game.tscn";
     }
 }

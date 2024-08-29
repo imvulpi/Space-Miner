@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_sxr2c"]
 [ext_resource type="PackedScene" uid="uid://6ubm60jedm8g" path="res://src/code/components/user/ui/menus/main/scenes/new_game_creator/new_game_creator.tscn" id="3_mraio"]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("PlayButton", "ResumeButton", "NewGameButton", "QuitButton")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("PlayButton", "ResumeButton", "LastPlayed", "NewGameButton", "QuitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +16,8 @@ grow_vertical = 2
 script = ExtResource("1_iekvm")
 PlayButton = NodePath("Components/Buttons/Play")
 GameLoaderMenu = ExtResource("2_f4i3s")
-ResumeButton = NodePath("Components/Buttons/Resume")
+ResumeButton = NodePath("Components/Buttons/Control/Resume")
+LastPlayed = NodePath("Components/Buttons/Control/LastPlayed")
 NewGameButton = NodePath("Components/Buttons/NewGame")
 NewSaveMenu = ExtResource("3_mraio")
 QuitButton = NodePath("Components/Buttons/Quit")
@@ -66,18 +67,31 @@ theme = ExtResource("2_sxr2c")
 theme_override_font_sizes/font_size = 16
 text = "PLAY"
 
-[node name="Resume" type="Button" parent="Components/Buttons"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.281
-anchor_top = 0.6
-anchor_right = 0.719
-anchor_bottom = 1.0
+[node name="Control" type="Control" parent="Components/Buttons"]
+anchors_preset = 0
 offset_top = -40.0
-offset_right = 180.0
+offset_right = 175.0
+
+[node name="Resume" type="Button" parent="Components/Buttons/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_sxr2c")
 theme_override_font_sizes/font_size = 16
 text = "RESUME"
+
+[node name="LastPlayed" type="Label" parent="Components/Buttons/Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 28.0
+offset_right = 170.0
+offset_bottom = 36.0
+theme = ExtResource("2_sxr2c")
+horizontal_alignment = 1
 
 [node name="NewGame" type="Button" parent="Components/Buttons"]
 layout_mode = 1

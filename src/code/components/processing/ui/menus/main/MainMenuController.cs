@@ -1,6 +1,8 @@
 using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
+using SpaceMiner.src.code.components.processing.data.game.save;
+using SpaceMiner.src.code.components.processing.data.settings.game;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 using System;
@@ -12,6 +14,7 @@ public partial class MainMenuController : Control, IMenuContainer
     [Export] public Button PlayButton {  get; set; }
     [Export] public PackedScene GameLoaderMenu { get; set; }
     [Export] public Button ResumeButton { get; set; }
+    [Export] public Label LastPlayed { get; set; }
     [Export] public Button NewGameButton { get; set; }
     [Export] public PackedScene NewSaveMenu { get; set; }
     [Export] public Button QuitButton { get; set; }
@@ -27,7 +30,10 @@ public partial class MainMenuController : Control, IMenuContainer
         ResumeButton.Pressed += ResumeButton_Pressed;
         NewGameButton.Pressed += NewGameButton_Pressed;
         QuitButton.Pressed += QuitButton_Pressed;
-	}
+
+        string latestSave = new GameSaveHelper().GetLatestSaveName();
+        LastPlayed.Text = latestSave;
+    }
 
     private void QuitButton_Pressed()
     {
@@ -53,8 +59,20 @@ public partial class MainMenuController : Control, IMenuContainer
 
     private void ResumeButton_Pressed()
     {
-        // TODO: Load most recently played save
-        throw new NotImplementedException();
+        string latestSave = new GameSaveHelper().GetLatestSaveName();
+        if (latestSave != "")
+        {
+            GameSaveSettings settings = new GameSaveSettings()
+            {
+                SaveName = latestSave,
+            };
+
+            new GameSaveManager(settings).Load(GetTree());
+        }
+        else
+        {
+            GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "LatestSave", "No latest save found."));
+        }
     }
 
     private void PlayButton_Pressed()

@@ -16,12 +16,11 @@ public partial class EntryLoad : Node
         // Loading
         CallDeferred("LoadMainMenu");
         GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "Entry", "Entry process ended."));
-        QueueFree();
     }
 
     private void LoadMainMenu()
     {
-        GetTree().Root.AddChild(MainMenuScene.Instantiate());
+        GetTree().ChangeSceneToPacked(MainMenuScene);
     }
 
     public override void _Process(double delta)

@@ -10,5 +10,6 @@ namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
     {
         public const string SAVES_DIR = "saves";
         public const string SAVES_SETTING = "game_settings.json";
+        public const string SAVE_FILE = "game.tscn";
     }
 }

@@ -18,11 +18,13 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game
         public WorldType WorldType { get; set; }
         [FallbackJsonConverter(typeof(DefaultEnumConverter<GameDifficulty>), GameDifficulty.Easy)]
         public GameDifficulty GameDifficulty { get; set; }
+        public DateTime LastPlayed { get; set; }
         [JsonIgnore] public string Path { get; set; }
 
         public GameSaveSettings() {
             // TODO: Check if possible.
             SaveName = "new_game";
+            LastPlayed = DateTime.Now;
         }
 
         public void Load(string settingsContent)

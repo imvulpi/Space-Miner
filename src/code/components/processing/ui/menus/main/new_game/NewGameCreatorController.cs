@@ -37,8 +37,8 @@ public partial class NewGameCreatorController : Control, IMenuContainer
                 try
                 {
                     GameSettingCoupler coupler = new GameSettingCoupler();
+                    gameHelper.CreateSave(gameSettings, GetTree().Root);
                     coupler.Save(gameSettings);
-                    gameHelper.NewGame(gameSettings, GetTree().Root);
                     Menu.Close();
                 }catch(Exception ex) {
                     GD.PushError(new PrettyError(PrettyErrorType.Critical, $"{ex}", "Game creation failed"));
