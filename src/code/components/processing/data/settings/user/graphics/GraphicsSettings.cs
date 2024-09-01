@@ -24,14 +24,14 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.graphics
             SetDefaultValues();
         }
         [JsonIgnore] public IGraphicsSettingsChecker Checker { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<WindowMode>), WindowMode.Windowed)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<WindowMode>), WindowMode.Windowed)]
         public WindowMode WindowMode { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<AspectType>), AspectType.Keep)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<AspectType>), AspectType.Keep)]
         public AspectType AspectType { get; set; }
         public string Resolution { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<GraphicsQuality>), GraphicsQuality.Medium)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<GraphicsQuality>), GraphicsQuality.Medium)]
         public GraphicsQuality GraphicsQuality { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<VSyncMode>), VSyncMode.Disabled)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<VSyncMode>), VSyncMode.Disabled)]
         public VSyncMode VSync { get; set; }
         public int ChunkDistance { get; set; }
 

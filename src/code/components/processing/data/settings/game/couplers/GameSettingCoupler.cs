@@ -88,7 +88,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Unhandled, "SettingsPath", "Settings path is not null since why it should be handled already."));
+                GD.PushError(new PrettyError(PrettyErrorType.Invalid, "SettingsPath", "Settings path is not null since why it should be handled already."));
                 return null;
             }
         }

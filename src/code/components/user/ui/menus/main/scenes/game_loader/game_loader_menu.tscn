@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://6ig4raj2tcyu" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/delete_save_confirmation_menu.tscn" id="3_bbjb4"]
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="3_fu7de"]
 [ext_resource type="PackedScene" uid="uid://csta4b1js56ed" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/game_save_item.tscn" id="4_y6n5m"]
-[ext_resource type="StyleBox" path="res://src/resources/themes/grabbers/grabber_style.tres" id="6_y2ur8"]
+[ext_resource type="StyleBox" uid="uid://gkl5q6v5c5s7" path="res://src/resources/themes/grabbers/grabber_style.tres" id="6_y2ur8"]
 
 [node name="GameLoaderMenu" type="Control" node_paths=PackedStringArray("SavesHolder", "ScrollBar", "SavesWrapper")]
 layout_mode = 3

@@ -1,16 +1,32 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Text.Json.Serialization;
 
 namespace JsonEnumTest
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface, AllowMultiple = false)]
-    public class FallbackJsonConverterAttribute : JsonConverterAttribute
+    public class JsonFallbackConverterAttribute : JsonConverterAttribute
     {
         private object value;
         private JsonConverter converter;
-        public FallbackJsonConverterAttribute(Type converterType, object defaultValue)
+        public JsonFallbackConverterAttribute(Type converterType, object defaultValue)
         {
             value = defaultValue;
+            if(defaultValue is Type valueType && valueType.IsClass)
+            {
+                try
+                {
+                    object? classValue = Activator.CreateInstance(valueType);
+                    GD.Print(classValue);
+                    if(classValue != null)
+                    {
+                        value = (object)classValue;
+                    }
+                }catch(Exception ex)
+                {
+                    GD.Print($"{ex}");
+                }
+            }
             CreateConverter(converterType);
         }
 

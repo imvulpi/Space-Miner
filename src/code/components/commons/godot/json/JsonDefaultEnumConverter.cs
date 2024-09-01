@@ -6,10 +6,10 @@ using System.Text.Json.Serialization;
 
 namespace JsonEnumTest
 {
-    public class DefaultEnumConverter<T> : JsonConverter<T> where T : struct, Enum
+    public class JsonDefaultEnumConverter<T> : JsonConverter<T> where T : struct, Enum
     {
         public object DefaultValue { get; set; }
-        public DefaultEnumConverter(object value) { 
+        public JsonDefaultEnumConverter(object value) { 
             DefaultValue = value;
         }
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
