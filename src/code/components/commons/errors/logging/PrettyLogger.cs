@@ -2,6 +2,7 @@
 using SpaceMiner.src.code.components.processing.data.settings.user.couplers;
 using System;
 using System.Diagnostics;
+using static Godot.VisualShader;
 
 namespace SpaceMiner.src.code.components.commons.errors.logging
 {
@@ -57,73 +58,87 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         public static string Log(PrettyLogType logType, string customMessage)
         {
             CheckInitialization();
+
             LogGodotFormatted(logType, customMessage);
             return customMessage;
         }
 
         /// <summary>
-        /// Logs a formatted message.
+        /// Logs a formatted message with a custom type.<br></br>
+        /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customType">The custom type to be displayed</param>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyLogType logType, string customType, string reason, string description)
+        public static string Log(PrettyLogType logType, string customType, string reason, string description = null)
         {
             CheckInitialization();
-            string logMessage = GetFormattedMessage(customType, reason, description, GetStackInfo());
+
+            string logMessage = GetFormattedMessage("INFO", customType, reason, description, GetStackInfo());
             LogGodotFormatted(logType, logMessage);
             return logMessage;
         }
         /// <summary>
-        /// Logs a formatted info message.
+        /// Logs a formatted info message.<br></br>
+        /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyInfoType infoType, string reason, string description = "", bool includeStackInfo = false)
+        public static string Log(PrettyInfoType infoType, string reason, string description = null, bool includeStackInfo = false)
         {
+            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(infoType) : description;
             CheckInitialization();
+
             string logMessage;
             if (includeStackInfo) {
-                logMessage = GetFormattedMessage(infoType.ToString(), reason, description, GetStackInfo());
+                logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description, GetStackInfo());
             }
             else
             {
-                logMessage = GetFormattedMessage(infoType.ToString(), reason, description);
+                logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description);
             }
             LogGodotFormatted(PrettyLogType.Info, logMessage);
             return logMessage;
         }
         /// <summary>
-        /// Logs a formatted warning message.
+        /// Logs a formatted warning message.<br></br>
+        /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyWarningType warningType, string reason, string description = "")
+        public static string Log(PrettyWarningType warningType, string reason, string description = null)
         {
+            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(warningType) : description;
             CheckInitialization();
-            string logMessage = GetFormattedMessage(warningType.ToString(), reason, description, GetStackInfo());
+
+            string logMessage = GetFormattedMessage("WARNING",warningType.ToString(), reason, description, GetStackInfo());
             LogGodotFormatted(PrettyLogType.Warning, logMessage);
             return logMessage;
         }
         /// <summary>
-        /// Logs a formatted error message.
+        /// Logs a formatted error message.<br></br>
+        /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyErrorType errorType, string reason, string description = "")
+        public static string Log(PrettyErrorType errorType, string reason, string description = null)
         {
+            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(errorType) : description;
             CheckInitialization();
-            string logMessage = GetFormattedMessage(errorType.ToString(), reason, description, GetStackInfo());
+
+            string logMessage = GetFormattedMessage("ERROR", errorType.ToString(), reason, description, GetStackInfo());
             LogGodotFormatted(PrettyLogType.Error, logMessage);
             return logMessage;
         }
 
         /// <summary>
-        /// Logs an error which does not require initialization of the logger, Might miss some features.
+        /// Logs an error which does not require initialization of the logger, Might miss some features.<br></br>
+        /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="errorType"></param>
         /// <param name="reason"></param>
         /// <param name="description"></param>
-        public static string CriticalLog(PrettyErrorType errorType, string reason, string description = "", string exceptionMessage = "")
+        public static string CriticalLog(PrettyErrorType errorType, string reason, string description = null, string exceptionMessage = "")
         {
-            string logMessage = GetFormattedMessage(errorType.ToString(), reason, description);
+            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(errorType) : description;
+            string logMessage = GetFormattedMessage("ERROR", errorType.ToString(), reason, description);
             if (exceptionMessage != "")
             {
                 GD.PushError(logMessage);
@@ -149,10 +164,10 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <summary>
         /// Formats log message in a specific way using log configs and other.
         /// </summary>
-        public static string GetFormattedMessage(string type, string reason, string description = "", string stackInfo = "")
+        public static string GetFormattedMessage(string parentType, string type, string reason, string description = "", string stackInfo = "")
         {
             return $"{(logConfig.includeDate == true ? $"[{GetCurrentDate()}]" : "")}" +
-                $"[{type}]<{reason}>({description})" +
+                $"[{parentType}][{type}]<{reason}>: {description}" +
                 $"{(stackInfo != "" ? $"\n    at {stackInfo}" : "")}";
         }
         ///<summary>Gets formatted stack information</summary>
