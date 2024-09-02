@@ -42,5 +42,10 @@ namespace SpaceMiner.src.code.components.commons.errors
         /// Denotes an ongoing attempt to repair or fix an issue or error.
         /// </summary>
         RepairAttempt,
+
+        /// <summary>
+        /// Indicates that some data or a resource was set to the default value
+        /// </summary>
+        Defaulted,
     }
 }

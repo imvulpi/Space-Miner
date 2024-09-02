@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
@@ -61,21 +62,21 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
         {
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {
-                GD.Print(new PrettyInfo(PrettyInfoType.Checking, "Save Directory"));
+                PrettyLogger.Log(PrettyInfoType.Checking, "Save Directory");
                 if (DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName)))
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Success, "Save Directory Checked"));
+                    PrettyLogger.Log(PrettyInfoType.Success, "Save Directory Checked");
                     return Path.Join(SavesPath, saveSettingReceive.SaveName);
                 }
                 else
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, "Save directory could not be corrected"));
+                    PrettyLogger.Log(PrettyErrorType.OperationFailed, "Save directory could not be corrected");
                     return null;
                 }
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Invalid, "GameSetting", "Invalid game setting SaveName value. Could not construct a path since SaveName is required"));
+                PrettyLogger.Log(PrettyErrorType.Invalid, "GameSetting", "Invalid game setting SaveName value. Could not construct a path since SaveName is required");
                 return null;
             }
         }
@@ -83,12 +84,12 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
         {
             if (setting.Path == null)
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Invalid, "SettingsPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type."));
+                PrettyLogger.Log(PrettyErrorType.Invalid, "SettingsPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type.");
                 return null;
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Invalid, "SettingsPath", "Settings path is not null since why it should be handled already."));
+                PrettyLogger.Log(PrettyErrorType.Invalid, "SettingsPath", "Settings path is not null since why it should be handled already.");
                 return null;
             }
         }

@@ -54,10 +54,11 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// </summary>
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customMessage">The custom message to be logged.</param>
-        public static void Log(PrettyLogType logType, string customMessage)
+        public static string Log(PrettyLogType logType, string customMessage)
         {
             CheckInitialization();
             LogGodotFormatted(logType, customMessage);
+            return customMessage;
         }
 
         /// <summary>
@@ -66,17 +67,18 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customType">The custom type to be displayed</param>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static void Log(PrettyLogType logType, string customType, string reason, string description)
+        public static string Log(PrettyLogType logType, string customType, string reason, string description)
         {
             CheckInitialization();
             string logMessage = GetFormattedMessage(customType, reason, description, GetStackInfo());
             LogGodotFormatted(logType, logMessage);
+            return logMessage;
         }
         /// <summary>
         /// Logs a formatted info message.
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static void Log(PrettyInfoType infoType, string reason, string description = "", bool includeStackInfo = false)
+        public static string Log(PrettyInfoType infoType, string reason, string description = "", bool includeStackInfo = false)
         {
             CheckInitialization();
             string logMessage;
@@ -88,26 +90,29 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
                 logMessage = GetFormattedMessage(infoType.ToString(), reason, description);
             }
             LogGodotFormatted(PrettyLogType.Info, logMessage);
+            return logMessage;
         }
         /// <summary>
         /// Logs a formatted warning message.
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static void Log(PrettyWarningType warningType, string reason, string description = "")
+        public static string Log(PrettyWarningType warningType, string reason, string description = "")
         {
             CheckInitialization();
             string logMessage = GetFormattedMessage(warningType.ToString(), reason, description, GetStackInfo());
             LogGodotFormatted(PrettyLogType.Warning, logMessage);
+            return logMessage;
         }
         /// <summary>
         /// Logs a formatted error message.
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static void Log(PrettyErrorType errorType, string reason, string description = "")
+        public static string Log(PrettyErrorType errorType, string reason, string description = "")
         {
             CheckInitialization();
             string logMessage = GetFormattedMessage(errorType.ToString(), reason, description, GetStackInfo());
             LogGodotFormatted(PrettyLogType.Error, logMessage);
+            return logMessage;
         }
 
         /// <summary>
@@ -116,7 +121,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="errorType"></param>
         /// <param name="reason"></param>
         /// <param name="description"></param>
-        public static void CriticalLog(PrettyErrorType errorType, string reason, string description = "", string exceptionMessage = "")
+        public static string CriticalLog(PrettyErrorType errorType, string reason, string description = "", string exceptionMessage = "")
         {
             string logMessage = GetFormattedMessage(errorType.ToString(), reason, description);
             if (exceptionMessage != "")
@@ -127,6 +132,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
             {
                 GD.PushError($"{logMessage} - Exception message: {exceptionMessage}");
             }
+            return logMessage;
         }
 
         /// <summary>
@@ -176,19 +182,19 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
                 case PrettyLogType.Error:
                     if (userSettings.MiscSettings.LoggingSettings.LogErrors)
                     {
-                        GD.PrintErr($"[ERROR]{message}");
+                        GD.PrintErr(message);
                     }
                     break;
                 case PrettyLogType.Warning:
                     if (userSettings.MiscSettings.LoggingSettings.LogWarnings)
                     {
-                        GD.Print($"[WARNING]{message}");
+                        GD.Print(message);
                     }
                     break;
                 case PrettyLogType.Info:
                     if (userSettings.MiscSettings.LoggingSettings.LogInfo)
                     {
-                        GD.Print($"[INFO]{message}");
+                        GD.Print(message);
                     }
                     break;
                 default: return;

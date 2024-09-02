@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 
 namespace SpaceMiner.src.code.components.commons.other.IO
 {
@@ -67,21 +68,21 @@ namespace SpaceMiner.src.code.components.commons.other.IO
             {
                 if (shouldLog)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found"));
-                    GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"{path}"));
+                    PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
+                    PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"{path}");
                 }
                 try
                 {
                     Directory.CreateDirectory(path);
                     if (shouldLog)
                     {
-                        GD.Print(new PrettyInfo(PrettyInfoType.Success, $"{path} created successfully."));
+                        PrettyLogger.Log(PrettyInfoType.Success, $"{path} created successfully.");
                     }
                     return true;
                 }
                 catch(Exception ex)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ex}", $"{path} Repair failed"));
+                    PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex}", $"{path} Repair failed");
                     return false;
                 }
             }

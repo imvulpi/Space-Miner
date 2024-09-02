@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using System;
@@ -19,7 +20,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
         private const int MAX_RETRY = 3;
         public void Check()
         {
-            GD.Print(new PrettyInfo(PrettyInfoType.Checking, $"{ExternalPaths.USER_SETTING}"));
+            PrettyLogger.Log(PrettyInfoType.Checking, $"{ExternalPaths.USER_SETTING}");
             UserSettings settings = new();
             SettingCoupler coupler = new();
             CheckFileExistance();
@@ -28,12 +29,12 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                 (bool loaded, Exception ex) = CheckSettingLoad(settings, coupler);
                 if (loaded)
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}"));
+                    PrettyLogger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
                     break;
                 }
                 else
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Retry, $"{ExternalPaths.USER_SETTING}", $"User Settings repair and load retry ({i+1}/{MAX_RETRY})"));
+                    PrettyLogger.Log(PrettyInfoType.Retry, $"{ExternalPaths.USER_SETTING}", $"User Settings repair and load retry ({i+1}/{MAX_RETRY})");
                     Thread.Sleep(100);
                     TryRepairSettingLoad(settings, coupler);
                 }
@@ -43,11 +44,11 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                     (loaded, ex) = CheckSettingLoad(settings, coupler);
                     if (loaded)
                     {
-                        GD.Print(new PrettyInfo(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}"));
+                        PrettyLogger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
                     }
                     else
                     {
-                        GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful"));
+                        PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful");
                     }
                 }
             }
@@ -57,15 +58,15 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
         {
             if (UserSettingPath != null && !File.Exists(UserSettingPath))
             {
-                GD.PushWarning(new PrettyWarning(PrettyWarningType.NotFound, $"{ExternalPaths.USER_SETTING}"));
+                PrettyLogger.Log(PrettyWarningType.NotFound, $"{ExternalPaths.USER_SETTING}");
                 try
                 {
                     File.Create(UserSettingPath).Close();
-                    GD.Print(new PrettyInfo(PrettyInfoType.Created, $"{ExternalPaths.USER_SETTING}", "Succesfully created"));
+                    PrettyLogger.Log(PrettyInfoType.Created, $"{ExternalPaths.USER_SETTING}", "Succesfully created");
                 }
                 catch (Exception ex)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}"));
+                    PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}");
                 }
             }
         }

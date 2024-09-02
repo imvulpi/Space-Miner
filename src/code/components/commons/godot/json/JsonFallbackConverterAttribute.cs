@@ -12,25 +12,10 @@ namespace JsonEnumTest
         public JsonFallbackConverterAttribute(Type converterType, object defaultValue)
         {
             value = defaultValue;
-            if(defaultValue is Type valueType && valueType.IsClass)
-            {
-                try
-                {
-                    object? classValue = Activator.CreateInstance(valueType);
-                    GD.Print(classValue);
-                    if(classValue != null)
-                    {
-                        value = (object)classValue;
-                    }
-                }catch(Exception ex)
-                {
-                    GD.Print($"{ex}");
-                }
-            }
             CreateConverter(converterType);
         }
 
-        public override JsonConverter? CreateConverter(Type typeToConvert)
+        public override JsonConverter CreateConverter(Type typeToConvert)
         {
             if(typeToConvert == null)
             {

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
@@ -69,7 +70,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, $"{saveName} Removal", "Could not remove the save, because it does not exist"));
+                PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{saveName} Removal", "Could not remove the save, because it does not exist");
             }
         }
 
@@ -82,7 +83,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
             if (!DirectoryHelper.ValidateDirectory(path, false))
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Critical, $"{path}", "Directory validation failed, can't continue with the game creation."));
+                PrettyLogger.Log(PrettyErrorType.Critical, $"{path}", "Directory validation failed, can't continue with the game creation.");
             }
 
             PackedScene gameScene = GetGameScene(settings);
@@ -104,8 +105,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                     }
                     catch (Exception ex)
                     {
-                        PrettyError fileIOError = new PrettyError(PrettyErrorType.OperationFailed, $"{ex.Message}");
-                        GD.PushError(fileIOError);
+                        PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex.Message}");
                         throw;
                     }
                 }
@@ -113,15 +113,14 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 {
                     // Godot error
                     Error fileAccessError = Godot.FileAccess.GetOpenError();
-                    PrettyError formattedIOError = new PrettyError(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
-                    GD.PushError(formattedIOError);
+                    string formattedIOError = PrettyLogger.Log(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
                     throw new Exception(formattedIOError.ToString());
                 }
                 return null;
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}"));
+                PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}");
                 return null;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -22,25 +23,25 @@ namespace JsonEnumTest
                     return enumValue;
                 }
 
-                GD.Print(new PrettyInfo(PrettyInfoType.RepairAttempt, $"JSON {enumString} value repair attempt"));
+                PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"JSON {enumString} value repair attempt");
                 T? repairedValue = TryFindValue(enumString);
                 if (repairedValue != null)
                 {
-                    GD.Print(new PrettyInfo(PrettyInfoType.Success, $"JSON Value Repair", $"Succesfully repaired JSON value {enumString} to {repairedValue}"));
+                    PrettyLogger.Log(PrettyInfoType.Success, $"JSON Value Repair", $"Succesfully repaired JSON value {enumString} to {repairedValue}");
                     return (T)repairedValue;
                 }
                 else
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.OperationFailed, "JSON Value Repair", $"Could not repair {enumString} JSON value."));
-                    GD.PushError(new PrettyError(PrettyErrorType.Invalid, $"Invalid value ({enumString})", $"Value ({enumString}) is invalid ({typeToConvert.Name})"));
-                    GD.Print(new PrettyInfo("Defaulted", $"{typeToConvert.Name}", "Value was defaulted"));
+                    PrettyLogger.Log(PrettyErrorType.OperationFailed, "JSON Value Repair", $"Could not repair {enumString} JSON value.");
+                    PrettyLogger.Log(PrettyErrorType.Invalid, $"Invalid value ({enumString})", $"Value ({enumString}) is invalid ({typeToConvert.Name})");
+                    PrettyLogger.Log(PrettyInfoType.Defaulted, $"{typeToConvert.Name}", "Value was defaulted");
                     return (T)DefaultValue;
                 }
             }
             else
             {
-                GD.PushError(new PrettyError(PrettyErrorType.Invalid, $"Invalid value", $"Invalid {typeToConvert.Name} value, should be a string."));
-                GD.Print(new PrettyInfo("Defaulted", $"{typeToConvert.Name}", "Value was defaulted"));
+                PrettyLogger.Log(PrettyErrorType.Invalid, $"Invalid value", $"Invalid {typeToConvert.Name} value, should be a string.");
+                PrettyLogger.Log(PrettyInfoType.Defaulted, $"{typeToConvert.Name}", "Value was defaulted");
                 return (T)DefaultValue;
             }
         }

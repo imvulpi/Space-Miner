@@ -1,5 +1,6 @@
 using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.processing.data.game.save;
 using SpaceMiner.src.code.components.processing.data.settings.game;
 using SpaceMiner.src.code.components.user.ui.components.boards;
@@ -85,7 +86,7 @@ public partial class GameLoaderMenuController : Control
 		}
 		else
 		{
-			GD.PushError(new PrettyError(PrettyErrorType.Invalid, "LoadConfirmationMenu", "Needs to be a SaveConfirmationDialog"));
+            PrettyLogger.Log(PrettyErrorType.Invalid, "LoadConfirmationMenu", "Needs to be a SaveConfirmationDialog");
 		}
     }
 
@@ -121,7 +122,7 @@ public partial class GameLoaderMenuController : Control
 		}
 		else
 		{
-            GD.PushError(new PrettyError(PrettyErrorType.Invalid, "DeleteConfirmationMenu", "Needs to be a SaveConfirmationDialog"));
+            PrettyLogger.Log(PrettyErrorType.Invalid, "DeleteConfirmationMenu", "Needs to be a SaveConfirmationDialog");
         }
     }
     private void RepositionNodes()
