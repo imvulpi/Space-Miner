@@ -151,6 +151,16 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         }
 
         /// <summary>
+        /// Formats log message in a specific way using log configs and other.
+        /// </summary>
+        public static string GetFormattedMessage(string parentType, string type, string reason, string description = "", string stackInfo = "")
+        {
+            return $"{(logConfig.includeDate == true ? $"[{GetCurrentDate()}]" : "")}" +
+                $"[{parentType}][{type}]<{reason}>: {description}" +
+                $"{(stackInfo != "" ? $"\n    at {stackInfo}" : "")}";
+        }
+
+        /// <summary>
         /// Checks whether the initialization was done and whether everything loaded correctly.<br></br>Will attempt to initialize when detects that it was not initialized
         /// </summary>
         private static void CheckInitialization()
@@ -161,15 +171,6 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
             }
         }
 
-        /// <summary>
-        /// Formats log message in a specific way using log configs and other.
-        /// </summary>
-        public static string GetFormattedMessage(string parentType, string type, string reason, string description = "", string stackInfo = "")
-        {
-            return $"{(logConfig.includeDate == true ? $"[{GetCurrentDate()}]" : "")}" +
-                $"[{parentType}][{type}]<{reason}>: {description}" +
-                $"{(stackInfo != "" ? $"\n    at {stackInfo}" : "")}";
-        }
         ///<summary>Gets formatted stack information</summary>
         /// <param name="methodDepth">How many methods boefore the current method (this one) should be displayed.<br></br>When used inside Log methods it will be 2.</param>
         /// <returns></returns>

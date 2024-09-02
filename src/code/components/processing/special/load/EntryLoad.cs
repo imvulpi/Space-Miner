@@ -8,6 +8,9 @@ public partial class EntryLoad : Node
     [Export] public PackedScene MainMenuScene { get; set; }
     public override void _Ready()
 	{
+        // Very early loading
+        PrettyLogger.Init();
+
         PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process started.");
 
         // Checking
