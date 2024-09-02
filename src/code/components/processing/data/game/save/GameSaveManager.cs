@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.game;
 using System;
@@ -29,14 +30,13 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 Error error = sceneTree.ChangeSceneToPacked(gameScene);
                 if (error != Error.Ok)
                 {
-                    GD.PushError(new PrettyError(PrettyErrorType.Critical, $"{error}", "Can not load the game"));
+                    PrettyLogger.Log(PrettyErrorType.Critical, $"{error}", "Can not load the game");
                     throw new Exception();
                 }
             }
             else
             {
-                string errorMessage = new PrettyError(PrettyErrorType.NotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
-                GD.PushError(errorMessage);
+                string errorMessage = PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!");
                 throw new Exception(errorMessage);
             }
         }
@@ -55,15 +55,13 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 }
                 else
                 {
-                    string errorMessage = new PrettyError(PrettyErrorType.Failed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed").ToString();
-                    GD.PushError(errorMessage);
+                    string errorMessage = PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed");
                     throw new Exception(errorMessage);
                 }
             }
             else
             {
-                string errorMessage = new PrettyError(PrettyErrorType.NotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
-                GD.PushError(errorMessage);
+                string errorMessage = PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
                 throw new Exception(errorMessage);
             }
         }

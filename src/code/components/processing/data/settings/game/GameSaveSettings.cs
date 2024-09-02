@@ -14,9 +14,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game
     public class GameSaveSettings : ISetting, IGameSettingModify, IGameSettingReceive
     {
         public string SaveName { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<WorldType>), WorldType.Prebuild)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<WorldType>), WorldType.Prebuild)]
         public WorldType WorldType { get; set; }
-        [FallbackJsonConverter(typeof(DefaultEnumConverter<GameDifficulty>), GameDifficulty.Easy)]
+        [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<GameDifficulty>), GameDifficulty.Easy)]
         public GameDifficulty GameDifficulty { get; set; }
         public DateTime LastPlayed { get; set; }
         [JsonIgnore] public string Path { get; set; }

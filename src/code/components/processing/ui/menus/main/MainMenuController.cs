@@ -1,5 +1,6 @@
 using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.game.save;
 using SpaceMiner.src.code.components.processing.data.settings.game;
@@ -71,7 +72,7 @@ public partial class MainMenuController : Control, IMenuContainer
         }
         else
         {
-            GD.Print(new PrettyInfo(PrettyInfoType.Broadcast, "LatestSave", "No latest save found."));
+            PrettyLogger.Log(PrettyInfoType.GeneralInfo, "LatestSave", "No latest save found.");
         }
     }
 

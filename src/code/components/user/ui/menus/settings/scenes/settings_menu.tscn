@@ -1,43 +1,49 @@
-[gd_scene load_steps=10 format=3 uid="uid://qm5y16bjnlgm"]
+[gd_scene load_steps=11 format=3 uid="uid://qm5y16bjnlgm"]
 
 [ext_resource type="Script" path="res://src/code/components/processing/data/settings/user/controllers/UserSettingControllerNode.cs" id="1_47vvp"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_dnnro"]
 [ext_resource type="Texture2D" uid="uid://cxjgivi4saey7" path="res://src/resources/graphics/ui/icons/arrow_down/white/arrow_down_16x10.png" id="3_kake4"]
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/dropdowns/BasicDropdown.cs" id="3_pfemk"]
+[ext_resource type="PackedScene" uid="uid://ds4oe8nnkyxo0" path="res://src/code/components/user/ui/menus/settings/scenes/error_logging_setting_menu.tscn" id="7_3jwpk"]
 [ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://src/resources/graphics/ui/fonts/prstart.ttf" id="7_4fjg4"]
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="8_cgm0r"]
 [ext_resource type="StyleBox" uid="uid://dmcnu18oj5no5" path="res://src/resources/themes/panels/panel_style_1.tres" id="8_ordiy"]
-[ext_resource type="StyleBox" path="res://src/resources/themes/grabbers/grabber_style.tres" id="9_sy7mf"]
+[ext_resource type="StyleBox" uid="uid://gkl5q6v5c5s7" path="res://src/resources/themes/grabbers/grabber_style.tres" id="9_sy7mf"]
 [ext_resource type="PackedScene" uid="uid://cv1b67txf12dh" path="res://src/code/components/user/ui/menus/settings/scenes/save_settings_menu.tscn" id="16_uy8m5"]
 
-[node name="SettingsMenu" type="Node2D" node_paths=PackedStringArray("WindowModeButton", "WindowModeList", "AspectTypeButton", "AspectTypeList", "ResolutionButton", "GraphicsQualityButton", "GraphicsQualityList", "VsyncButton", "VsyncList", "MasterVolumeSlider", "MasterVolumeLabel", "MusicVolumeSlider", "MusicVolumeLabel", "SoundsEffectsVolumeSlider", "SoundsEffectsVolumeLabel", "ErrorLoggingCheck", "BackButton", "SaveSettingMenu", "ApplyButton", "CancelButton", "CloseButton")]
-script = ExtResource("1_47vvp")
-WindowModeButton = NodePath("CanvasLayer/Interactive/Graphics/WindowMode/WindowModesShowMenu")
-WindowModeList = NodePath("CanvasLayer/Interactive/Graphics/ScreenModeList")
-AspectTypeButton = NodePath("CanvasLayer/Interactive/Graphics/AspectType/AspectRatioShowMenu")
-AspectTypeList = NodePath("CanvasLayer/Interactive/Graphics/AspectRatioList")
-ResolutionButton = NodePath("CanvasLayer/Interactive/Graphics/Resolution/ResolutionShowMenu")
-GraphicsQualityButton = NodePath("CanvasLayer/Interactive/Graphics/GraphicsQuality/GraphicsQualityShowMenu")
-GraphicsQualityList = NodePath("CanvasLayer/Interactive/Graphics/GraphicsQualityList")
-VsyncButton = NodePath("CanvasLayer/Interactive/Graphics/VSync/VSyncShowMenu")
-VsyncList = NodePath("CanvasLayer/Interactive/Graphics/VSyncList")
-MasterVolumeSlider = NodePath("CanvasLayer/Interactive/Audio/MasterAudio/HSlider")
-MasterVolumeLabel = NodePath("CanvasLayer/Interactive/Audio/MasterAudio/Label")
-MusicVolumeSlider = NodePath("CanvasLayer/Interactive/Audio/MusicAudio/HSlider")
-MusicVolumeLabel = NodePath("CanvasLayer/Interactive/Audio/MusicAudio/Label")
-SoundsEffectsVolumeSlider = NodePath("CanvasLayer/Interactive/Audio/SoundEffectsAudio/HSlider")
-SoundsEffectsVolumeLabel = NodePath("CanvasLayer/Interactive/Audio/SoundEffectsAudio/Label")
-ErrorLoggingCheck = NodePath("CanvasLayer/Interactive/Other/ErrorLogging/CheckBox")
-BackButton = NodePath("CanvasLayer/BackButton")
-SaveSettingMenu = NodePath("CanvasLayer/SaveSettingsMenu")
-ApplyButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/Buttons/SaveButton")
-CancelButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/Board/Buttons/CancelButton")
-CloseButton = NodePath("CanvasLayer/SaveSettingsMenu/Control/CloseWrapper/CloseButton")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("WindowModeButton", "WindowModeList", "AspectTypeButton", "AspectTypeList", "ResolutionButton", "GraphicsQualityButton", "GraphicsQualityList", "VsyncButton", "VsyncList", "MasterVolumeSlider", "MasterVolumeLabel", "MusicVolumeSlider", "MusicVolumeLabel", "SoundsEffectsVolumeSlider", "SoundsEffectsVolumeLabel", "ErrorLoggingButton", "BackButton", "SaveSettingMenu", "ApplyButton", "CancelButton", "CloseButton")]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_47vvp")
+WindowModeButton = NodePath("Interactive/Graphics/WindowMode/WindowModesShowMenu")
+WindowModeList = NodePath("Interactive/Graphics/ScreenModeList")
+AspectTypeButton = NodePath("Interactive/Graphics/AspectType/AspectRatioShowMenu")
+AspectTypeList = NodePath("Interactive/Graphics/AspectRatioList")
+ResolutionButton = NodePath("Interactive/Graphics/Resolution/ResolutionShowMenu")
+GraphicsQualityButton = NodePath("Interactive/Graphics/GraphicsQuality/GraphicsQualityShowMenu")
+GraphicsQualityList = NodePath("Interactive/Graphics/GraphicsQualityList")
+VsyncButton = NodePath("Interactive/Graphics/VSync/VSyncShowMenu")
+VsyncList = NodePath("Interactive/Graphics/VSyncList")
+MasterVolumeSlider = NodePath("Interactive/Audio/MasterAudio/HSlider")
+MasterVolumeLabel = NodePath("Interactive/Audio/MasterAudio/Label")
+MusicVolumeSlider = NodePath("Interactive/Audio/MusicAudio/HSlider")
+MusicVolumeLabel = NodePath("Interactive/Audio/MusicAudio/Label")
+SoundsEffectsVolumeSlider = NodePath("Interactive/Audio/SoundEffectsAudio/HSlider")
+SoundsEffectsVolumeLabel = NodePath("Interactive/Audio/SoundEffectsAudio/Label")
+ErrorLoggingButton = NodePath("Interactive/Other/ErrorLogging/ErrorLoggingButton")
+ErrorLoggingMenu = ExtResource("7_3jwpk")
+BackButton = NodePath("BackButton")
+SaveSettingMenu = NodePath("SaveSettingsMenu")
+ApplyButton = NodePath("SaveSettingsMenu/Control/Board/Buttons/SaveButton")
+CancelButton = NodePath("SaveSettingsMenu/Control/Board/Buttons/CancelButton")
+CloseButton = NodePath("SaveSettingsMenu/Control/CloseWrapper/CloseButton")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,9 +51,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+[node name="ColorRect" type="ColorRect" parent="Control"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -58,16 +63,15 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.870588)
 metadata/_edit_use_anchors_ = true
 
-[node name="Interactive" type="Control" parent="CanvasLayer"]
-layout_mode = 3
+[node name="Interactive" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 968.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="Graphics" type="Control" parent="CanvasLayer/Interactive"]
+[node name="Graphics" type="Control" parent="Interactive"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -77,7 +81,7 @@ offset_right = 480.0
 offset_bottom = 513.0
 grow_horizontal = 2
 
-[node name="GraphicsLabel" type="Label" parent="CanvasLayer/Interactive/Graphics"]
+[node name="GraphicsLabel" type="Label" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -93,7 +97,7 @@ text = "Graphics
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="WindowMode" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="WindowMode" type="Control" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -104,7 +108,7 @@ offset_right = 250.0
 offset_bottom = 140.0
 grow_horizontal = 2
 
-[node name="WindowModeLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/WindowMode"]
+[node name="WindowModeLabel" type="Label" parent="Interactive/Graphics/WindowMode"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -120,7 +124,7 @@ text = "Screen Mode
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="WindowModesShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/WindowMode" node_paths=PackedStringArray("List")]
+[node name="WindowModesShowMenu" type="Button" parent="Interactive/Graphics/WindowMode" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -140,7 +144,7 @@ icon_alignment = 2
 script = ExtResource("3_pfemk")
 List = NodePath("../../ScreenModeList")
 
-[node name="AspectType" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="AspectType" type="Control" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -152,7 +156,7 @@ offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AspectRatioLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/AspectType"]
+[node name="AspectRatioLabel" type="Label" parent="Interactive/Graphics/AspectType"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -168,7 +172,7 @@ text = "Aspect Type
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="AspectRatioShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/AspectType" node_paths=PackedStringArray("List")]
+[node name="AspectRatioShowMenu" type="Button" parent="Interactive/Graphics/AspectType" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -188,7 +192,7 @@ icon_alignment = 2
 script = ExtResource("3_pfemk")
 List = NodePath("../../AspectRatioList")
 
-[node name="Resolution" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="Resolution" type="Control" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -199,7 +203,7 @@ offset_right = 250.0
 offset_bottom = 280.0
 grow_horizontal = 2
 
-[node name="ResolutionLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/Resolution"]
+[node name="ResolutionLabel" type="Label" parent="Interactive/Graphics/Resolution"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -214,7 +218,7 @@ text = "Resolution"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ResolutionShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/Resolution" node_paths=PackedStringArray("List")]
+[node name="ResolutionShowMenu" type="Button" parent="Interactive/Graphics/Resolution" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -234,7 +238,7 @@ icon_alignment = 2
 script = ExtResource("3_pfemk")
 List = NodePath("../../ResolutionList")
 
-[node name="GraphicsQuality" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="GraphicsQuality" type="Control" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -245,7 +249,7 @@ offset_right = 250.0
 offset_bottom = 350.0
 grow_horizontal = 2
 
-[node name="GraphicsQualityLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/GraphicsQuality"]
+[node name="GraphicsQualityLabel" type="Label" parent="Interactive/Graphics/GraphicsQuality"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -261,7 +265,7 @@ text = "Graphics Quality
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="GraphicsQualityShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/GraphicsQuality" node_paths=PackedStringArray("List")]
+[node name="GraphicsQualityShowMenu" type="Button" parent="Interactive/Graphics/GraphicsQuality" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -281,7 +285,7 @@ icon_alignment = 2
 script = ExtResource("3_pfemk")
 List = NodePath("../../GraphicsQualityList")
 
-[node name="VSync" type="Control" parent="CanvasLayer/Interactive/Graphics"]
+[node name="VSync" type="Control" parent="Interactive/Graphics"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -292,7 +296,7 @@ offset_right = 250.0
 offset_bottom = 420.0
 grow_horizontal = 2
 
-[node name="VSyncLabel" type="Label" parent="CanvasLayer/Interactive/Graphics/VSync"]
+[node name="VSyncLabel" type="Label" parent="Interactive/Graphics/VSync"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -306,7 +310,7 @@ theme_override_font_sizes/font_size = 16
 text = "V-Sync"
 vertical_alignment = 2
 
-[node name="VSyncShowMenu" type="Button" parent="CanvasLayer/Interactive/Graphics/VSync" node_paths=PackedStringArray("List")]
+[node name="VSyncShowMenu" type="Button" parent="Interactive/Graphics/VSync" node_paths=PackedStringArray("List")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -326,7 +330,7 @@ icon_alignment = 2
 script = ExtResource("3_pfemk")
 List = NodePath("../../VSyncList")
 
-[node name="ScreenModeList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
+[node name="ScreenModeList" type="ItemList" parent="Interactive/Graphics"]
 visible = false
 z_index = 213
 layout_mode = 1
@@ -340,8 +344,8 @@ offset_bottom = 235.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
+theme_override_styles/panel = ExtResource("8_ordiy")
 item_count = 5
 item_0/text = "Windowed"
 item_1/text = "Minimized"
@@ -349,7 +353,7 @@ item_2/text = "Maximized"
 item_3/text = "Fullscreen"
 item_4/text = "Exclusive Full"
 
-[node name="AspectRatioList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
+[node name="AspectRatioList" type="ItemList" parent="Interactive/Graphics"]
 visible = false
 z_index = 213
 layout_mode = 1
@@ -363,8 +367,8 @@ offset_bottom = 309.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
+theme_override_styles/panel = ExtResource("8_ordiy")
 item_count = 5
 fixed_column_width = 1
 item_0/text = "Ignore"
@@ -373,7 +377,7 @@ item_2/text = "Keep width"
 item_3/text = "Keep height"
 item_4/text = "Expand"
 
-[node name="ResolutionList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
+[node name="ResolutionList" type="ItemList" parent="Interactive/Graphics"]
 visible = false
 z_index = 213
 z_as_relative = false
@@ -388,13 +392,13 @@ offset_bottom = 394.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
+theme_override_styles/panel = ExtResource("8_ordiy")
 item_count = 1
 fixed_column_width = 1
 item_0/text = "Dynamic"
 
-[node name="GraphicsQualityList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
+[node name="GraphicsQualityList" type="ItemList" parent="Interactive/Graphics"]
 visible = false
 z_index = 213
 layout_mode = 1
@@ -408,15 +412,15 @@ offset_bottom = 450.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
+theme_override_styles/panel = ExtResource("8_ordiy")
 item_count = 3
 fixed_column_width = 1
 item_0/text = "high"
 item_1/text = "medium"
 item_2/text = "low"
 
-[node name="VSyncList" type="ItemList" parent="CanvasLayer/Interactive/Graphics"]
+[node name="VSyncList" type="ItemList" parent="Interactive/Graphics"]
 visible = false
 z_index = 213
 layout_mode = 1
@@ -430,8 +434,8 @@ offset_bottom = 503.0
 theme_override_constants/v_separation = 8
 theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/panel = ExtResource("8_ordiy")
 theme_override_styles/focus = ExtResource("8_ordiy")
+theme_override_styles/panel = ExtResource("8_ordiy")
 item_count = 4
 fixed_column_width = 1
 item_0/text = "Disabled"
@@ -439,7 +443,7 @@ item_1/text = "Enabled"
 item_2/text = "Adaptive"
 item_3/text = "Mailbox"
 
-[node name="Audio" type="Control" parent="CanvasLayer/Interactive"]
+[node name="Audio" type="Control" parent="Interactive"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -450,7 +454,7 @@ offset_right = 482.0
 offset_bottom = 768.0
 grow_horizontal = 2
 
-[node name="AudioLabel" type="Label" parent="CanvasLayer/Interactive/Audio"]
+[node name="AudioLabel" type="Label" parent="Interactive/Audio"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -467,7 +471,7 @@ text = "Audio
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="MasterAudio" type="Control" parent="CanvasLayer/Interactive/Audio"]
+[node name="MasterAudio" type="Control" parent="Interactive/Audio"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -478,7 +482,7 @@ offset_right = 325.0
 offset_bottom = 140.0
 grow_horizontal = 2
 
-[node name="MasterAudioLabel" type="Label" parent="CanvasLayer/Interactive/Audio/MasterAudio"]
+[node name="MasterAudioLabel" type="Label" parent="Interactive/Audio/MasterAudio"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -494,7 +498,7 @@ text = "Master Volume
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/Interactive/Audio/MasterAudio"]
+[node name="HSlider" type="HSlider" parent="Interactive/Audio/MasterAudio"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -509,7 +513,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_dnnro")
 
-[node name="Label" type="Label" parent="CanvasLayer/Interactive/Audio/MasterAudio"]
+[node name="Label" type="Label" parent="Interactive/Audio/MasterAudio"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.952
@@ -526,7 +530,7 @@ theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 8
 text = "-"
 
-[node name="MusicAudio" type="Control" parent="CanvasLayer/Interactive/Audio"]
+[node name="MusicAudio" type="Control" parent="Interactive/Audio"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -538,7 +542,7 @@ offset_bottom = 210.0
 grow_horizontal = 2
 theme = ExtResource("1_dnnro")
 
-[node name="MusicAudioLabel" type="Label" parent="CanvasLayer/Interactive/Audio/MusicAudio"]
+[node name="MusicAudioLabel" type="Label" parent="Interactive/Audio/MusicAudio"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -552,7 +556,7 @@ theme_override_font_sizes/font_size = 16
 text = "Music"
 vertical_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/Interactive/Audio/MusicAudio"]
+[node name="HSlider" type="HSlider" parent="Interactive/Audio/MusicAudio"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -566,7 +570,7 @@ offset_bottom = 8.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Interactive/Audio/MusicAudio"]
+[node name="Label" type="Label" parent="Interactive/Audio/MusicAudio"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.952
@@ -583,7 +587,7 @@ theme_override_fonts/font = ExtResource("7_4fjg4")
 theme_override_font_sizes/font_size = 8
 text = "-"
 
-[node name="SoundEffectsAudio" type="Control" parent="CanvasLayer/Interactive/Audio"]
+[node name="SoundEffectsAudio" type="Control" parent="Interactive/Audio"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -594,7 +598,7 @@ offset_right = 325.0
 offset_bottom = 280.0
 grow_horizontal = 2
 
-[node name="SoundEffectsAudioLabel" type="Label" parent="CanvasLayer/Interactive/Audio/SoundEffectsAudio"]
+[node name="SoundEffectsAudioLabel" type="Label" parent="Interactive/Audio/SoundEffectsAudio"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -609,7 +613,7 @@ text = "Sound Effects
 "
 vertical_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer/Interactive/Audio/SoundEffectsAudio"]
+[node name="HSlider" type="HSlider" parent="Interactive/Audio/SoundEffectsAudio"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -624,7 +628,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_dnnro")
 
-[node name="Label" type="Label" parent="CanvasLayer/Interactive/Audio/SoundEffectsAudio"]
+[node name="Label" type="Label" parent="Interactive/Audio/SoundEffectsAudio"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.952
@@ -642,7 +646,7 @@ theme_override_font_sizes/font_size = 8
 text = "-
 "
 
-[node name="Other" type="Control" parent="CanvasLayer/Interactive"]
+[node name="Other" type="Control" parent="Interactive"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -653,7 +657,7 @@ offset_right = 482.0
 offset_bottom = 949.0
 grow_horizontal = 2
 
-[node name="OtherLabel" type="Label" parent="CanvasLayer/Interactive/Other"]
+[node name="OtherLabel" type="Label" parent="Interactive/Other"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -670,7 +674,7 @@ text = "Misc
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="ErrorLogging" type="Control" parent="CanvasLayer/Interactive/Other"]
+[node name="ErrorLogging" type="Control" parent="Interactive/Other"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -681,7 +685,7 @@ offset_right = 250.0
 offset_bottom = 174.0
 grow_horizontal = 2
 
-[node name="ErrorLoggingLabel" type="Label" parent="CanvasLayer/Interactive/Other/ErrorLogging"]
+[node name="ErrorLoggingLabel" type="Label" parent="Interactive/Other/ErrorLogging"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -696,21 +700,23 @@ text = "Error Logging
 "
 vertical_alignment = 2
 
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/Interactive/Other/ErrorLogging"]
+[node name="ErrorLoggingButton" type="Button" parent="Interactive/Other/ErrorLogging"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -12.0
-offset_bottom = 12.0
+offset_left = -64.0
+offset_top = -16.0
+offset_right = 30.0
+offset_bottom = 24.0
 grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("1_dnnro")
+text = "CHECK"
 
-[node name="VScrollBar" type="VScrollBar" parent="CanvasLayer/Interactive" node_paths=PackedStringArray("scrollableNode")]
+[node name="VScrollBar" type="VScrollBar" parent="Interactive" node_paths=PackedStringArray("scrollableNode")]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -731,11 +737,13 @@ script = ExtResource("8_cgm0r")
 scrollableNode = NodePath("..")
 speed = 16.0
 
-[node name="SaveSettingsMenu" parent="CanvasLayer" instance=ExtResource("16_uy8m5")]
+[node name="SaveSettingsMenu" parent="." instance=ExtResource("16_uy8m5")]
 visible = false
 z_index = 1
+layout_mode = 1
 
-[node name="BackButton" type="Button" parent="CanvasLayer"]
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.01
 anchor_top = 0.019
@@ -743,11 +751,11 @@ anchor_right = 0.105
 anchor_bottom = 0.094
 offset_left = 3.4
 offset_top = 0.74
-offset_right = 0.199997
-offset_bottom = 0.239998
+offset_right = 0.200005
+offset_bottom = 0.240002
 theme = ExtResource("1_dnnro")
 theme_override_font_sizes/font_size = 16
 text = "BACK
 "
 
-[editable path="CanvasLayer/SaveSettingsMenu"]
+[editable path="SaveSettingsMenu"]

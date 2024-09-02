@@ -6,6 +6,7 @@ using SpaceMiner.src.code.components.commons.godot.project_settings.display.wind
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
+using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 using System;
 using System.IO;
@@ -13,7 +14,7 @@ using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.controllers
 {
-    public partial class UserSettingControllerNode : Node2D, IUserSettingController, IMenuContainer
+    public partial class UserSettingControllerNode : Control, IUserSettingController, IMenuContainer
     {
         public UserSettings Setting { get; set; }
         public SettingCoupler SettingCoupler { get; set; }
@@ -36,7 +37,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         [Export] public HSlider SoundsEffectsVolumeSlider { get; set; }
         [Export] public Label SoundsEffectsVolumeLabel { get; set; }
         [ExportSubgroup("Misc")]
-        [Export] public CheckBox ErrorLoggingCheck { get; set; }
+        [Export] public Button ErrorLoggingButton { get; set; }
+        [Export] public PackedScene ErrorLoggingMenu { get; set; }
+        public ErrorLoggingSettingsMenu LoggingSettings { get; set; }
         [ExportGroup("Controller")]
         [Export] public Button BackButton { get; set; }
         [ExportSubgroup("Confirm Menu")]
@@ -61,7 +64,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             MasterVolumeSlider.ValueChanged += MasterVolumeSlider_ValueChanged;
             MusicVolumeSlider.ValueChanged += MusicVolumeSlider_ValueChanged;
             SoundsEffectsVolumeSlider.ValueChanged += SoundsEffectsVolumeSlider_ValueChanged;
-            ErrorLoggingCheck.Pressed += ErrorLoggingCheck_Pressed;
+            ErrorLoggingButton.Pressed += ErrorLoggingButton_Pressed;
 
             WindowModeButton.Text = Setting.GraphicsSettings.WindowMode.ToString();
             AspectTypeButton.Text = Setting.GraphicsSettings.AspectType.ToString();
@@ -72,7 +75,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             MusicVolumeSlider.Value = Setting.AudioSettings.MusicVolume;
             SoundsEffectsVolumeSlider.Value = Setting.AudioSettings.SoundEffectsVolume;
 
-            ErrorLoggingCheck.ButtonPressed = Setting.MiscSettings.ErrorLogging;
+            //ErrorLoggingCheck.ButtonPressed = Setting.MiscSettings.ErrorLogging;
             
             // Back button actions:
             BackButton.Pressed += BackButton_Pressed;
@@ -80,20 +83,11 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             CancelButton.Pressed += CancelButton_Pressed;
             CloseButton.Pressed += CloseButton_Pressed;
 
-            Menu.EscActionDelegate = SettingEscPressed;
-        }
-
-        public override void _Process(double delta)
-        {
-            if (Input.IsActionJustPressed("Esc"))
+            Menu.EscActionDelegate = (IMenuManager _manager) =>
             {
                 SaveSettingMenu.Visible = !SaveSettingMenu.Visible;
-            }
-        }
-
-        private bool SettingEscPressed(IMenuManager manager)
-        {
-            return true;
+                return true;
+            };
         }
 
         private void VsyncList_ItemSelected(long index)
@@ -141,9 +135,43 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             }
         }
 
-        private void ErrorLoggingCheck_Pressed()
+        private void ErrorLoggingButton_Pressed()
         {
-            Setting.MiscSettings.ErrorLogging = ErrorLoggingCheck.ToggleMode;
+            DefaultMenu menu = new()
+            {
+                MenuNode = ErrorLoggingMenu.Instantiate(),
+                ConnectToNode = GetTree().Root
+            };
+            if(menu.MenuNode is ErrorLoggingSettingsMenu loggingSettings)
+            {
+                LoggingSettings = loggingSettings;
+                if(Setting.MiscSettings.LoggingSettings != null)
+                {
+                    LoggingSettings.ErrorLogging.ButtonPressed = Setting.MiscSettings.LoggingSettings.LogErrors;
+                    LoggingSettings.WarningLogging.ButtonPressed = Setting.MiscSettings.LoggingSettings.LogWarnings;
+                    LoggingSettings.InfoLogging.ButtonPressed = Setting.MiscSettings.LoggingSettings.LogInfo;
+                }
+                LoggingSettings.ErrorLogging.Pressed += ErrorLogging_Pressed;
+                LoggingSettings.WarningLogging.Pressed += WarningLogging_Pressed;
+                LoggingSettings.InfoLogging.Pressed += InfoLogging_Pressed;
+            }
+            MenuManager.RegisterMenu(menu);
+            menu.Open();    
+        }
+
+        private void InfoLogging_Pressed()
+        {
+            Setting.MiscSettings.LoggingSettings.LogInfo = LoggingSettings.InfoLogging.ButtonPressed;
+        }
+
+        private void WarningLogging_Pressed()
+        {
+            Setting.MiscSettings.LoggingSettings.LogWarnings = LoggingSettings.WarningLogging.ButtonPressed;
+        }
+
+        private void ErrorLogging_Pressed()
+        {
+            Setting.MiscSettings.LoggingSettings.LogErrors = LoggingSettings.ErrorLogging.ButtonPressed;
         }
 
         private void SoundsEffectsVolumeSlider_ValueChanged(double value)
