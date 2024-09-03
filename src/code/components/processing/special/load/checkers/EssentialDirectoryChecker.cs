@@ -22,6 +22,12 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
             CheckDirectory(savesDirectory);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
+        /// <exception cref="GameException"></exception>
         public bool CheckDirectory(string directoryPath)
         {
             PrettyLogger.Log(PrettyInfoType.Checking, $"{directoryPath}");

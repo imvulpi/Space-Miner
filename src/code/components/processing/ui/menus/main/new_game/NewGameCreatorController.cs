@@ -46,7 +46,7 @@ public partial class NewGameCreatorController : Control, IMenuContainer
                     gameSaveManager.Load(GetTree());
                     Menu.Close();
                 }catch(Exception ex) {
-                    GameExceptionHandler.HandleException(ex);
+                    ExceptionHandler.HandleException(ex);
                 }
             }
         }
