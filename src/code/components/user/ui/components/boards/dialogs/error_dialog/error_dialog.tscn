@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqeh4bpu0bbid"]
+
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialogs/error_dialog/ErrorDialog.cs" id="1_27ek4"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_uc07c"]
+
+[node name="ErrorDialog" type="CanvasLayer" node_paths=PackedStringArray("ErrorTypeLabel", "ErrorMessageLabel", "OkButton")]
+layer = 2
+script = ExtResource("1_27ek4")
+ErrorTypeLabel = NodePath("Control/ErrorType")
+ErrorMessageLabel = NodePath("Control/ErrorMessage")
+OkButton = NodePath("Control/OK")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.5
+offset_top = -112.5
+offset_right = 185.5
+offset_bottom = 112.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ErrorType" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.5
+offset_right = 132.5
+offset_bottom = 26.0
+grow_horizontal = 2
+theme = ExtResource("2_uc07c")
+theme_override_font_sizes/font_size = 24
+text = "ERROR TYPE!"
+
+[node name="ErrorMessage" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.169
+anchor_right = 1.0
+anchor_bottom = 0.76
+offset_top = -0.0250015
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_uc07c")
+theme_override_font_sizes/mono_font_size = 16
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center]Error message:[center]"
+
+[node name="OK" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -50.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_uc07c")
+text = "OK"

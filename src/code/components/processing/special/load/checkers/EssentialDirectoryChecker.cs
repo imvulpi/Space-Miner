@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
@@ -39,8 +40,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                     }
                     catch (Exception ex)
                     {
-                        PrettyLogger.Log(PrettyErrorType.GeneralError, $"{ex.Message}");
-                        return false;
+                        throw new GameException(PrettyErrorType.OperationFailed, $"Directory Creation", $"Creating directory at: {currentPath} failed due to an exception: {ex.Message}", ex);
                     }
                 }
             }

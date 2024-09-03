@@ -1,8 +1,8 @@
 ﻿using Godot;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.processing.data.settings.user.couplers;
 using System;
 using System.Diagnostics;
-using static Godot.VisualShader;
 
 namespace SpaceMiner.src.code.components.commons.errors.logging
 {
@@ -70,13 +70,37 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customType">The custom type to be displayed</param>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyLogType logType, string customType, string reason, string description = null)
+        public static string Log(PrettyLogType logType, string customType, string reason, string description = null, bool includeStackInfo = true)
         {
             CheckInitialization();
-
-            string logMessage = GetFormattedMessage("INFO", customType, reason, description, GetStackInfo());
-            LogGodotFormatted(logType, logMessage);
-            return logMessage;
+            switch (logType)
+            {
+                case PrettyLogType.Error:
+                    if (userSettings.MiscSettings.LoggingSettings.LogErrors)
+                    {
+                        string logMessage = GetFormattedMessage("ERROR", customType, reason, description, $"{(includeStackInfo == true ? GetStackInfo() : "")}");
+                        LogGodotFormatted(logType, logMessage);
+                        return logMessage;
+                    }
+                    return "";
+                case PrettyLogType.Warning:
+                    if (userSettings.MiscSettings.LoggingSettings.LogErrors)
+                    {
+                        string logMessage = GetFormattedMessage("WARNING", customType, reason, description, $"{(includeStackInfo == true ? GetStackInfo() : "")}");
+                        LogGodotFormatted(logType, logMessage);
+                        return logMessage;
+                    }
+                    return "";
+                case PrettyLogType.Info:
+                    if (userSettings.MiscSettings.LoggingSettings.LogErrors)
+                    {
+                        string logMessage = GetFormattedMessage("INFO", customType, reason, description, $"{(includeStackInfo == true ? GetStackInfo() : "")}");
+                        LogGodotFormatted(logType, logMessage);
+                        return logMessage;
+                    }
+                    return "";
+                default: throw new GameException();
+            }
         }
         /// <summary>
         /// Logs a formatted info message.<br></br>
@@ -85,19 +109,25 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
         public static string Log(PrettyInfoType infoType, string reason, string description = null, bool includeStackInfo = false)
         {
-            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(infoType) : description;
             CheckInitialization();
 
-            string logMessage;
-            if (includeStackInfo) {
-                logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description, GetStackInfo());
-            }
-            else
+            if (userSettings.MiscSettings.LoggingSettings.LogInfo)
             {
-                logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description);
+                description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(infoType) : description;
+
+                string logMessage;
+                if (includeStackInfo)
+                {
+                    logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description, GetStackInfo());
+                }
+                else
+                {
+                    logMessage = GetFormattedMessage("INFO", infoType.ToString(), reason, description);
+                }
+                LogGodotFormatted(PrettyLogType.Info, logMessage);
+                return logMessage;
             }
-            LogGodotFormatted(PrettyLogType.Info, logMessage);
-            return logMessage;
+            return "Info logging is disabled";
         }
         /// <summary>
         /// Logs a formatted warning message.<br></br>
@@ -106,12 +136,17 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
         public static string Log(PrettyWarningType warningType, string reason, string description = null)
         {
-            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(warningType) : description;
             CheckInitialization();
 
-            string logMessage = GetFormattedMessage("WARNING",warningType.ToString(), reason, description, GetStackInfo());
-            LogGodotFormatted(PrettyLogType.Warning, logMessage);
-            return logMessage;
+            if (userSettings.MiscSettings.LoggingSettings.LogWarnings)
+            {
+                description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(warningType) : description;
+
+                string logMessage = GetFormattedMessage("WARNING", warningType.ToString(), reason, description, GetStackInfo());
+                LogGodotFormatted(PrettyLogType.Warning, logMessage);
+                return logMessage;
+            }
+            return "Warning logging is disabled";
         }
         /// <summary>
         /// Logs a formatted error message.<br></br>
@@ -120,12 +155,17 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
         public static string Log(PrettyErrorType errorType, string reason, string description = null)
         {
-            description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(errorType) : description;
             CheckInitialization();
 
-            string logMessage = GetFormattedMessage("ERROR", errorType.ToString(), reason, description, GetStackInfo());
-            LogGodotFormatted(PrettyLogType.Error, logMessage);
-            return logMessage;
+            if (userSettings.MiscSettings.LoggingSettings.LogErrors)
+            {
+                description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(errorType) : description;
+
+                string logMessage = GetFormattedMessage("ERROR", errorType.ToString(), reason, description, GetStackInfo());
+                LogGodotFormatted(PrettyLogType.Error, logMessage);
+                return logMessage;
+            }
+            return "Error logging is disabled";
         }
 
         /// <summary>

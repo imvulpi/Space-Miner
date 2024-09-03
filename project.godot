@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GruInjectStart="*res://src/code/components/commons/godot/GruInject/API/Start/GruInjectStart.cs"
+ExceptionsController="*res://src/code/components/processing/special/exceptions/ExceptionsController.cs"
 
 [debug]
 

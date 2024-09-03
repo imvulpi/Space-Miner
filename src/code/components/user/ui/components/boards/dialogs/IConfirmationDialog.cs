@@ -9,7 +9,7 @@ namespace SpaceMiner.src.code.components.user.ui.components.boards
     public interface IConfirmationDialog
     {
         /// <summary>
-        /// Where:<br></br>true -> confirmed,<br></br>false -> canceled,
+        /// Where:<br></br>true -> confirmed (OK),<br></br>false -> canceled (CANCEL),
         /// </summary>
         public event Action<bool> Decision;
     }

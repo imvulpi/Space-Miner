@@ -15,5 +15,6 @@ namespace SpaceMiner.src.code.components.commons.other.paths.internal_paths
         /// Plain game
         /// </summary>
         public const string GAME_SCENE = "res://src/code/components/user/special/game.tscn";
+        public const string ERROR_DIALOG = "res://src/code/components/user/ui/components/boards/dialogs/error_dialog/error_dialog.tscn";
     }
 }

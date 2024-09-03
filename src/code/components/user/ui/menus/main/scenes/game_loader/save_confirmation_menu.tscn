@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://xnolu346tmvx"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/SaveConfirmationDialog.cs" id="1_i356g"]
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialogs/SaveConfirmationDialog.cs" id="1_i356g"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_yoy27"]
 
 [node name="ConfirmLoad" type="Control" node_paths=PackedStringArray("ConfirmButton", "CancelButton", "Label")]
