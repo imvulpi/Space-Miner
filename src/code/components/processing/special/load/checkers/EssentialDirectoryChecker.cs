@@ -5,21 +5,33 @@ using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace SpaceMiner.src.code.components.processing.special.load.checkers
 {
     public class EssentialDirectoryChecker
     {
         public EssentialDirectoryChecker() { }
-
+        private string UserPath = OS.GetUserDataDir();
+        private List<string> PathsToCheck;
         public void Check()
         {
             string userPath = OS.GetUserDataDir();
-            CheckDirectory(userPath);
 
-            string savesDirectory = Path.Combine(userPath, ExternalPaths.SAVES_DIR);
-            CheckDirectory(savesDirectory);
+            PathsToCheck = new List<string>()
+            {
+                userPath,
+                Path.Combine(userPath, ExternalPaths.SAVES_DIR),
+                Path.Combine(userPath, ExternalPaths.LOGS_DIR),
+                Path.Combine(userPath, ExternalPaths.LOGS_DIR, ExternalPaths.REPORTS_DIR),
+                Path.Combine(userPath, ExternalPaths.TEMP_DIR),
+            };
+            
+            foreach(string path in PathsToCheck) {
+                CheckDirectory(path);
+            }
         }
 
         /// <summary>

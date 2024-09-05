@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
+﻿namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
 {
     /// <summary>
     /// Godot external (user://) paths
@@ -12,5 +6,7 @@ namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
     public partial class ExternalPaths
     {
         public const string USER_SETTING = "user_settings.json";
+        public const string LOGS_DIR = "logs";
+        public const string TEMP_DIR = "temp";
     }
 }

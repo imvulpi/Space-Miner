@@ -2,6 +2,8 @@ using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.processing.special.load.checkers;
+using SpaceMiner.src.code.components.processing.special.load.other;
+using System.CodeDom;
 
 public partial class EntryLoad : Node
 {
@@ -10,16 +12,24 @@ public partial class EntryLoad : Node
 	{
         // Very early loading
         PrettyLogger.Init();
-
         PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process started.");
 
-        // Checking
+        TemporaryCleaner.ClearTemp();
+        Checking();
+        Loading();
+
+        PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process ended.");
+    }
+
+    private void Checking()
+    {
         new EssentialDirectoryChecker().Check();
         new UserSettingChecker().Check();
+    }
 
-        // Loading
+    private void Loading()
+    {
         CallDeferred("LoadMainMenu");
-        PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process ended.");
     }
 
     private void LoadMainMenu()

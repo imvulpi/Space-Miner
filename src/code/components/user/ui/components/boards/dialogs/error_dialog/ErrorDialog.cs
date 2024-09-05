@@ -1,24 +1,49 @@
 using Godot;
-using SpaceMiner.src.code.components.user.ui.components.boards;
+using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
 using System;
 
-public partial class ErrorDialog : CanvasLayer, IConfirmationDialog
+public partial class ErrorDialog : CanvasLayer
 {
+    public ErrorDialog() { }
+    public ErrorDialog(string errorMessage, string errorType, Exception exception) { 
+        ErrorMessage = errorMessage;
+        ErrorType = errorType;
+        Exception = exception;
+    }
 	[Export] private Label ErrorTypeLabel {  get; set; }
 	[Export] private RichTextLabel ErrorMessageLabel { get; set; }
 	[Export] private Button OkButton { get; set; }
-	public string ErrorMessage = "";
-	public string ErrorType = "";
-    public event Action<bool> Decision;
+	[Export] public Button Report { get; set; }
+
+	public string ErrorMessage = "No message included";
+	public string ErrorType = "No type included";
+    public Exception Exception = null;
     public override void _Ready()
 	{
 		ErrorTypeLabel.Text = ErrorType;
 		ErrorMessageLabel.Text = ErrorMessage;
+        Report.Pressed += ReportButton_Pressed;
         OkButton.Pressed += OkButton_Pressed;
 	}
 
     private void OkButton_Pressed()
     {
-		Decision.Invoke(true);
+        QueueFree();
+    }
+
+    private void ReportButton_Pressed()
+    {
+        try
+        {
+            ReportErrorDialog reportMenu = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_REPORT_DIALOG).Instantiate<ReportErrorDialog>();
+            AddChild(reportMenu);
+        }catch(Exception ex)
+        {
+            ErrorTypeLabel.Text = ex.GetType().ToString();
+            ErrorMessageLabel.Text = $"Opening report menu failed - {ex.Message} | Please report manually :/";
+            PrettyLogger.Log(PrettyErrorType.Critical, "ReportMenuFail", ErrorMessageLabel.Text);
+        }
     }
 }

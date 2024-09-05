@@ -19,10 +19,8 @@ public partial class SettingsMenuTest : Control
 			};
 
 			manager.RegisterMenu(menu);
-			GD.Print(menu.MenuNode.Name);
             if (menu.MenuNode is IMenuContainer container)
 			{
-				GD.Print("Is a container");
 				container.Menu = menu;
 				container.MenuManager = MenuManager;
 			}

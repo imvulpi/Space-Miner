@@ -30,6 +30,7 @@ file_logging/log_path="user://logs/logs.txt"
 
 window/size/viewport_width=960
 window/size/viewport_height=540
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

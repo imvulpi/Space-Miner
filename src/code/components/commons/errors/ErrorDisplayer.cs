@@ -13,11 +13,18 @@ namespace SpaceMiner.src.code.components.commons.errors
             ErrorHolder = tree.Root.GetNode<ErrorHolder>(ErrorHolder.ErrorHolderNodeName);
         }
 
-        public static void ShowErrorDialog(string message, string type)
+        /// <summary>
+        /// Shows an error dialog by creating it and appending to an exceptions holder (autoload)
+        /// </summary>
+        /// <param name="message">Message to appear in the error dialog</param>
+        /// <param name="type">Type to appear in the error dialog</param>
+        /// <returns>Created ErrorDialog</returns>
+        /// <exception cref="GameException"></exception>
+        public static ErrorDialog ShowErrorDialog(string message, string type)
         {
             if (ErrorHolder == null)
             {
-                throw new GameException(PrettyErrorType.Critical, "ErrorDialog", "Exceptions controller is not set");
+                throw new GameException(PrettyErrorType.Critical, "ErrorDialog", "Exceptions holder is not set");
             }
 
             Node node = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_DIALOG).Instantiate();
@@ -25,15 +32,13 @@ namespace SpaceMiner.src.code.components.commons.errors
             {
                 errorDialog.ErrorMessage = message;
                 errorDialog.ErrorType = type;
-                errorDialog.Decision += (bool obj) =>
-                {
-                    ErrorHolder.RemoveChild(errorDialog);
-                };
                 ErrorHolder.AddChild(errorDialog);
+                return errorDialog;
             }
             else
             {
                 PrettyLogger.Log(PrettyErrorType.Critical, "ErrorDialog", $"{InternalPaths.ERROR_DIALOG} Node needs to be a dialog");
+                return null;
             }
         }
     }

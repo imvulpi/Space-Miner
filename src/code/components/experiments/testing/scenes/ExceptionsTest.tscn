@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5814ylaybbk3"]
+
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/ExceptionsTest/ExceptionsTest.cs" id="1_1q3h1"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_g1b8b"]
+
+[node name="ExceptionsTest" type="Control" node_paths=PackedStringArray("ErrorButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1q3h1")
+ErrorButton = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -31.0
+offset_right = 68.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_g1b8b")
+text = "PRESS TO ERROR"
