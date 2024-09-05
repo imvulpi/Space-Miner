@@ -7,12 +7,20 @@ using System;
 public partial class ReportErrorDialog : Control
 {
 	[Export] public Button ReportButton { get; set; }
+    [Export] public Button CloseButton { get; set; }
     [Export] private RichTextLabel DiscordInvite { get; set; }
     public Exception Exception { get; set; }
     public override void _Ready()
 	{
         ReportButton.Pressed += ReportButton_Pressed;
+        CloseButton.Pressed += CloseButton_Pressed;
 	}
+
+    private void CloseButton_Pressed()
+    {
+        GetTree().Paused = false;
+        QueueFree();
+    }
 
     private void ReportButton_Pressed()
     {

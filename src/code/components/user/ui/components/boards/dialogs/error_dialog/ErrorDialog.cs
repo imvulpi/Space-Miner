@@ -12,7 +12,7 @@ public partial class ErrorDialog : CanvasLayer
         ErrorType = errorType;
         Exception = exception;
     }
-	[Export] private Label ErrorTypeLabel {  get; set; }
+	[Export] private RichTextLabel ErrorTypeLabel {  get; set; }
 	[Export] private RichTextLabel ErrorMessageLabel { get; set; }
 	[Export] private Button OkButton { get; set; }
 	[Export] public Button Report { get; set; }
@@ -21,22 +21,26 @@ public partial class ErrorDialog : CanvasLayer
 	public string ErrorType = "No type included";
     public Exception Exception = null;
     public override void _Ready()
-	{
-		ErrorTypeLabel.Text = ErrorType;
-		ErrorMessageLabel.Text = ErrorMessage;
+    {
+        GetTree().Paused = true;
+        ErrorTypeLabel.Text = $"[center]{ErrorType}[center]";
+		ErrorMessageLabel.Text = $"[center]{ErrorMessage}[center]";
         Report.Pressed += ReportButton_Pressed;
         OkButton.Pressed += OkButton_Pressed;
 	}
 
     private void OkButton_Pressed()
     {
-        QueueFree();
+        GetTree().Paused = false;
+        GD.Print("a");
+        GetParent().RemoveChild(this);
     }
 
     private void ReportButton_Pressed()
     {
         try
         {
+            GetTree().Paused = true;
             ReportErrorDialog reportMenu = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_REPORT_DIALOG).Instantiate<ReportErrorDialog>();
             AddChild(reportMenu);
         }catch(Exception ex)

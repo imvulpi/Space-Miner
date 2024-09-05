@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialogs/report_error_dialog/ReportErrorDialog.cs" id="1_lcor4"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_25hfp"]
 
-[node name="ReportErrorDialog" type="Control" node_paths=PackedStringArray("ReportButton", "DiscordInvite")]
+[node name="ReportErrorDialog" type="Control" node_paths=PackedStringArray("ReportButton", "CloseButton", "DiscordInvite")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lcor4")
 ReportButton = NodePath("Control/Report")
+CloseButton = NodePath("Control/Close")
 DiscordInvite = NodePath("Control/Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]

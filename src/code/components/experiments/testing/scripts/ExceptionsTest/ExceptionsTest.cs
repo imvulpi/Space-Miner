@@ -27,6 +27,18 @@ public partial class ExceptionsTest : Control
     }
 
     public override void _Process(double delta)
-	{
-	}
+    {
+        try
+        {
+            throw new Exception("Error test");
+            using (FileStream fs = File.Open("C:\\non_existent_file.txt", FileMode.Open))
+            {
+                // This line won't be executed
+            }
+        }
+        catch (Exception ex)
+        {
+            ExceptionHandler.HandleException(ex);
+        }
+    }
 }

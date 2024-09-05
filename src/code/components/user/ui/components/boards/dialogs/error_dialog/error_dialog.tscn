@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_uc07c"]
 
 [node name="ErrorDialog" type="CanvasLayer" node_paths=PackedStringArray("ErrorTypeLabel", "ErrorMessageLabel", "OkButton", "Report")]
+process_mode = 3
 layer = 2
 script = ExtResource("1_27ek4")
 ErrorTypeLabel = NodePath("Control/ErrorType")
@@ -33,19 +34,19 @@ offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ErrorType" type="Label" parent="Control"]
+[node name="ErrorType" type="RichTextLabel" parent="Control"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -131.5
-offset_right = 132.5
+offset_left = -427.5
+offset_right = 427.5
 offset_bottom = 26.0
 grow_horizontal = 2
 theme = ExtResource("2_uc07c")
-theme_override_font_sizes/font_size = 16
-text = "ERROR TYPE!"
-horizontal_alignment = 1
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center]ERROR TYPE![center]"
 
 [node name="ErrorMessage" type="RichTextLabel" parent="Control"]
 layout_mode = 1
@@ -58,11 +59,14 @@ offset_bottom = 0.0599899
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_uc07c")
+theme_override_constants/table_h_separation = 0
+theme_override_constants/line_separation = 2
 theme_override_font_sizes/mono_font_size = 8
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
-text = "[center]Error message:[center]"
-autowrap_mode = 1
+text = "[center]Error message:[center]
+"
+autowrap_mode = 2
 
 [node name="OK" type="Button" parent="Control"]
 layout_mode = 1
