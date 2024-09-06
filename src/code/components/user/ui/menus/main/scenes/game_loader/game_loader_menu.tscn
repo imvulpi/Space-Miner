@@ -50,7 +50,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="VScrollBar" type="VScrollBar" parent="." node_paths=PackedStringArray("scrollableNode")]
+[node name="VScrollBar" type="VScrollBar" parent="." node_paths=PackedStringArray("scrollableNode", "parentControl")]
 z_index = 10
 layout_mode = 1
 anchors_preset = -1
@@ -67,4 +67,5 @@ theme = ExtResource("1_bl7h1")
 theme_override_styles/grabber = ExtResource("6_y2ur8")
 script = ExtResource("3_fu7de")
 scrollableNode = NodePath("../SavesWrapper/Saves")
+parentControl = NodePath("..")
 speed = 16.0

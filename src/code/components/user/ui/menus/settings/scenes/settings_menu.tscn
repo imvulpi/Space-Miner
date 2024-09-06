@@ -716,27 +716,6 @@ grow_vertical = 2
 theme = ExtResource("1_dnnro")
 text = "CHECK"
 
-[node name="VScrollBar" type="VScrollBar" parent="Interactive" node_paths=PackedStringArray("scrollableNode")]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -465.5
-offset_bottom = 475.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/grabber = ExtResource("9_sy7mf")
-theme_override_styles/grabber_highlight = ExtResource("9_sy7mf")
-theme_override_styles/grabber_pressed = ExtResource("9_sy7mf")
-max_value = 850.0
-custom_step = 1.0
-script = ExtResource("8_cgm0r")
-scrollableNode = NodePath("..")
-speed = 16.0
-
 [node name="SaveSettingsMenu" parent="." instance=ExtResource("16_uy8m5")]
 visible = false
 z_index = 1
@@ -757,5 +736,27 @@ theme = ExtResource("1_dnnro")
 theme_override_font_sizes/font_size = 16
 text = "BACK
 "
+
+[node name="VScrollBar" type="VScrollBar" parent="." node_paths=PackedStringArray("scrollableNode", "parentControl")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -270.0
+offset_bottom = 270.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/grabber = ExtResource("9_sy7mf")
+theme_override_styles/grabber_highlight = ExtResource("9_sy7mf")
+theme_override_styles/grabber_pressed = ExtResource("9_sy7mf")
+max_value = 850.0
+custom_step = 1.0
+script = ExtResource("8_cgm0r")
+scrollableNode = NodePath("../Interactive")
+parentControl = NodePath("..")
+speed = 16.0
 
 [editable path="SaveSettingsMenu"]
