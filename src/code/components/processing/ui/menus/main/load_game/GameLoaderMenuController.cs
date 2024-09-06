@@ -1,12 +1,11 @@
 using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
-using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.errors.exceptions.handlers;
 using SpaceMiner.src.code.components.processing.data.game.save;
 using SpaceMiner.src.code.components.processing.data.settings.game;
 using SpaceMiner.src.code.components.user.ui.components.boards;
 using SpaceMiner.src.code.components.user.ui.components.other;
-using SpaceMiner.src.code.components.user.ui.components.other.game_save_item;
 using System;
 using System.Collections.Generic;
 
@@ -21,111 +20,142 @@ public partial class GameLoaderMenuController : Control
 	
 	private int saveCount = 0;
 	private int cumulativeHeight = 0;
-    private List<GameSaveItem> saveNodes = new();
+    private readonly List<GameSaveItem> saveNodes = new();
 	public override void _Ready()
 	{
 		try
 		{
 			string[] savesDirsPaths = new GameSaveHelper().GetAllSavesDirectories();
-			foreach (string saveDirPath in savesDirsPaths)
-			{
-				string[] pathSplit = saveDirPath.Split(new char[] { '/', '\\' });
-				string saveName = pathSplit[pathSplit.Length - 1];
-				CreateItem(saveName, saveDirPath);
-			}
-		}catch(Exception ex)
-		{
-			GD.Print(ex);
+			CreateAllSaveItems(savesDirsPaths);
 		}
-	}	
-    private void CreateItem(string saveName, string fullPath)
+		catch (Exception ex)
+		{
+			ExceptionHandler.HandleException(ex, true);
+		}
+	}
+
+	private void CreateAllSaveItems(string[] savesPaths)
 	{
-		GameSaveItem saveNode = SaveItem.Instantiate<GameSaveItem>();
-		saveNode.Name = saveName;
-		saveNode.NameLabel.Text = saveName;
-		saveNode.PathLabel.Text = $"./saves/{saveName}";
-        saveNode.FullPath = fullPath;
-		saveNode.DeleteSaveEvent += SaveNode_OnDeleteGameSaveItem;
-        saveNode.LoadSaveEvent += SaveNode_LoadSaveEvent;
+        foreach (string savePath in savesPaths)
+        {
+            string[] pathSplit = savePath.Split(new char[] { '/', '\\' });
+            string saveName = pathSplit[pathSplit.Length - 1];
+            CreateSaveItem(saveName, savePath);
+        }
+    }
 
-		SavesHolder.AddChild(saveNode);
-        saveNodes.Add(saveNode);
+    private void CreateSaveItem(string saveName, string fullPath)
+	{
+        GameSaveItem saveNode = CreateGameSaveItem(saveName, fullPath);
+		SetupGameSaveItem(saveNode);
 
-        saveNode.Position = new Vector2(saveNode.Position.X, saveNode.Size.Y * saveCount);
-		saveNode.SetSize(new Vector2(SavesHolder.Size.X, saveNode.Size.Y));
-        
 		saveCount += 1;
         cumulativeHeight = (int)saveNode.Position.Y;
         CheckSaveHolderHeight();
     }
 
+	private GameSaveItem CreateGameSaveItem(string saveName, string fullPath)
+	{
+        GameSaveItem saveNode = SaveItem.Instantiate<GameSaveItem>();
+        saveNode.Name = saveName;
+        saveNode.NameLabel.Text = saveName;
+        saveNode.PathLabel.Text = $"./saves/{saveName}";
+        saveNode.FullPath = fullPath;
+        saveNode.DeleteSaveEvent += SaveNode_OnDeleteGameSaveItem;
+        saveNode.LoadSaveEvent += SaveNode_LoadSaveEvent;
+		return saveNode;
+    }
+
+	private void SetupGameSaveItem(GameSaveItem saveItem)
+	{
+        SavesHolder.AddChild(saveItem);
+        saveNodes.Add(saveItem);
+        saveItem.Position = new Vector2(saveItem.Position.X, saveItem.Size.Y * saveCount);
+        saveItem.SetSize(new Vector2(SavesHolder.Size.X, saveItem.Size.Y));
+    }
+
+    // TODO: seperate more
     private void SaveNode_LoadSaveEvent(object obj)
     {
 		Node LoadConfirmationMenu = LoadSaveConfirmationMenu.Instantiate();
 
-		if(LoadConfirmationMenu is SaveConfirmationDialog confirmationMenu && obj is GameSaveItem saveObj)
+		if(LoadConfirmationMenu is SaveConfirmationDialog confirmationDialog && obj is GameSaveItem saveObj)
         {
-			confirmationMenu.SaveName = saveObj.NameLabel.Text;
-            AddChild(LoadConfirmationMenu);
-
-            confirmationMenu.Decision += (bool shouldLoad) =>
-			{
-				if (shouldLoad)
-				{
-					GameSaveSettings settings = new GameSaveSettings()
-					{
-						SaveName = saveObj.NameLabel.Text,
-					};
-					new GameSaveManager(settings).Load(GetTree());
-				}
-				else
-				{
-					RemoveChild(LoadConfirmationMenu);
-					LoadConfirmationMenu.QueueFree();
-				}
-			};
-		}
+            SetupLoadSaveConfirmationDialog(confirmationDialog, saveObj);
+        }
 		else
 		{
             throw new GameException(PrettyErrorType.Invalid, "LoadConfirmationMenu", "This Menu should be of SaveConfirmationDialog type (Report this)");
 		}
     }
 
+    private void SetupLoadSaveConfirmationDialog(SaveConfirmationDialog confirmationDialog, GameSaveItem saveItem)
+    {
+        confirmationDialog.SaveName = saveItem.NameLabel.Text;
+        AddChild(confirmationDialog);
+
+        confirmationDialog.Decision += (bool shouldLoad) =>
+        {
+            if (shouldLoad)
+            {
+                GameSaveSettings settings = new GameSaveSettings()
+                {
+                    SaveName = saveItem.NameLabel.Text,
+                };
+                new GameSaveManager(settings).Load(GetTree());
+            }
+            else
+            {
+                RemoveChild(confirmationDialog);
+                confirmationDialog.QueueFree();
+            }
+        };
+    }
+
     private void SaveNode_OnDeleteGameSaveItem(object obj)
     {
-        GD.Print("DELETE");
         Node DeleteConfirmationMenu = DeleteSaveConfirmationMenu.Instantiate();
-
 		if(DeleteConfirmationMenu is SaveConfirmationDialog confirmationMenu && obj is GameSaveItem saveObj)
 		{
-			confirmationMenu.SaveName = saveObj.NameLabel.Text;
-            AddChild(DeleteConfirmationMenu);
-            confirmationMenu.Decision += (bool shouldDelete) =>
-			{
-				if (shouldDelete)
-				{
-					new GameSaveHelper().DeleteSave(saveObj.NameLabel.Text);
-                    cumulativeHeight -= (int)saveObj.Size.Y;
-                    SavesHolder.RemoveChild(saveObj);
-                    saveNodes.Remove(saveObj);
-                    saveObj.QueueFree();
-                    RepositionNodes();
-                    CheckSaveHolderHeight();
-                    RemoveChild(DeleteConfirmationMenu);
-                    DeleteConfirmationMenu.QueueFree();
-                }
-				else
-				{
-					RemoveChild(DeleteConfirmationMenu);
-					DeleteConfirmationMenu.QueueFree();
-				}
-			};
+			SetupDeleteSaveConfirmationDialog(confirmationMenu, saveObj);
 		}
 		else
         {
             throw new GameException(PrettyErrorType.Invalid, "DeleteConfirmationMenu", "This Menu should be of SaveConfirmationDialog type (Report this)");
         }
     }
+
+	private void SetupDeleteSaveConfirmationDialog(SaveConfirmationDialog dialog, GameSaveItem saveItem)
+	{
+        dialog.SaveName = saveItem.NameLabel.Text;
+        AddChild(dialog);
+        dialog.Decision += (bool shouldDelete) =>
+        {
+            if (shouldDelete)
+            {
+                DeleteSaveItem(saveItem);
+                RepositionNodes();
+                CheckSaveHolderHeight();
+                RemoveChild(dialog);
+                saveItem.QueueFree();
+                dialog.QueueFree();
+            }
+            else
+            {
+                RemoveChild(dialog);
+                dialog.QueueFree();
+            }
+        };
+    }
+
+    private void DeleteSaveItem(GameSaveItem saveItem)
+    {
+        new GameSaveHelper().DeleteSave(saveItem.NameLabel.Text);
+        cumulativeHeight -= (int)saveItem.Size.Y;
+        SavesHolder.RemoveChild(saveItem);
+        saveNodes.Remove(saveItem);
+    }
+
     private void RepositionNodes()
 	{
 		int nodeCount = 0;
