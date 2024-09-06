@@ -6,10 +6,9 @@ using System.Timers;
 
 public partial class AdvancedScrollbar : VScrollBar
 {
-	[Export]
-	private Control scrollableNode = null;
-	[Export]
-	private float speed = 8f;
+	[Export] private Control scrollableNode = null;
+    [Export] private Control parentControl = null;
+    [Export] private float speed = 8f;
  	public float screenY = 0;
 	public float scrollableDistance = 0;
 	private int minFrames = 0;
@@ -40,7 +39,12 @@ public partial class AdvancedScrollbar : VScrollBar
 
     public void UpdateSize()
     {
-        screenY = GetViewportRect().Size.Y;
+        if (parentControl == null)
+        {
+            screenY = GetParent<Control>().Size.Y;
+        }
+        else screenY = parentControl.Size.Y;
+
         scrollableDistance = scrollableNode.Size.Y - screenY;
         MaxValue = scrollableDistance;
     }
