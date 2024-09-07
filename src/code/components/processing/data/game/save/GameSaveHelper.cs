@@ -63,13 +63,13 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
 
         public void DeleteSave(string saveName)
         {
-            PrettyLogger.Log(PrettyInfoType.GeneralInfo, $"{saveName} removal", $"Removing save.");
+            Logger.Log(PrettyInfoType.GeneralInfo, $"{saveName} removal", $"Removing save.");
             string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR);
             string savePath = Path.Join(path, saveName);
             if (Directory.Exists(savePath))
             {
                 Directory.Delete(savePath, true);
-                PrettyLogger.Log(PrettyInfoType.Success, $"{saveName} removal", "Successfully removed");
+                Logger.Log(PrettyInfoType.Success, $"{saveName} removal", "Successfully removed");
             }
             else
             {

@@ -79,7 +79,7 @@ public partial class GameLoaderMenuController : Control
     {
 		Node LoadConfirmationMenu = LoadSaveConfirmationMenu.Instantiate();
 
-		if(LoadConfirmationMenu is SaveConfirmationDialog confirmationDialog && obj is GameSaveItem saveObj)
+		if(LoadConfirmationMenu is BinaryDecisionDialogBox confirmationDialog && obj is GameSaveItem saveObj)
         {
             SetupLoadSaveConfirmationDialog(confirmationDialog, saveObj);
         }
@@ -89,12 +89,14 @@ public partial class GameLoaderMenuController : Control
 		}
     }
 
-    private void SetupLoadSaveConfirmationDialog(SaveConfirmationDialog confirmationDialog, GameSaveItem saveItem)
+    private void SetupLoadSaveConfirmationDialog(BinaryDecisionDialogBox dialog, GameSaveItem saveItem)
     {
-        confirmationDialog.SaveName = saveItem.NameLabel.Text;
-        AddChild(confirmationDialog);
+        dialog.SaveName = saveItem.NameLabel.Text;
+        dialog.Title = "Load save?";
+        dialog.Message = $"Do you want to load: {saveItem.NameLabel.Text} Save?";
+        AddChild(dialog);
 
-        confirmationDialog.Decision += (bool shouldLoad) =>
+        dialog.Decision += (bool shouldLoad) =>
         {
             if (shouldLoad)
             {
@@ -102,12 +104,19 @@ public partial class GameLoaderMenuController : Control
                 {
                     SaveName = saveItem.NameLabel.Text,
                 };
-                new GameSaveManager(settings).Load(GetTree());
+
+                try
+                {
+                    new GameSaveManager(settings).Load(GetTree());
+                }catch(Exception ex)
+                {
+                    ExceptionHandler.HandleException(ex, true);
+                }
             }
             else
             {
-                RemoveChild(confirmationDialog);
-                confirmationDialog.QueueFree();
+                RemoveChild(dialog);
+                dialog.QueueFree();
             }
         };
     }
@@ -115,7 +124,7 @@ public partial class GameLoaderMenuController : Control
     private void SaveNode_OnDeleteGameSaveItem(object obj)
     {
         Node DeleteConfirmationMenu = DeleteSaveConfirmationMenu.Instantiate();
-		if(DeleteConfirmationMenu is SaveConfirmationDialog confirmationMenu && obj is GameSaveItem saveObj)
+		if(DeleteConfirmationMenu is BinaryDecisionDialogBox confirmationMenu && obj is GameSaveItem saveObj)
 		{
 			SetupDeleteSaveConfirmationDialog(confirmationMenu, saveObj);
 		}
@@ -125,20 +134,28 @@ public partial class GameLoaderMenuController : Control
         }
     }
 
-	private void SetupDeleteSaveConfirmationDialog(SaveConfirmationDialog dialog, GameSaveItem saveItem)
+	private void SetupDeleteSaveConfirmationDialog(BinaryDecisionDialogBox dialog, GameSaveItem saveItem)
 	{
         dialog.SaveName = saveItem.NameLabel.Text;
+        dialog.Title = "Delete save?";
+        dialog.Message = $"Do you wish to delete: {saveItem.NameLabel.Text} Save?\nThis action can't be reversed";
         AddChild(dialog);
         dialog.Decision += (bool shouldDelete) =>
         {
             if (shouldDelete)
             {
-                DeleteSaveItem(saveItem);
-                RepositionNodes();
-                CheckSaveHolderHeight();
-                RemoveChild(dialog);
-                saveItem.QueueFree();
-                dialog.QueueFree();
+                try
+                {
+                    DeleteSaveItem(saveItem);
+                    RepositionNodes();
+                    CheckSaveHolderHeight();
+                    RemoveChild(dialog);
+                    saveItem.QueueFree();
+                    dialog.QueueFree();
+                }catch(Exception ex)
+                {
+                    ExceptionHandler.HandleException(ex, true);
+                }
             }
             else
             {

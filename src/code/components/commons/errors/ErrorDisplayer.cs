@@ -37,7 +37,7 @@ namespace SpaceMiner.src.code.components.commons.errors
             }
             else
             {
-                PrettyLogger.Log(PrettyErrorType.Critical, "ErrorDialog", $"{InternalPaths.ERROR_DIALOG} Node needs to be a dialog");
+                Logger.Log(PrettyErrorType.Critical, "ErrorDialog", $"{InternalPaths.ERROR_DIALOG} Node needs to be a dialog");
                 return null;
             }
         }

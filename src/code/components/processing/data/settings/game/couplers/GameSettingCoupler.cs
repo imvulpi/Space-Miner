@@ -63,9 +63,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
         {
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {
-                PrettyLogger.Log(PrettyInfoType.Checking, "Save Directory");
+                Logger.Log(PrettyInfoType.Checking, "Save Directory");
                 DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName));
-                PrettyLogger.Log(PrettyInfoType.Success, "Save Directory Checked");
+                Logger.Log(PrettyInfoType.Success, "Save Directory Checked");
                 return Path.Join(SavesPath, saveSettingReceive.SaveName);
             }
             else

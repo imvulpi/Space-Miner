@@ -59,10 +59,10 @@ namespace SpaceMiner.src.code.components.commons.other.IO
         {
             if (!Directory.Exists(path))
             {
-                PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
-                PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"{path}", "Directory creation attempt");
+                Logger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
+                Logger.Log(PrettyInfoType.RepairAttempt, $"{path}", "Directory creation attempt");
                 Directory.CreateDirectory(path);
-                PrettyLogger.Log(PrettyInfoType.Success, $"{path} created successfully!");
+                Logger.Log(PrettyInfoType.Success, $"{path} created successfully!");
             }
         }
     }

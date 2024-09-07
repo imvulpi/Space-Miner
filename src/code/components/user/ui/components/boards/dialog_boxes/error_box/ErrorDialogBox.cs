@@ -33,12 +33,13 @@ public partial class ErrorDialogBox : CanvasLayer, IErrorDialogBox
         {
             GetTree().Paused = true;
             ReportErrorDialogBox reportMenu = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_REPORT_DIALOG).Instantiate<ReportErrorDialogBox>();
+            reportMenu.parentErrorDialogBox = this;
             AddChild(reportMenu);
         }catch(Exception ex)
         {
-            ErrorTypeLabel.Text = ex.GetType().ToString();
+            ErrorTypeLabel.Text = $"[center]{ex.GetType()}[center]";
             ErrorMessageLabel.Text = $"Opening report menu failed - {ex.Message} | Please report manually :/";
-            PrettyLogger.Log(PrettyErrorType.Critical, "ReportMenuFail", ErrorMessageLabel.Text);
+            Logger.Log(PrettyErrorType.Critical, "ReportMenuFail", ErrorMessageLabel.Text);
         }
     }
 }

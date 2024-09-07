@@ -2,6 +2,7 @@ using Godot;
 using SpaceMiner.src.code.components.commons.errors.exceptions.handlers;
 using SpaceMiner.src.code.components.commons.errors.report;
 using SpaceMiner.src.code.components.commons.other.paths.other_paths;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialog_boxes;
 using SpaceMiner.src.code.components.user.ui.components.boards.dialogs.error_dialog;
 using System;
 
@@ -10,6 +11,7 @@ public partial class ReportErrorDialogBox : Control, IErrorDialogBox
     [Export] public BaseButton ReportButton { get; set; }
     [Export] public BaseButton CancelButton { get; set; }
     [Export] private RichTextLabel DiscordInvite { get; set; }
+    public Node parentErrorDialogBox { get; set; }
     public Exception Exception { get; set; }
     public string Title { get; set; }
     public string Message { get; set; }
@@ -23,7 +25,8 @@ public partial class ReportErrorDialogBox : Control, IErrorDialogBox
     private void CancelButton_Pressed()
     {
         GetTree().Paused = false;
-        QueueFree();
+        parentErrorDialogBox.RemoveChild(this);
+        parentErrorDialogBox.QueueFree();
     }
 
     private void ReportButton_Pressed()

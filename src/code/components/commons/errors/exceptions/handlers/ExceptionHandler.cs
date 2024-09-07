@@ -1,4 +1,5 @@
-﻿using SpaceMiner.src.code.components.commons.errors.logging;
+﻿using Godot;
+using SpaceMiner.src.code.components.commons.errors.logging;
 using System;
 
 namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
@@ -13,17 +14,17 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
         /// <param name="showToUser">Whether a error dialog should appear to the user.</param>
         public static void HandleException(Exception exception, bool showToUser = false)
         {
+            GD.Print("a");
             try
             {
-                if (CheckLastException(exception, showToUser)) return;
-
                 if (exception is GameException gameException)
                 {
                     HandleException(gameException, showToUser);
                 }
                 else
                 {
-                    PrettyLogger.Log(PrettyLogType.Error, exception.GetType().ToString(), $"Exception", $"{exception.Message}");
+                    if (CheckLastException(exception, showToUser)) return;
+                    Logger.Log(PrettyLogType.Error, exception.GetType().ToString(), $"Exception", $"{exception.Message}");
                     if (showToUser)
                     {
                         ErrorDisplayer.ShowErrorDialog(exception.Message, exception.GetType().ToString());
@@ -32,7 +33,7 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
             }
             catch(Exception e)
             {
-                PrettyLogger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
+                Logger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
                 ErrorDisplayer.ShowErrorDialog($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
                 throw;
             }
@@ -44,24 +45,25 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
         /// <param name="showToUser">Whether a error dialog should appear to the user.</param>
         public static void HandleException(GameException exception, bool showToUser = false)
         {
+            GD.Print("a");
             try
             {
                 if (CheckLastException(exception, showToUser)) return;
 
                 if (exception.ErrorType != null)
                 {
-                    PrettyLogger.Log((PrettyErrorType)exception.ErrorType, exception.Cause, exception.Message);
+                    Logger.Log((PrettyErrorType)exception.ErrorType, exception.Cause, exception.Message);
                     if (showToUser) ErrorDisplayer.ShowErrorDialog(exception.Message, exception.ErrorType.ToString());
                 }
                 else
                 {
-                    PrettyLogger.Log(PrettyLogType.Error, exception.CustomError, exception.Cause, exception.Message);
+                    Logger.Log(PrettyLogType.Error, exception.CustomError, exception.Cause, exception.Message);
                     if (showToUser) ErrorDisplayer.ShowErrorDialog(exception.Message, exception.CustomError);
                 }
             }
             catch (Exception e)
             {
-                PrettyLogger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
+                Logger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
                 ErrorDisplayer.ShowErrorDialog($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
                 throw;
             }
@@ -69,13 +71,16 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
 
         private static bool CheckLastException(Exception ex, bool showToUser)
         {
-            if (LastException != null && ex.Source == LastException.Source)
+            if (LastException != null && ex.StackTrace == LastException.StackTrace)
             {
-                PrettyLogger.Log(PrettyErrorType.Critical, $"RepeatingError", $"Errors are from the same source, futher playing might be impossible.");
+                GD.Print(LastException.Source);
+                Logger.Log(PrettyErrorType.Critical, $"RepeatingError", $"Errors are from the same source, futher playing might be impossible.");
                 if (showToUser) ErrorDisplayer.ShowErrorDialog($"Errors are from the same source, futher playing might be impossible\nTRY restarting the game, if this continues then please report this to the developers.", "Repeating Errors");
                 return true;
             }
             LastException = ex;
+            GD.Print(ex.StackTrace);
+            GD.Print(LastException.StackTrace);
             return false;
         }
     }

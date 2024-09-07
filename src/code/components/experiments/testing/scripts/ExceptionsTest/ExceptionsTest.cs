@@ -15,14 +15,15 @@ public partial class ExceptionsTest : Control
     {
         try
         {
-            throw new Exception("This is an error example, not an actual example. Exception example.");
+            //throw new Exception("This is an error example, not an actual example. Exception example.");
             using (FileStream fs = File.Open("C:\\non_existent_file.txt", FileMode.Open))
             {
-                // This line won't be executed
+                // This line won't be executed and will throw an exception
             }
-        }catch(Exception ex)
+        }
+        catch(Exception ex)
         {
-            ExceptionHandler.HandleException(ex);
+            ExceptionHandler.HandleException(ex, true);
         }
     }
 

@@ -42,23 +42,23 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
         /// <exception cref="GameException"></exception>
         public bool CheckDirectory(string directoryPath)
         {
-            PrettyLogger.Log(PrettyInfoType.Checking, $"{directoryPath}");
+            Logger.Log(PrettyInfoType.Checking, $"{directoryPath}");
             string[] dirs = DirectoryHelper.GetParentDirectories(directoryPath);
             for (int i = 0; i < dirs.Length; i++)
             {
                 string currentPath = dirs[i];
                 if (!Directory.Exists(currentPath))
                 {
-                    PrettyLogger.Log(PrettyWarningType.NotFound, $"{currentPath}", "Essential directory does not exist.");
+                    Logger.Log(PrettyWarningType.NotFound, $"{currentPath}", "Essential directory does not exist.");
                     try
                     {
-                        PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt");
+                        Logger.Log(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt");
                         Directory.CreateDirectory(currentPath);
-                        PrettyLogger.Log(PrettyInfoType.Success, $"{currentPath}", $"Directory repaired!");
+                        Logger.Log(PrettyInfoType.Success, $"{currentPath}", $"Directory repaired!");
                     }
                     catch (Exception ex)
                     {
-                        throw new GameException(PrettyErrorType.OperationFailed, $"Directory Creation", $"Creating directory at: {currentPath} failed due to an exception: {ex.Message}", ex);
+                        throw new GameException(PrettyErrorType.OperationFailed, $"Directory Creation", $"Creating directory at: {currentPath} failed due to an exception: {ex.Message}");
                     }
                 }
             }

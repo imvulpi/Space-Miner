@@ -50,12 +50,12 @@ namespace SpaceMiner.src.code.components.commons.errors.report
                     return logContent;
                 }catch(IOException ex) // Most likely used by another process
                 {
-                    PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex.GetType()}", $"{ex.Message}. Trying to recover...");
+                    Logger.Log(PrettyErrorType.OperationFailed, $"{ex.GetType()}", $"{ex.Message}. Trying to recover...");
                     string tempLogPath = Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.TEMP_DIR, "temp_log.txt");
                     GD.Print(tempLogPath);
                     File.Copy(logPath, tempLogPath);
                     string logContent = File.ReadAllText(tempLogPath);
-                    PrettyLogger.Log(PrettyInfoType.Success, $"{ex.GetType()}", $"Recovered and log contents retrieved.");
+                    Logger.Log(PrettyInfoType.Success, $"{ex.GetType()}", $"Recovered and log contents retrieved.");
                     File.Delete(tempLogPath);
                     return logContent;
                 }

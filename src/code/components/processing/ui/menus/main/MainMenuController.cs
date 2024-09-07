@@ -72,7 +72,7 @@ public partial class MainMenuController : Control, IMenuContainer
         }
         else
         {
-            PrettyLogger.Log(PrettyInfoType.GeneralInfo, "LatestSave", "No latest save found.");
+            Logger.Log(PrettyInfoType.GeneralInfo, "LatestSave", "No latest save found.");
         }
     }
 

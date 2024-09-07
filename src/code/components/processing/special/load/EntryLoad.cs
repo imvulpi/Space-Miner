@@ -11,14 +11,14 @@ public partial class EntryLoad : Node
     public override void _Ready()
 	{
         // Very early loading
-        PrettyLogger.Init();
-        PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process started.");
+        Logger.Init();
+        Logger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process started.");
 
         TemporaryCleaner.ClearTemp();
         Checking();
         Loading();
 
-        PrettyLogger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process ended.");
+        Logger.Log(PrettyInfoType.GeneralInfo, "Entry", "Entry process ended.");
     }
 
     private void Checking()

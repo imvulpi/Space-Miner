@@ -20,38 +20,15 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions
             Description = message;
             ErrorType = PrettyErrorType.GeneralError;
         }
-        public GameException(PrettyErrorType errorType, string cause, string message) : base($"[{errorType}]: {message}") { 
-            Cause = cause;
-            Description = message;
-            ErrorType = errorType;
-        }
-        public GameException(PrettyErrorType errorType, string cause, string message, Exception inner) : base($"[{errorType}]: {message}", inner) {
-            Cause = cause;
-            Description = message;
-            ErrorType = errorType;
-        }
-        public GameException(string customError, string cause, string message, Exception inner) : base($"[{customError}]: {message}", inner)
-        {
-            Cause = cause;
-            Description = message;
-            CustomError = customError;
-        }
-
-        public GameException(PrettyErrorType errorType, string cause, string message, string devMessage) : base($"[{errorType}]: {message}")
-        {
+        public GameException(PrettyErrorType errorType, string cause, string message, string devMessage = "", Exception? inner = null) : 
+            base($"[{errorType}]: {message} {(devMessage == "" ? "" : $"| Developer message: {devMessage}" )}", inner) { 
             Cause = cause;
             Description = message;
             ErrorType = errorType;
             DevMessage = devMessage;
         }
-        public GameException(PrettyErrorType errorType, string cause, string message, string devMessage, Exception inner) : base($"[{errorType}]: {message}", inner)
-        {
-            Cause = cause;
-            Description = message;
-            ErrorType = errorType;
-            DevMessage = devMessage;
-        }
-        public GameException(string customError, string cause, string message, string devMessage, Exception inner) : base($"[{customError}]: {message}", inner)
+        public GameException(string customError, string cause, string message, string devMessage = "", Exception? inner = null) : 
+            base($"[{customError}]: {message} {(devMessage == "" ? "" : $"| Developer message: {devMessage}")}", inner)
         {
             Cause = cause;
             Description = message;

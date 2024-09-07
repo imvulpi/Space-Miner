@@ -9,14 +9,14 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
     /// <summary>
     /// Static logger class with pretty formatting and other.<br></br>First initialize using the Init() method and use it in the whole project.
     /// </summary>
-    public class PrettyLogger
+    public class PrettyLogger : IPrettyLogger
     {
-        private static UserSettings userSettings = null;
-        private static PrettyLogConfig logConfig = new(true);
+        private UserSettings userSettings = null;
+        private PrettyLogConfig logConfig = new(true);
         /// <summary>
         /// Initialization of PrettyLogger<br></br>Needs to be called before using the logger or the logger might not work.
         /// </summary>
-        public static void Init()
+        public void Init()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
             }
         }
 
-        public static void Init(PrettyLogConfig customLogConfig)
+        public void Init(PrettyLogConfig customLogConfig)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// </summary>
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customMessage">The custom message to be logged.</param>
-        public static string Log(PrettyLogType logType, string customMessage)
+        public string Log(PrettyLogType logType, string customMessage)
         {
             CheckInitialization();
 
@@ -70,7 +70,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="logType">The type of log to be used (ex., Error, Warning, Info).</param>
         /// <param name="customType">The custom type to be displayed</param>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyLogType logType, string customType, string reason, string description = null, bool includeStackInfo = true)
+        public string Log(PrettyLogType logType, string customType, string reason = "unknown", string description = "", bool includeStackInfo = true)
         {
             CheckInitialization();
             switch (logType)
@@ -107,7 +107,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyInfoType infoType, string reason, string description = null, bool includeStackInfo = false)
+        public string Log(PrettyInfoType infoType, string reason = "unknown", string description = "", bool includeStackInfo = false)
         {
             CheckInitialization();
 
@@ -134,7 +134,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyWarningType warningType, string reason, string description = null)
+        public string Log(PrettyWarningType warningType, string reason = "unknown", string description = "")
         {
             CheckInitialization();
 
@@ -153,7 +153,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// If description is set to null it might default the description if it's implemented in logger defaults
         /// </summary>
         /// <param name="reason">The reason or cause of the log, (ex. a component)</param>
-        public static string Log(PrettyErrorType errorType, string reason, string description = null)
+        public string Log(PrettyErrorType errorType, string reason = "unknown", string description = "")
         {
             CheckInitialization();
 
@@ -175,7 +175,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <param name="errorType"></param>
         /// <param name="reason"></param>
         /// <param name="description"></param>
-        public static string CriticalLog(PrettyErrorType errorType, string reason, string description = null, string exceptionMessage = "")
+        public string CriticalLog(PrettyErrorType errorType, string reason = "unknown", string description = "", string exceptionMessage = "")
         {
             description = description == null ? PrettyLoggerDefaults.GetDefaultDescription(errorType) : description;
             string logMessage = GetFormattedMessage("ERROR", errorType.ToString(), reason, description);
@@ -193,17 +193,17 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <summary>
         /// Formats log message in a specific way using log configs and other.
         /// </summary>
-        public static string GetFormattedMessage(string parentType, string type, string reason, string description = "", string stackInfo = "")
+        public string GetFormattedMessage(string parentType, string type, string reason = "unknown", string description = "", string stackInfo = "")
         {
-            return $"{(logConfig.includeDate == true ? $"[{GetCurrentDate()}]" : "")}" +
+            return $"{(logConfig.IncludeDate == true ? $"[{GetCurrentDate()}]" : "")}" +
                 $"[{parentType}][{type}]<{reason}>: {description}" +
-                $"{(stackInfo != "" ? $"\n    at {stackInfo}" : "")}";
+                $"{(stackInfo != "" ? $"\n{stackInfo}" : "")}";
         }
 
         /// <summary>
         /// Checks whether the initialization was done and whether everything loaded correctly.<br></br>Will attempt to initialize when detects that it was not initialized
         /// </summary>
-        private static void CheckInitialization()
+        private void CheckInitialization()
         {
             if (userSettings == null)
             {
@@ -212,18 +212,26 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         }
 
         ///<summary>Gets formatted stack information</summary>
-        /// <param name="methodDepth">How many methods boefore the current method (this one) should be displayed.<br></br>When used inside Log methods it will be 2.</param>
         /// <returns></returns>
-        private static string GetStackInfo(int methodDepth = 2)
+        private string GetStackInfo()
         {
-            var frame = new StackFrame(methodDepth, true);
-            string stackInfo = $"Method: {frame.GetMethod().Name}, " +
-                              $"File: {frame.GetFileName()}, " +
-                              $"Line: {frame.GetFileLineNumber()}";
-            return stackInfo;
+            string stackInfos = "";
+            var frames = new StackTrace().GetFrames();
+            int framesCount = logConfig.SkipFramesAmount;
+            for (int i = logConfig.SkipFramesAmount; i < frames.Length; i++)
+            {
+                if (framesCount >= frames.Length) break;
+                var frame = new StackFrame(i, true);
+                string stackInfo = $"   at: Method: {(frame.GetMethod() == null ? "" : frame.GetMethod().Name)}, " +
+                                  $"in File: {frame.GetFileName()}, " +
+                                  $"Line: {frame.GetFileLineNumber()}";
+                stackInfos += $"{stackInfo}\n";
+                framesCount++;
+            }
+            return stackInfos;
         }
 
-        private static string GetCurrentDate()
+        private string GetCurrentDate()
         {
             return DateTime.Now.ToString();
         }
@@ -231,7 +239,7 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
         /// <summary>
         /// Logs using the GD log functions (writes to file, debugger or godot console).
         /// </summary>
-        private static void LogGodotFormatted(PrettyLogType logType, string message)
+        private void LogGodotFormatted(PrettyLogType logType, string message)
         {
             switch(logType)
             {
