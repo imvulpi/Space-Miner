@@ -14,7 +14,6 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
         /// <param name="showToUser">Whether a error dialog should appear to the user.</param>
         public static void HandleException(Exception exception, bool showToUser = false)
         {
-            GD.Print("a");
             try
             {
                 if (exception is GameException gameException)
@@ -45,7 +44,6 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
         /// <param name="showToUser">Whether a error dialog should appear to the user.</param>
         public static void HandleException(GameException exception, bool showToUser = false)
         {
-            GD.Print("a");
             try
             {
                 if (CheckLastException(exception, showToUser)) return;
@@ -73,14 +71,11 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
         {
             if (LastException != null && ex.StackTrace == LastException.StackTrace)
             {
-                GD.Print(LastException.Source);
                 Logger.Log(PrettyErrorType.Critical, $"RepeatingError", $"Errors are from the same source, futher playing might be impossible.");
                 if (showToUser) ErrorDisplayer.ShowErrorDialog($"Errors are from the same source, futher playing might be impossible\nTRY restarting the game, if this continues then please report this to the developers.", "Repeating Errors");
                 return true;
             }
             LastException = ex;
-            GD.Print(ex.StackTrace);
-            GD.Print(LastException.StackTrace);
             return false;
         }
     }
