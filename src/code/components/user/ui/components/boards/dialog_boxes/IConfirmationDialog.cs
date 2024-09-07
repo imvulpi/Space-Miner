@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceMiner.src.code.components.user.ui.components.boards
+namespace SpaceMiner.src.code.components.user.ui.components.boards.dialog_boxes
 {
     public interface IConfirmationDialog
     {

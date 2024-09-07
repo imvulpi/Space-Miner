@@ -1,12 +1,8 @@
 ﻿using Godot;
-using JsonEnumTest;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
-using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
-using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.vsync;
+using SpaceMiner.src.code.components.commons.other.IO.json;
 using SpaceMiner.src.code.components.processing.data.settings.user.graphics.checkers;
-using SpaceMiner.src.code.components.processing.data.settings.user.graphics.helpers;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using static Godot.DisplayServer;
 

@@ -2,7 +2,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace JsonEnumTest
+namespace SpaceMiner.src.code.components.commons.other.IO.json
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface, AllowMultiple = false)]
     public class JsonFallbackConverterAttribute : JsonConverterAttribute
@@ -17,10 +17,11 @@ namespace JsonEnumTest
 
         public override JsonConverter CreateConverter(Type typeToConvert)
         {
-            if(typeToConvert == null)
+            if (typeToConvert == null)
             {
                 return null;
-            }else if(converter != null)
+            }
+            else if (converter != null)
             {
                 return converter;
             }

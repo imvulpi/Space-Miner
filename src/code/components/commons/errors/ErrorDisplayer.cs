@@ -20,7 +20,7 @@ namespace SpaceMiner.src.code.components.commons.errors
         /// <param name="type">Type to appear in the error dialog</param>
         /// <returns>Created ErrorDialog</returns>
         /// <exception cref="GameException"></exception>
-        public static ErrorDialog ShowErrorDialog(string message, string type)
+        public static ErrorDialogBox ShowErrorDialog(string message, string type)
         {
             if (ErrorHolder == null)
             {
@@ -28,10 +28,10 @@ namespace SpaceMiner.src.code.components.commons.errors
             }
 
             Node node = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_DIALOG).Instantiate();
-            if (node is ErrorDialog errorDialog)
+            if (node is ErrorDialogBox errorDialog)
             {
-                errorDialog.ErrorMessage = message;
-                errorDialog.ErrorType = type;
+                errorDialog.Message = message;
+                errorDialog.Title = type;
                 ErrorHolder.AddChild(errorDialog);
                 return errorDialog;
             }

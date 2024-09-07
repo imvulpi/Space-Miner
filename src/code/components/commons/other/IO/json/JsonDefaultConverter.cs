@@ -9,7 +9,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SpaceMiner.src.code.components.commons.godot.json
+namespace SpaceMiner.src.code.components.commons.other.IO.json
 {
     public class JsonDefaultConverter<T> : JsonConverter<T> where T : struct
     {

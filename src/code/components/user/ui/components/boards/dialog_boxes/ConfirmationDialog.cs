@@ -1,5 +1,5 @@
 using Godot;
-using SpaceMiner.src.code.components.user.ui.components.boards;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialog_boxes;
 using System;
 
 public partial class ConfirmationDialog : Control, IConfirmationDialog

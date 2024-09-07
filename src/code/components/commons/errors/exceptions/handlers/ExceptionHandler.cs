@@ -1,9 +1,5 @@
-﻿using Godot;
-using SpaceMiner.src.code.components.commons.errors.logging;
+﻿using SpaceMiner.src.code.components.commons.errors.logging;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
 {

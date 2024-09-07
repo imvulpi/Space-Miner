@@ -1,9 +1,6 @@
 ﻿using Godot;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialog_boxes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.user.ui.components.boards
 {

@@ -5,12 +5,13 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace JsonEnumTest
+namespace SpaceMiner.src.code.components.commons.other.IO.json
 {
     public class JsonDefaultEnumConverter<T> : JsonConverter<T> where T : struct, Enum
     {
         public object DefaultValue { get; set; }
-        public JsonDefaultEnumConverter(object value) { 
+        public JsonDefaultEnumConverter(object value)
+        {
             DefaultValue = value;
         }
         public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
@@ -51,7 +52,8 @@ namespace JsonEnumTest
             string[] types = Enum.GetNames<T>();
             foreach (string type in types)
             {
-                if (type.Contains(invalidValue) && Enum.TryParse<T>(type, out T result)){
+                if (type.Contains(invalidValue) && Enum.TryParse(type, out T result))
+                {
                     return result;
                 }
             }

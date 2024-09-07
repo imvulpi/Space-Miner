@@ -2,37 +2,28 @@ using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialogs.error_dialog;
 using System;
-
-public partial class ErrorDialog : CanvasLayer
+public partial class ErrorDialogBox : CanvasLayer, IErrorDialogBox
 {
-    public ErrorDialog() { }
-    public ErrorDialog(string errorMessage, string errorType, Exception exception) { 
-        ErrorMessage = errorMessage;
-        ErrorType = errorType;
-        Exception = exception;
-    }
 	[Export] private RichTextLabel ErrorTypeLabel {  get; set; }
 	[Export] private RichTextLabel ErrorMessageLabel { get; set; }
-	[Export] private Button OkButton { get; set; }
-	[Export] public Button Report { get; set; }
-
-	public string ErrorMessage = "No message included";
-	public string ErrorType = "No type included";
-    public Exception Exception = null;
+    [Export] public BaseButton ReportButton { get; set; }
+    [Export] public BaseButton CancelButton { get; set; }
+    public string Title { get; set; }
+    public string Message { get; set; }
     public override void _Ready()
     {
         GetTree().Paused = true;
-        ErrorTypeLabel.Text = $"[center]{ErrorType}[center]";
-		ErrorMessageLabel.Text = $"[center]{ErrorMessage}[center]";
-        Report.Pressed += ReportButton_Pressed;
-        OkButton.Pressed += OkButton_Pressed;
+        ErrorTypeLabel.Text = $"[center]{Title}[center]";
+		ErrorMessageLabel.Text = $"[center]{Message}[center]";
+        ReportButton.Pressed += ReportButton_Pressed;
+        CancelButton.Pressed += CancelButton_Pressed;
 	}
 
-    private void OkButton_Pressed()
+    private void CancelButton_Pressed()
     {
         GetTree().Paused = false;
-        GD.Print("a");
         GetParent().RemoveChild(this);
     }
 
@@ -41,7 +32,7 @@ public partial class ErrorDialog : CanvasLayer
         try
         {
             GetTree().Paused = true;
-            ReportErrorDialog reportMenu = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_REPORT_DIALOG).Instantiate<ReportErrorDialog>();
+            ReportErrorDialogBox reportMenu = ResourceLoader.Load<PackedScene>(InternalPaths.ERROR_REPORT_DIALOG).Instantiate<ReportErrorDialogBox>();
             AddChild(reportMenu);
         }catch(Exception ex)
         {

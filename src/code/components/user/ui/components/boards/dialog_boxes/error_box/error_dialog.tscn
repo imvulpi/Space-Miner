@@ -1,16 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqeh4bpu0bbid"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialogs/error_dialog/ErrorDialog.cs" id="1_27ek4"]
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialog_boxes/error_box/ErrorDialogBox.cs" id="1_4olld"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_uc07c"]
 
-[node name="ErrorDialog" type="CanvasLayer" node_paths=PackedStringArray("ErrorTypeLabel", "ErrorMessageLabel", "OkButton", "Report")]
+[node name="ErrorDialog" type="CanvasLayer" node_paths=PackedStringArray("ErrorTypeLabel", "ErrorMessageLabel", "ReportButton", "CancelButton")]
 process_mode = 3
 layer = 2
-script = ExtResource("1_27ek4")
+script = ExtResource("1_4olld")
 ErrorTypeLabel = NodePath("Control/ErrorType")
 ErrorMessageLabel = NodePath("Control/ErrorMessage")
-OkButton = NodePath("Control/OK")
-Report = NodePath("Control/REPORT")
+ReportButton = NodePath("Control/REPORT")
+CancelButton = NodePath("Control/OK")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

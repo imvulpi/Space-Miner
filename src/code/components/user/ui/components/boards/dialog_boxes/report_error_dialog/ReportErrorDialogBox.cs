@@ -2,21 +2,25 @@ using Godot;
 using SpaceMiner.src.code.components.commons.errors.exceptions.handlers;
 using SpaceMiner.src.code.components.commons.errors.report;
 using SpaceMiner.src.code.components.commons.other.paths.other_paths;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialogs.error_dialog;
 using System;
 
-public partial class ReportErrorDialog : Control
+public partial class ReportErrorDialogBox : Control, IErrorDialogBox
 {
-	[Export] public Button ReportButton { get; set; }
-    [Export] public Button CloseButton { get; set; }
+    [Export] public BaseButton ReportButton { get; set; }
+    [Export] public BaseButton CancelButton { get; set; }
     [Export] private RichTextLabel DiscordInvite { get; set; }
     public Exception Exception { get; set; }
+    public string Title { get; set; }
+    public string Message { get; set; }
+
     public override void _Ready()
 	{
         ReportButton.Pressed += ReportButton_Pressed;
-        CloseButton.Pressed += CloseButton_Pressed;
+        CancelButton.Pressed += CancelButton_Pressed;
 	}
 
-    private void CloseButton_Pressed()
+    private void CancelButton_Pressed()
     {
         GetTree().Paused = false;
         QueueFree();
