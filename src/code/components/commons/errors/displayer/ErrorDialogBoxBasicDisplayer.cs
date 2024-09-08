@@ -2,17 +2,14 @@
 using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
+using SpaceMiner.src.code.components.user.ui.components.boards.dialogs.error_dialog;
 
-namespace SpaceMiner.src.code.components.commons.errors
+namespace SpaceMiner.src.code.components.commons.errors.displayer
 {
-    public class ErrorDisplayer
+    public class ErrorDialogBoxBasicDisplayer : IErrorDialogBoxDisplayer
     {
-        public static ErrorHolder ErrorHolder { get; private set; }
-        public static void Init(SceneTree tree)
-        {   
-            ErrorHolder = tree.Root.GetNode<ErrorHolder>(ErrorHolder.ErrorHolderNodeName);
-        }
-
+        public Node ErrorHolder { get; set; }
+        
         /// <summary>
         /// Shows an error dialog by creating it and appending to an exceptions holder (autoload)
         /// </summary>
@@ -20,7 +17,7 @@ namespace SpaceMiner.src.code.components.commons.errors
         /// <param name="type">Type to appear in the error dialog</param>
         /// <returns>Created ErrorDialog</returns>
         /// <exception cref="GameException"></exception>
-        public static ErrorDialogBox ShowErrorDialog(string message, string type)
+        public IErrorDialogBox Display(string message, string type)
         {
             if (ErrorHolder == null)
             {

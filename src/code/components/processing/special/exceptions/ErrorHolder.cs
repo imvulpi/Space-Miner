@@ -1,5 +1,5 @@
 using Godot;
-using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.displayer;
 
 public partial class ErrorHolder : Node
 {

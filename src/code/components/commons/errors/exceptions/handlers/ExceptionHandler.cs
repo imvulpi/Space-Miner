@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SpaceMiner.src.code.components.commons.errors.displayer;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using System;
 
@@ -26,14 +27,14 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
                     Logger.Log(PrettyLogType.Error, exception.GetType().ToString(), $"Exception", $"{exception.Message}");
                     if (showToUser)
                     {
-                        ErrorDisplayer.ShowErrorDialog(exception.Message, exception.GetType().ToString());
+                        ErrorDisplayer.Display(exception.Message, exception.GetType().ToString());
                     }
                 }
             }
             catch(Exception e)
             {
                 Logger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
-                ErrorDisplayer.ShowErrorDialog($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
+                ErrorDisplayer.Display($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
                 throw;
             }
         }
@@ -51,18 +52,18 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
                 if (exception.ErrorType != null)
                 {
                     Logger.Log((PrettyErrorType)exception.ErrorType, exception.Cause, exception.Message);
-                    if (showToUser) ErrorDisplayer.ShowErrorDialog(exception.Message, exception.ErrorType.ToString());
+                    if (showToUser) ErrorDisplayer.Display(exception.Message, exception.ErrorType.ToString());
                 }
                 else
                 {
                     Logger.Log(PrettyLogType.Error, exception.CustomError, exception.Cause, exception.Message);
-                    if (showToUser) ErrorDisplayer.ShowErrorDialog(exception.Message, exception.CustomError);
+                    if (showToUser) ErrorDisplayer.Display(exception.Message, exception.CustomError);
                 }
             }
             catch (Exception e)
             {
                 Logger.CriticalLog(PrettyErrorType.Critical, $"{e.GetType()}", $"The exception handler had an internal exception | {e}", e.Message);
-                ErrorDisplayer.ShowErrorDialog($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
+                ErrorDisplayer.Display($"Critical error: {e.Message} - Please report this to the developers.", e.GetType().ToString());
                 throw;
             }
         }
@@ -72,7 +73,7 @@ namespace SpaceMiner.src.code.components.commons.errors.exceptions.handlers
             if (LastException != null && ex.StackTrace == LastException.StackTrace)
             {
                 Logger.Log(PrettyErrorType.Critical, $"RepeatingError", $"Errors are from the same source, futher playing might be impossible.");
-                if (showToUser) ErrorDisplayer.ShowErrorDialog($"Errors are from the same source, futher playing might be impossible\nTRY restarting the game, if this continues then please report this to the developers.", "Repeating Errors");
+                if (showToUser) ErrorDisplayer.Display($"Errors are from the same source, futher playing might be impossible\nTRY restarting the game, if this continues then please report this to the developers.", "Repeating Errors");
                 return true;
             }
             LastException = ex;
