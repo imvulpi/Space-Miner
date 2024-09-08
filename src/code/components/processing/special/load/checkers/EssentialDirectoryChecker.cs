@@ -1,46 +1,64 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 
 namespace SpaceMiner.src.code.components.processing.special.load.checkers
 {
     public class EssentialDirectoryChecker
     {
         public EssentialDirectoryChecker() { }
-
+        private string UserPath = OS.GetUserDataDir();
+        private List<string> PathsToCheck;
         public void Check()
         {
             string userPath = OS.GetUserDataDir();
-            CheckDirectory(userPath);
 
-            string savesDirectory = Path.Combine(userPath, ExternalPaths.SAVES_DIR);
-            CheckDirectory(savesDirectory);
+            PathsToCheck = new List<string>()
+            {
+                userPath,
+                Path.Combine(userPath, ExternalPaths.SAVES_DIR),
+                Path.Combine(userPath, ExternalPaths.LOGS_DIR),
+                Path.Combine(userPath, ExternalPaths.LOGS_DIR, ExternalPaths.REPORTS_DIR),
+                Path.Combine(userPath, ExternalPaths.TEMP_DIR),
+            };
+            
+            foreach(string path in PathsToCheck) {
+                CheckDirectory(path);
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="directoryPath"></param>
+        /// <returns></returns>
+        /// <exception cref="GameException"></exception>
         public bool CheckDirectory(string directoryPath)
         {
-            PrettyLogger.Log(PrettyInfoType.Checking, $"{directoryPath}");
+            Logger.Log(PrettyInfoType.Checking, $"{directoryPath}");
             string[] dirs = DirectoryHelper.GetParentDirectories(directoryPath);
             for (int i = 0; i < dirs.Length; i++)
             {
                 string currentPath = dirs[i];
                 if (!Directory.Exists(currentPath))
                 {
-                    PrettyLogger.Log(PrettyWarningType.NotFound, $"{currentPath}", "Essential directory does not exist.");
+                    Logger.Log(PrettyWarningType.NotFound, $"{currentPath}", "Essential directory does not exist.");
                     try
                     {
-                        PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt");
+                        Logger.Log(PrettyInfoType.RepairAttempt, $"{currentPath}", $"Directory Repair Attempt");
                         Directory.CreateDirectory(currentPath);
-                        PrettyLogger.Log(PrettyInfoType.Success, $"{currentPath}", $"Directory repaired!");
+                        Logger.Log(PrettyInfoType.Success, $"{currentPath}", $"Directory repaired!");
                     }
                     catch (Exception ex)
                     {
-                        PrettyLogger.Log(PrettyErrorType.GeneralError, $"{ex.Message}");
-                        return false;
+                        throw new GameException(PrettyErrorType.OperationFailed, $"Directory Creation", $"Creating directory at: {currentPath} failed due to an exception: {ex.Message}");
                     }
                 }
             }

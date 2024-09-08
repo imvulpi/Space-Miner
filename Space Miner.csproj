@@ -12,4 +12,7 @@
   <ItemGroup>
     <Folder Include="src\code\components\user\ui\menus\main\scenes\game_loader\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Hardware.Info" Version="100.1.1" />
+  </ItemGroup>
 </Project>

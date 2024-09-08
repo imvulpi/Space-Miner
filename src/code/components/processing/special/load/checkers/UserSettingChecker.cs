@@ -20,7 +20,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
         private const int MAX_RETRY = 3;
         public void Check()
         {
-            PrettyLogger.Log(PrettyInfoType.Checking, $"{ExternalPaths.USER_SETTING}");
+            Logger.Log(PrettyInfoType.Checking, $"{ExternalPaths.USER_SETTING}");
             UserSettings settings = new();
             SettingCoupler coupler = new();
             CheckFileExistance();
@@ -29,12 +29,12 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                 (bool loaded, Exception ex) = CheckSettingLoad(settings, coupler);
                 if (loaded)
                 {
-                    PrettyLogger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
+                    Logger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
                     break;
                 }
                 else
                 {
-                    PrettyLogger.Log(PrettyInfoType.Retry, $"{ExternalPaths.USER_SETTING}", $"User Settings repair and load retry ({i+1}/{MAX_RETRY})");
+                    Logger.Log(PrettyInfoType.Retry, $"{ExternalPaths.USER_SETTING}", $"User Settings repair and load retry ({i+1}/{MAX_RETRY})");
                     Thread.Sleep(100);
                     TryRepairSettingLoad(settings, coupler);
                 }
@@ -44,11 +44,11 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
                     (loaded, ex) = CheckSettingLoad(settings, coupler);
                     if (loaded)
                     {
-                        PrettyLogger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
+                        Logger.Log(PrettyInfoType.Loaded, $"{ExternalPaths.USER_SETTING}");
                     }
                     else
                     {
-                        PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful");
+                        Logger.Log(PrettyErrorType.OperationFailed, $"{ex.Message}", $"Repairing {ExternalPaths.USER_SETTING} failed, loading was unsuccesful");
                     }
                 }
             }
@@ -58,15 +58,15 @@ namespace SpaceMiner.src.code.components.processing.special.load.checkers
         {
             if (UserSettingPath != null && !File.Exists(UserSettingPath))
             {
-                PrettyLogger.Log(PrettyWarningType.NotFound, $"{ExternalPaths.USER_SETTING}");
+                Logger.Log(PrettyWarningType.NotFound, $"{ExternalPaths.USER_SETTING}");
                 try
                 {
                     File.Create(UserSettingPath).Close();
-                    PrettyLogger.Log(PrettyInfoType.Created, $"{ExternalPaths.USER_SETTING}", "Succesfully created");
+                    Logger.Log(PrettyInfoType.Created, $"{ExternalPaths.USER_SETTING}", "Succesfully created");
                 }
                 catch (Exception ex)
                 {
-                    PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}");
+                    Logger.Log(PrettyErrorType.OperationFailed, $"{ExternalPaths.USER_SETTING}", $"Creation failed, message: {ex.Message}");
                 }
             }
         }

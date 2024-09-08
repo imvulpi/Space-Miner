@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
@@ -29,7 +30,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             }
             else
             {
-                throw new Exception("Game settings could not be loaded. Constructing Path failed, path could not be determined (null).");
+                throw new GameException(PrettyErrorType.OperationFailed, "GameSettingPath", "Game settings could not be loaded, path is null. Constructing path failed!");
             }
         }
         public void Save(ISetting setting)
@@ -48,49 +49,28 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
         }
         private string TryConstructingPath(ISetting setting)
         {
-            if (setting.Path == null && setting is IGameSettingReceive saveReceive)
+            if (setting is IGameSettingReceive saveReceive)
             {
                 
                 return ConstructPath(saveReceive);
             }
             else
             {
-                return ConstructingPathFail(setting);
+                throw new GameException(PrettyErrorType.Invalid, "GameSettingPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type.", "Error is most likely caused by using a wrong coupler!");
             }
         }
         private string ConstructPath(IGameSettingReceive saveSettingReceive)
         {
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {
-                PrettyLogger.Log(PrettyInfoType.Checking, "Save Directory");
-                if (DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName)))
-                {
-                    PrettyLogger.Log(PrettyInfoType.Success, "Save Directory Checked");
-                    return Path.Join(SavesPath, saveSettingReceive.SaveName);
-                }
-                else
-                {
-                    PrettyLogger.Log(PrettyErrorType.OperationFailed, "Save directory could not be corrected");
-                    return null;
-                }
+                Logger.Log(PrettyInfoType.Checking, "Save Directory");
+                DirectoryHelper.ValidateUserDirectories(Path.Join(SavesPath, saveSettingReceive.SaveName));
+                Logger.Log(PrettyInfoType.Success, "Save Directory Checked");
+                return Path.Join(SavesPath, saveSettingReceive.SaveName);
             }
             else
             {
-                PrettyLogger.Log(PrettyErrorType.Invalid, "GameSetting", "Invalid game setting SaveName value. Could not construct a path since SaveName is required");
-                return null;
-            }
-        }
-        private string ConstructingPathFail(ISetting setting)
-        {
-            if (setting.Path == null)
-            {
-                PrettyLogger.Log(PrettyErrorType.Invalid, "SettingsPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type.");
-                return null;
-            }
-            else
-            {
-                PrettyLogger.Log(PrettyErrorType.Invalid, "SettingsPath", "Settings path is not null since why it should be handled already.");
-                return null;
+                throw new GameException(PrettyErrorType.Invalid, "Invalid GameSetting", "Game setting (SaveName) is invalid. Valid SaveName is required.");
             }
         }
     }

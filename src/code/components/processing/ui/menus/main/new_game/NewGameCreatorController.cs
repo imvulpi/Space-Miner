@@ -1,6 +1,5 @@
 using Godot;
-using SpaceMiner.src.code.components.commons.errors;
-using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.errors.exceptions.handlers;
 using SpaceMiner.src.code.components.commons.godot.project_settings.game.world;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.game.save;
@@ -35,22 +34,17 @@ public partial class NewGameCreatorController : Control, IMenuContainer
         try
         {
             if (!ShouldCreateBeDisabled()) {
-                try
-                {
-                    GameSettingCoupler coupler = new GameSettingCoupler();
-                    GameSaveManager gameSaveManager = new GameSaveManager(gameSettings);
-                    gameHelper.CreateSave(gameSettings);
-                    coupler.Save(gameSettings);
-                    gameSaveManager.Load(GetTree());
-                    Menu.Close();
-                }catch(Exception ex) {
-                    PrettyLogger.Log(PrettyErrorType.Critical, $"{ex}", "Game creation failed");
-                }
+                GameSettingCoupler coupler = new GameSettingCoupler();
+                GameSaveManager gameSaveManager = new GameSaveManager(gameSettings);
+                gameHelper.CreateSave(gameSettings);
+                coupler.Save(gameSettings);
+                gameSaveManager.Load(GetTree());
+                Menu.Close();
             }
         }
-        catch(Exception)
+        catch(Exception ex)
         {
-            // Show error to user
+            ExceptionHandler.HandleException(ex, true);
         }
     }
 

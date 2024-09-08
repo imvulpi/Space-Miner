@@ -1,5 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
 using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
@@ -62,15 +63,17 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
 
         public void DeleteSave(string saveName)
         {
+            Logger.Log(PrettyInfoType.GeneralInfo, $"{saveName} removal", $"Removing save.");
             string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR);
             string savePath = Path.Join(path, saveName);
             if (Directory.Exists(savePath))
             {
                 Directory.Delete(savePath, true);
+                Logger.Log(PrettyInfoType.Success, $"{saveName} removal", "Successfully removed");
             }
             else
             {
-                PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{saveName} Removal", "Could not remove the save, because it does not exist");
+                throw new GameException(PrettyErrorType.OperationFailed, $"{saveName} removal", $"The save could not be removed, because {savePath} directory doesn't exist");
             }
         }
 
@@ -81,11 +84,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
         public void CreateSave(GameSaveSettings settings)
         {
             string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
-            if (!DirectoryHelper.ValidateDirectory(path, false))
-            {
-                PrettyLogger.Log(PrettyErrorType.Critical, $"{path}", "Directory validation failed, can't continue with the game creation.");
-            }
-
+            DirectoryHelper.ValidateDirectory(path);
             PackedScene gameScene = GetGameScene(settings);
             ResourceSaver.Save(gameScene, Path.Join(path, ExternalPaths.SAVE_FILE));
         }
@@ -96,32 +95,28 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
             {
                 string gameSceneString = Godot.FileAccess.GetFileAsString(InternalPaths.GAME_SCENE);
                 string destPath = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
-                if (DirectoryHelper.ValidateDirectory(destPath, true) && gameSceneString != "" && Godot.FileAccess.GetOpenError() == Error.Ok)
+                DirectoryHelper.ValidateDirectory(destPath);
+                if (gameSceneString != "" && Godot.FileAccess.GetOpenError() == Error.Ok)
                 {
-                    try
-                    {
-                        File.WriteAllText(Path.Join(destPath, "game.tscn"), gameSceneString);
-                        return ResourceLoader.Load<PackedScene>(InternalPaths.GAME_SCENE);
-                    }
-                    catch (Exception ex)
-                    {
-                        PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex.Message}");
-                        throw;
-                    }
+
+                    File.WriteAllText(Path.Join(destPath, "game.tscn"), gameSceneString);
+                    return ResourceLoader.Load<PackedScene>(InternalPaths.GAME_SCENE);
                 }
                 else if(gameSceneString == "")
                 {
                     // Godot error
                     Error fileAccessError = Godot.FileAccess.GetOpenError();
-                    string formattedIOError = PrettyLogger.Log(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
-                    throw new Exception(formattedIOError.ToString());
+                    throw new GameException(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
                 }
-                return null;
+                else
+                {
+                    // Very rare, but could happen when data is corrupted, for example when freeing objects and deffering a call the data could become corrupted in some cases.
+                    throw new GameException(PrettyErrorType.Critical, $"{InternalPaths.GAME_SCENE}", "The game scene could not be retrieved. (Report this)");
+                }
             }
             else
             {
-                PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}");
-                return null;
+                throw new GameException(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}", "Game scene is missing from the project. (Report this)");
             }
         }
     }

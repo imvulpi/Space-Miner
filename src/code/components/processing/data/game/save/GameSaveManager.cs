@@ -1,14 +1,9 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
-using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.processing.data.settings.game;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.game.save
 {
@@ -30,14 +25,12 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 Error error = sceneTree.ChangeSceneToPacked(gameScene);
                 if (error != Error.Ok)
                 {
-                    PrettyLogger.Log(PrettyErrorType.Critical, $"{error}", "Can not load the game");
-                    throw new Exception();
+                    throw new GameException(PrettyErrorType.Critical, $"{error}", $"Loading a save failed due to an engine error: {error}");
                 }
             }
             else
             {
-                string errorMessage = PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!");
-                throw new Exception(errorMessage);
+                throw new GameException(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!");
             }
         }
 
@@ -55,14 +48,12 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                 }
                 else
                 {
-                    string errorMessage = PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed");
-                    throw new Exception(errorMessage);
+                    throw new GameException(PrettyErrorType.OperationFailed, $"{gameNode.Name}/{packError}", $"Could not save because packing failed");
                 }
             }
             else
             {
-                string errorMessage = PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!").ToString();
-                throw new Exception(errorMessage);
+                throw new GameException(PrettyErrorType.ResourceNotFound, $"{GameSaveSettings.Path}", "Save directory not found, could not load!");
             }
         }
     }

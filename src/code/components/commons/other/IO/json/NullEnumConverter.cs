@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace JsonEnumTest
+namespace SpaceMiner.src.code.components.commons.other.IO.json
 {
     public class NullableEnumConverter<T> : JsonConverter<T?> where T : struct, Enum
     {

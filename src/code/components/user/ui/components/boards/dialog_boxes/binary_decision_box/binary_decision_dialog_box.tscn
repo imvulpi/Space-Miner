@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://xnolu346tmvx"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/SaveConfirmationDialog.cs" id="1_i356g"]
-[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_yoy27"]
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialog_boxes/binary_decision_box/BinaryDecisionDialogBox.cs" id="1_cc2t4"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_acy1o"]
 
-[node name="ConfirmLoad" type="Control" node_paths=PackedStringArray("ConfirmButton", "CancelButton", "Label")]
+[node name="BinaryDecisionDialogBox" type="Control" node_paths=PackedStringArray("YesButton", "NoButton", "MessageLabel", "TitleLabel")]
 z_index = 4
 layout_mode = 3
 anchors_preset = 15
@@ -11,10 +11,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_i356g")
-ConfirmButton = NodePath("YES")
-CancelButton = NodePath("NO")
-Label = NodePath("Label")
+script = ExtResource("1_cc2t4")
+YesButton = NodePath("YES")
+NoButton = NodePath("NO")
+MessageLabel = NodePath("Message")
+TitleLabel = NodePath("Title")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -25,7 +26,24 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -102.0
+offset_right = 120.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_acy1o")
+theme_override_font_sizes/font_size = 24
+text = "LOAD SAVE?"
+
+[node name="Message" type="Label" parent="."]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -33,15 +51,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -84.0
-offset_right = 152.0
-offset_bottom = -49.0
+offset_left = -350.0
+offset_top = -56.5
+offset_right = 350.0
+offset_bottom = -0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_yoy27")
+theme = ExtResource("2_acy1o")
 theme_override_constants/line_spacing = 8
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 text = "Are you sure you want to load
 [SAVE_NAME]"
 horizontal_alignment = 1
@@ -61,7 +79,7 @@ offset_right = 74.08
 offset_bottom = 72.06
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("1_yoy27")
+theme = ExtResource("2_acy1o")
 theme_override_font_sizes/font_size = 16
 text = "YES"
 
@@ -77,6 +95,6 @@ offset_top = 14.22
 offset_right = 72.48
 offset_bottom = 74.22
 grow_vertical = 0
-theme = ExtResource("1_yoy27")
+theme = ExtResource("2_acy1o")
 theme_override_font_sizes/font_size = 16
 text = "No"

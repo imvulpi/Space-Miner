@@ -4,6 +4,7 @@ using System.IO;
 using System;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.errors.exceptions;
 
 namespace SpaceMiner.src.code.components.commons.other.IO
 {
@@ -40,53 +41,29 @@ namespace SpaceMiner.src.code.components.commons.other.IO
         }
 
         /// <summary>
-        /// Checks or corrects directories in a path<br></br>
+        /// Checks directories in a path and creates missing.<br></br>
         /// </summary>
-        /// <returns>Is validated<br></br>Will return false in the first instance of unfixable error</returns>
-        public static bool ValidateUserDirectories(string path)
+        public static void ValidateUserDirectories(string path)
         {
             foreach (var dirPath in GetParentDirectories(path))
             {
-                if(!ValidateDirectory(dirPath, true))
-                {
-                    return false;
-                }
+                ValidateDirectory(dirPath);
             }
-            return true;
         }
 
         /// <summary>
-        /// Will check if a specific directory specified in a path exists.<br></br>
-        /// NOTE: This will create the directory if missing.
+        /// Checks if directory in a path exists and creates the directory if missing.
         /// </summary>
         /// <param name="path">Directory path</param>
-        /// <param name="shouldLog">Whether it should write logs</param>
-        /// <returns>true if the directory exists or was successfully created<br></br>false if directory creation failed</returns>
-        public static bool ValidateDirectory(string path, bool shouldLog = false)
+        public static void ValidateDirectory(string path)
         {
             if (!Directory.Exists(path))
             {
-                if (shouldLog)
-                {
-                    PrettyLogger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
-                    PrettyLogger.Log(PrettyInfoType.RepairAttempt, $"{path}");
-                }
-                try
-                {
-                    Directory.CreateDirectory(path);
-                    if (shouldLog)
-                    {
-                        PrettyLogger.Log(PrettyInfoType.Success, $"{path} created successfully.");
-                    }
-                    return true;
-                }
-                catch(Exception ex)
-                {
-                    PrettyLogger.Log(PrettyErrorType.OperationFailed, $"{ex}", $"{path} Repair failed");
-                    return false;
-                }
+                Logger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
+                Logger.Log(PrettyInfoType.RepairAttempt, $"{path}", "Directory creation attempt");
+                Directory.CreateDirectory(path);
+                Logger.Log(PrettyInfoType.Success, $"{path} created successfully!");
             }
-            return true;
         }
     }
 }
