@@ -13,8 +13,9 @@ namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
         /// <returns>Combined paths to a user data directory</returns>
         public static string Join(params string[] paths)
         {
-            paths = (string[])paths.Prepend(OS.GetUserDataDir());
-            return Path.Join(paths);
+            string path = Path.Join(paths);
+            path = Path.Join(OS.GetUserDataDir(), path);
+            return path;
         }
     }
 }

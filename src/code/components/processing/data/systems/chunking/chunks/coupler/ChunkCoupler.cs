@@ -32,7 +32,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunks
         /// <param name="dimension">Current dimension or the dimension to which the chunk should be saved</param>
         public void Save<T>(T chunk, string saveName, string dimension) where T : Node2D, IChunkNode
         {
-            Save(chunk, OsPath.Join(ExternalPaths.SAVES_DIR, saveName, ExternalPaths.CHUNKS_DIR, dimension));
+            Save(chunk, OsPath.Join(ExternalPaths.SAVES_DIR, saveName, ExternalPaths.CHUNKS_DIR, dimension, chunk.Info.FileName));
         }
     }
 }
