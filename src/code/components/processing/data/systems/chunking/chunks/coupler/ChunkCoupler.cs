@@ -1,38 +1,44 @@
-﻿using Godot;
+﻿using ProtoBuf;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
-using SpaceMiner.src.code.components.processing.data.game.chunks.chunk;
-using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.node;
-using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.coupler.base_coupler;
+using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info;
+using System.IO;
 
 namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.coupler
 {
-    public class ChunkCoupler : BaseChunkCoupler, IChunkCoupler
+    public class ChunkCoupler : IChunkCoupler
     {
-        /// <summary>
-        /// Finds and provides ChunkNode from given parameters<br></br>
-        /// <br></br>NOTE: This does not convert the position to chunk position.
-        /// <br></br>This doesn't add the chunk to the scene, but simply loads and returns an instance
-        /// </summary>
-        /// <param name="saveName">The current game save name</param>
-        /// <param name="dimension">Current dimension or the dimension from which the chunk should be given</param>
-        /// <param name="chunkPosition">Position of the chunk</param>
-        /// <returns>A ChunkNode instance</returns>
-        public ChunkNode Load(string saveName, string dimension, Vector2 chunkPosition)
+        public IChunkInfo Load(string saveName, string dimension, string formattedName)
         {
-            return Load(OsPath.Join(ExternalPaths.SAVES_DIR, saveName, ExternalPaths.CHUNKS_DIR, dimension, ChunkHelper.GetChunkFilename(chunkPosition)));
+            string path = OsPath.Join(ExternalPaths.SAVES_DIR, saveName, ExternalPaths.CHUNKS_DIR, dimension, formattedName);
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                return Serializer.Deserialize<ChunkInfo>(stream);
+            }
+        }
+
+        public IChunkInfo Load(string path)
+        {
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            {
+                return Serializer.Deserialize<ChunkInfo>(stream);
+            }
         }
 
         /// <summary>
-        /// Saves a Chunk Node from provided parameters<br></br>
-        /// Note: Most if not all parameters can be retrieved from the ChunkInfo of the instance. 
+        /// Saves a chunk. Requires chunk info: SaveName, Dimension, ChunkPosition
         /// </summary>
-        /// <typeparam name="T">Class which is a Node2D implementing IChunkNode</typeparam>
-        /// <param name="chunk">The instance of Node2D implementing IChunkNode</param>
-        /// <param name="saveName">The current game save name</param>
-        /// <param name="dimension">Current dimension or the dimension to which the chunk should be saved</param>
-        public void Save<T>(T chunk, string saveName, string dimension) where T : Node2D, IChunkNode
+        /// <param name="chunkInfo"></param>
+        public void Save(IChunkInfo chunkInfo)
         {
-            Save(chunk, OsPath.Join(ExternalPaths.SAVES_DIR, saveName, ExternalPaths.CHUNKS_DIR, dimension, chunk.Info.FileName));
+            string path = OsPath.Join(ExternalPaths.SAVES_DIR, chunkInfo.SaveName, ExternalPaths.CHUNKS_DIR, 
+                                    chunkInfo.Dimension, ChunkHelper.GetChunkFilename(chunkInfo.ChunkPosition));
+
+            using (var stream = new MemoryStream())
+            {
+                Serializer.Serialize(stream, chunkInfo);
+                byte[] serializedData = stream.ToArray();
+                File.WriteAllBytes(path, serializedData);
+            }        
         }
     }
 }

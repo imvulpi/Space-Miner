@@ -1,23 +1,30 @@
 ﻿using Godot;
-using SpaceMiner.src.code.components.commons.other.game_information;
-using SpaceMiner.src.code.components.commons.other.paths.external_paths;
+using ProtoBuf;
+using SpaceMiner.src.code.components.user.blocks;
 using System;
+using System.Buffers;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info
 {
+    [ProtoContract]
     public class ChunkInfo : IChunkInfo
     {
-        public string FileName { get; set; }
+        [ProtoMember(1)]
         public string SaveName { get; set; }
+        [ProtoMember(2)]
         public string Dimension { get; set; }
-        public string Version { get; set; }
+        [ProtoMember(3)]
+        public string FileName { get; set; }
+        [ProtoMember(4)]
+        public string ChunkVersion { get; set; }
+        [ProtoMember(5)]
+        public string SrlVersion { get; set; }
+        [ProtoMember(6)]
         public Vector2 ChunkPosition { get; set; }
+        [ProtoMember(7)]
         public ulong LastUpdate { get; set; }
+        [ProtoMember(8)]
+        public List<Block> BlocksData { get; set; } = new List<Block>();      
     }
 }

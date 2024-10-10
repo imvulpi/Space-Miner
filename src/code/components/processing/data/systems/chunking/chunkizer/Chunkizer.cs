@@ -4,6 +4,7 @@ using SpaceMiner.src.code.components.processing.data.game.chunks.chunk;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info;
 using SpaceMiner.src.code.components.user;
+using SpaceMiner.src.code.components.user.blocks;
 using System.Collections.Generic;
 
 namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunkizer
@@ -20,12 +21,20 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunki
             {
                 if (chunks.TryGetValue(nodeChunk, out ChunkNode chunkNode))
                 {
+                    if(node is Block block)
+                    {
+                        chunkNode.Info.BlocksData.Add(block);
+                    }
                     chunkNode.AddChild(node);
                     node.Owner = chunkNode;
                 }
                 else
                 {
                     ChunkNode newChunkNode = CreateChunk(nodeChunk);
+                    if (node is Block block)
+                    {
+                        newChunkNode.Info.BlocksData.Add(block);
+                    }
                     chunks.Add(nodeChunk, newChunkNode);
                     newChunkNode.AddChild(node);
                     node.Owner = newChunkNode;
@@ -47,7 +56,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunki
             {
                 ChunkPosition = chunkPosition,
                 FileName = ChunkHelper.GetChunkFilename(chunkPosition),
-                Version = GameInfo.CHUNK_SYSTEM_VERSION
+                ChunkVersion = GameInfo.CHUNK_SYSTEM_VERSION
             };
 
             return newChunkNode;

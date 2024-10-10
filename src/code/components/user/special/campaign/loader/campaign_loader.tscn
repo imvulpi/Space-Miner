@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpcawrs08j0y"]
+
+[ext_resource type="Script" path="res://src/code/components/user/special/campaign/loader/CampaignLoader.cs" id="1_y8hft"]
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/SimplePlayer.cs" id="2_wq35h"]
+[ext_resource type="Texture2D" uid="uid://bvupxqcuepb87" path="res://src/resources/graphics/ui/icons/trash/trash_32x32.png" id="3_bug60"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gtnmq"]
+radius = 21.0
+
+[node name="CampaignLoader" type="Node2D" node_paths=PackedStringArray("characterBody")]
+script = ExtResource("1_y8hft")
+characterBody = NodePath("CharacterBody2D")
+
+[node name="Chunks" type="Node2D" parent="."]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_wq35h")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("3_bug60")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_gtnmq")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+rotation = -0.0149949

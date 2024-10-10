@@ -1,7 +1,6 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks;
 using System;
-
 namespace SpaceMiner.src.code.components.processing.data.systems.chunking
 {
     public static class ChunkHelper
@@ -42,7 +41,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking
 
         public static string GetChunkFilename(Vector2 position)
         {
-            return $"({position.X}.{position.Y}).tscn";
+            return $"({position.X}.{position.Y})";
         }
     }
 }

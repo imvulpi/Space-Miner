@@ -1,10 +1,15 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
+using SpaceMiner.src.code.components.commons.errors.logging;
+using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
 using SpaceMiner.src.code.components.processing.data.game.chunks.chunk;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks;
+using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.coupler;
+using SpaceMiner.src.code.components.user.blocks;
+using SpaceMiner.src.code.components.user.blocks.core.factories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,9 +19,9 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
     public class ChunkManager : IChunkManager
     {
         public ChunkManager() { }
-        public ChunkManager(int chunkDistance, string chunksDirectoryName, string placeName, Node2D connectNode) { 
+        public ChunkManager(int chunkDistance, string saveName, string placeName, Node2D connectNode) { 
             ChunkDistance = chunkDistance;
-            ChunksDirectoryName = chunksDirectoryName;
+            ChunksDirectoryName = saveName;
             ConnectNode = connectNode;
             PlaceName = placeName;
         }
@@ -25,17 +30,23 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
         public string ChunksDirectoryName { get; set; }
         public string PlaceName {  get; set; }
         public Node ConnectNode { get; set; }
+        public BlockFactory BlockFactoryManager { get; set; }
 
         public List<Vector2> LoadedChunksPositions = new();
         public Dictionary<Vector2, Node> LoadedChunks = new();
         public Vector2 LastChunk = Vector2.Inf;
-
-        private IChunkCoupler chunkCoupler = new ChunkCoupler();
+        public ChunkCoupler ChunkCoupler = new();
         public void Manage(Vector2 position)
         {
-            if(ChunkDistance == 0 || ChunksDirectoryName == null || ChunksDirectoryName == String.Empty || ConnectNode == null)
+            if (ChunkDistance == 0 || ChunksDirectoryName == null || ChunksDirectoryName == String.Empty || ConnectNode == null || BlockFactoryManager == null)
             {
-                GameException ex = new(PrettyErrorType.Invalid, "ChunkDistance, GameSaveName or ConnectNode", "Required parameters are not set.");
+                // Also checks the properties.
+                GameException ex = new(PrettyErrorType.Critical, "Chunk manager properties", $"Required properties are not set. " +
+                    $"Invalid check: " +
+                    $"ChunkDistance - {(ChunkDistance == 0 ? "invalid" : "valid")} " +
+                    $"(ChunksDirectoryName - {ChunksDirectoryName} (check if save exists)) " +
+                    $"ConnectNode - {(ConnectNode == null ? "invalid" : "valid")} " +
+                    $"BlockFactoryManager - {(BlockFactoryManager == null ? "invalid" : "valid")}");
                 throw ex;
             }
 
@@ -89,13 +100,21 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
             }
         }
 
+        private void LoadBlocks(IChunkInfo chunkInfo, Node connectNode)
+        {
+            foreach (Block data in chunkInfo.BlocksData) {
+                connectNode.AddChild(BlockFactoryManager.GetBlock(data.ID, data));
+            }
+        }
+
         private void LoadChunk(Vector2 chunkPosition, Node connectNode, string chunksDirectoryName)
         {
             try
             {
-                ChunkNode chunkNode = chunkCoupler.Load(chunksDirectoryName, PlaceName, chunkPosition);
+                ChunkNode chunkNode = new ChunkNode(ChunkCoupler.Load(chunksDirectoryName, PlaceName, ChunkHelper.GetChunkFilename(chunkPosition)));
                 connectNode.AddChild(chunkNode);
                 LoadedChunks.Add(chunkPosition, chunkNode);
+                LoadBlocks(chunkNode.Info, chunkNode);
             }
             catch (Exception)
             {
