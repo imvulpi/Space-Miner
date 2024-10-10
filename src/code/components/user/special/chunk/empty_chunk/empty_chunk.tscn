@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnlspb6hhax12"]
+
+[ext_resource type="Script" path="res://src/code/components/user/special/chunk/empty_chunk/EmptyChunk.cs" id="1_hbk3k"]
+
+[node name="EmptyChunk" type="Node2D"]
+script = ExtResource("1_hbk3k")

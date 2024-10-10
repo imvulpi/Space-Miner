@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsgvjuap0wckm"]
+
+[ext_resource type="Script" path="res://src/code/components/user/blocks/unique/barrier/BarrierBlock.cs" id="1_smkt7"]
+[ext_resource type="Texture2D" uid="uid://b5d1f2tll0yqj" path="res://src/resources/graphics/sprites/blocks/barrier_block/barrier_block.png" id="2_y5vfw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl6g3"]
+size = Vector2(64, 64)
+
+[node name="BarrierBlock" type="Node2D"]
+script = ExtResource("1_smkt7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_y5vfw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_sl6g3")
