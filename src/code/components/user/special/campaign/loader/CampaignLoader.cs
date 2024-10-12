@@ -9,7 +9,7 @@ using SpaceMiner.src.code.components.user.blocks.unique.empty;
 
 public partial class CampaignLoader : Node2D
 {
-	ChunkManager manager = new();
+	ChunkManager Manager = new();
 	[Export] CharacterBody2D characterBody;
 	public override void _Ready()
 	{
@@ -25,7 +25,7 @@ public partial class CampaignLoader : Node2D
 			BlockFactoryManager  = extensibleBlockFactory,
 		};
 
-        manager = chunkManager;
+        Manager = chunkManager;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,7 +33,7 @@ public partial class CampaignLoader : Node2D
 	{
 		try
 		{
-			manager.Manage(characterBody.Position);
+			Manager.Manage(characterBody.Position);
 		}
 		catch (GameException ex)
 		{
