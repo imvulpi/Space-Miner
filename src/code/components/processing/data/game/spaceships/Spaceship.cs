@@ -14,6 +14,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
     [ProtoInclude(100, typeof(ProspectorSpaceship))]
     public abstract partial class Spaceship : CharacterBody2D
     {
+        [ProtoMember(1)]
         public abstract string ID { get; set; }
     }
 }

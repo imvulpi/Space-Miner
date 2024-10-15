@@ -1,16 +1,12 @@
 ﻿using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.game.spaceships.factory
 {
     public class SpaceshipFactory : ISpaceshipFactory, ISpaceshipRegistry
     {
-        public Dictionary<string, ISpaceshipFactory> SpaceshipFactories { get; set; }
+        public Dictionary<string, ISpaceshipFactory> SpaceshipFactories { get; set; } = new Dictionary<string, ISpaceshipFactory>();
 
         public Spaceship GetSpaceship(Spaceship spaceship)
         {
@@ -25,11 +21,11 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.factory
             }
             else
             {
-                throw new GameException(PrettyErrorType.ResourceNotFound, "Spaceship factory", "There is no spaceship factory registered for this ID.")
+                throw new GameException(PrettyErrorType.ResourceNotFound, "Spaceship factory", "There is no spaceship factory registered for this ID.");
             }
         }
 
-        public bool DeregisterBlockFactory(string domain)
+        public bool DeregisterSpaceshipFactory(string domain)
         {
             if (SpaceshipFactories.Remove(domain))
             {
@@ -38,12 +34,12 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.factory
             return false;
         }
 
-        public ISpaceshipFactory GetBlockFactory(string domain)
+        public ISpaceshipFactory GetSpaceshipFactory(string domain)
         {
             return SpaceshipFactories[domain];
         }
 
-        public ISpaceshipFactory RegisterBlockFactory(string domain, ISpaceshipFactory spaceshipFactory)
+        public ISpaceshipFactory RegisterSpaceshipFactory(string domain, ISpaceshipFactory spaceshipFactory)
         {
             if(SpaceshipFactories.TryAdd(domain, spaceshipFactory))
             {
@@ -55,7 +51,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.factory
             }
         }
 
-        public void SetBlockFactory(string domain, ISpaceshipFactory spaceshipFactory)
+        public void SetSpaceshipFactory(string domain, ISpaceshipFactory spaceshipFactory)
         {
             SpaceshipFactories[domain] = spaceshipFactory;
         }

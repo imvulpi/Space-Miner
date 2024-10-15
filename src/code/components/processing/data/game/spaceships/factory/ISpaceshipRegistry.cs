@@ -10,9 +10,9 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.factory
     public interface ISpaceshipRegistry
     {
         Dictionary<string, ISpaceshipFactory> SpaceshipFactories { get; set; }
-        public ISpaceshipFactory RegisterBlockFactory(string domain, ISpaceshipFactory spaceshipFactory);
-        public bool DeregisterBlockFactory(string domain);
-        public ISpaceshipFactory GetBlockFactory(string domain);
-        public void SetBlockFactory(string domain, ISpaceshipFactory spaceshipFactory);
+        public ISpaceshipFactory RegisterSpaceshipFactory(string domain, ISpaceshipFactory spaceshipFactory);
+        public bool DeregisterSpaceshipFactory(string domain);
+        public ISpaceshipFactory GetSpaceshipFactory(string domain);
+        public void SetSpaceshipFactory(string domain, ISpaceshipFactory spaceshipFactory);
     }
 }

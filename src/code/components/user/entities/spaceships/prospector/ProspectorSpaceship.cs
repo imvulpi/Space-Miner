@@ -1,4 +1,5 @@
 ﻿using Godot;
+using ProtoBuf;
 using SpaceMiner.src.code.components.processing.entities.implementations.player.spaceship;
 using SpaceMiner.src.code.components.processing.entities.implementations.player.spaceship.basic_controller;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospector
 {
     /// Hydrogen (Protium-1) and liquid Oxygen (LOX + LH2) Spaceship
+    [ProtoContract]
     public partial class ProspectorSpaceship : Spaceship, ISpaceship, ISpaceshipData, ICargoSpaceship
     {
         public ISpaceshipController<CharacterBody2D> Controller { get; set; }
@@ -22,7 +24,8 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospec
         public float CargoCapacity { get; set; } = 300000; // 300k
         public float LoadSpeed { get; set; } = 22000; // 22k
 
-        private float CurrentCargo = 0;
+        [ProtoMember(2)]
+        public float CurrentCargo = 0;
 
         public override void _Ready()
         {
