@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospector
 {
     /// Hydrogen (Protium-1) and liquid Oxygen (LOX + LH2) Spaceship
-    public partial class ProspectorSpaceship : Spaceship, ISpaceship, ISpaceshipData, IProspectorSpaceship
+    public partial class ProspectorSpaceship : Spaceship, ISpaceship, ISpaceshipData, ICargoSpaceship
     {
         public ISpaceshipController<CharacterBody2D> Controller { get; set; }
         public override string ID { get; set; } = "spaceminer.prospector";

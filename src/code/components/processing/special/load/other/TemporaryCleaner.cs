@@ -21,7 +21,7 @@ namespace SpaceMiner.src.code.components.processing.special.load.other
             string tempPath = Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.TEMP_DIR);
             if (Directory.Exists(tempPath))
             {
-                Directory.Delete(tempPath);
+                Directory.Delete(tempPath, true);
                 Directory.CreateDirectory(tempPath);
             }
         }

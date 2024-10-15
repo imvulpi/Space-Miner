@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospector
+namespace SpaceMiner.src.code.components.processing.data.game.spaceships
 {
-    public interface IProspectorSpaceship : ISpaceshipData
+    public interface ICargoSpaceship
     {
         public float CargoCapacity { get; set; }
         public float LoadSpeed { get; set; }
-
     }
 }
