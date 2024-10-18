@@ -4,8 +4,10 @@ using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.exceptions.handlers;
 using SpaceMiner.src.code.components.processing.data.game.save;
 using SpaceMiner.src.code.components.processing.data.settings.game;
+using SpaceMiner.src.code.components.processing.ui.menus.main.load_game;
 using SpaceMiner.src.code.components.user.ui.components.boards;
 using SpaceMiner.src.code.components.user.ui.components.other;
+using SpaceMiner.src.code.components.user.ui.components.other.game_save_item;
 using System;
 using System.Collections.Generic;
 
@@ -17,14 +19,19 @@ public partial class GameLoaderMenuController : Control
 	[Export] public Control SavesHolder {  get; set; }
 	[Export] public VScrollBar ScrollBar { get; set; }
 	[Export] public Control SavesWrapper { get; set; }
-	
+    private LoadSaveEventHandler LoadSaveEventHandler { get; set; }
+    private DeleteSaveEventHandler DeleteSaveEventHandler { get; set; }
+    private GameSaveHelper GameSaveHelper { get; set; } = new GameSaveHelper();
 	private int saveCount = 0;
 	private int cumulativeHeight = 0;
     private readonly List<GameSaveItem> saveNodes = new();
-	public override void _Ready()
+    public override void _Ready()
 	{
+        LoadSaveEventHandler = new LoadSaveEventHandler(LoadSaveConfirmationMenu, this);
+        DeleteSaveEventHandler = new DeleteSaveEventHandler(DeleteSaveConfirmationMenu, this);
 		try
 		{
+            // Creates save items for all saves is /saves directory
 			string[] savesDirsPaths = new GameSaveHelper().GetAllSavesDirectories();
 			CreateAllSaveItems(savesDirsPaths);
 		}
@@ -34,6 +41,9 @@ public partial class GameLoaderMenuController : Control
 		}
 	}
 
+    /// <summary>
+    /// Iterates over all saves to create boxes and set it up.
+    /// </summary>
 	private void CreateAllSaveItems(string[] savesPaths)
 	{
         foreach (string savePath in savesPaths)
@@ -44,135 +54,67 @@ public partial class GameLoaderMenuController : Control
         }
     }
 
+    /// <summary>
+    /// Creates a save box and connects its events.
+    /// </summary>
+    /// <param name="saveName">Name of the save</param>
+    /// <param name="fullPath">Path to the save</param>
     private void CreateSaveItem(string saveName, string fullPath)
 	{
-        GameSaveItem saveNode = CreateGameSaveItem(saveName, fullPath);
-		SetupGameSaveItem(saveNode);
-
+        GameSaveItem saveNode = SetupSaveItem(saveName, fullPath);
 		saveCount += 1;
         cumulativeHeight = (int)saveNode.Position.Y;
         CheckSaveHolderHeight();
     }
 
-	private GameSaveItem CreateGameSaveItem(string saveName, string fullPath)
+    /// <summary>
+    /// Creates a new Game save item and sets everything in it<br></br>Sets up events, names, paths, and other
+    /// </summary>
+    /// <param name="saveName">name of the save</param>
+    /// <param name="fullPath">path to the save</param>
+    /// <returns>created save</returns>
+	private GameSaveItem SetupSaveItem(string saveName, string fullPath)
 	{
         GameSaveItem saveNode = SaveItem.Instantiate<GameSaveItem>();
         saveNode.Name = saveName;
         saveNode.NameLabel.Text = saveName;
         saveNode.PathLabel.Text = $"./saves/{saveName}";
         saveNode.FullPath = fullPath;
-        saveNode.DeleteSaveEvent += SaveNode_OnDeleteGameSaveItem;
-        saveNode.LoadSaveEvent += SaveNode_LoadSaveEvent;
-		return saveNode;
-    }
-
-	private void SetupGameSaveItem(GameSaveItem saveItem)
-	{
-        SavesHolder.AddChild(saveItem);
-        saveNodes.Add(saveItem);
-        saveItem.Position = new Vector2(saveItem.Position.X, saveItem.Size.Y * saveCount);
-        saveItem.SetSize(new Vector2(SavesHolder.Size.X, saveItem.Size.Y));
-    }
-
-    // TODO: seperate more
-    private void SaveNode_LoadSaveEvent(object obj)
-    {
-		Node LoadConfirmationMenu = LoadSaveConfirmationMenu.Instantiate();
-
-		if(LoadConfirmationMenu is BinaryDecisionDialogBox confirmationDialog && obj is GameSaveItem saveObj)
+        saveNode.DeleteSaveEvent += (object obj) =>
         {
-            SetupLoadSaveConfirmationDialog(confirmationDialog, saveObj);
-        }
-		else
-		{
-            throw new GameException(PrettyErrorType.Invalid, "LoadConfirmationMenu", "This Menu should be of SaveConfirmationDialog type (Report this)");
-		}
-    }
-
-    private void SetupLoadSaveConfirmationDialog(BinaryDecisionDialogBox dialog, GameSaveItem saveItem)
-    {
-        dialog.SaveName = saveItem.NameLabel.Text;
-        dialog.Title = "Load save?";
-        dialog.Message = $"Do you want to load: {saveItem.NameLabel.Text} Save?";
-        AddChild(dialog);
-
-        dialog.Decision += (bool shouldLoad) =>
-        {
-            if (shouldLoad)
-            {
-                GameSaveSettings settings = new GameSaveSettings()
-                {
-                    SaveName = saveItem.NameLabel.Text,
-                };
-
-                try
-                {
-                    new GameSaveManager(settings).Load(GetTree());
-                }catch(Exception ex)
-                {
-                    ExceptionHandler.HandleException(ex, true);
-                }
-            }
-            else
-            {
-                RemoveChild(dialog);
-                dialog.QueueFree();
+            GameSaveItem saveItem = DeleteSaveEventHandler.DeleteSaveEvent(obj);
+            if(saveItem != null ) {
+                DeleteSaveItem(saveItem);
             }
         };
+
+        saveNode.LoadSaveEvent += LoadSaveEventHandler.LoadSaveEvent;
+
+        SavesHolder.AddChild(saveNode);
+        saveNodes.Add(saveNode);
+        saveNode.Position = new Vector2(saveNode.Position.X, saveNode.Size.Y * saveCount);
+        saveNode.SetSize(new Vector2(SavesHolder.Size.X, saveNode.Size.Y));
+
+        return saveNode;
     }
 
-    private void SaveNode_OnDeleteGameSaveItem(object obj)
-    {
-        Node DeleteConfirmationMenu = DeleteSaveConfirmationMenu.Instantiate();
-		if(DeleteConfirmationMenu is BinaryDecisionDialogBox confirmationMenu && obj is GameSaveItem saveObj)
-		{
-			SetupDeleteSaveConfirmationDialog(confirmationMenu, saveObj);
-		}
-		else
-        {
-            throw new GameException(PrettyErrorType.Invalid, "DeleteConfirmationMenu", "This Menu should be of SaveConfirmationDialog type (Report this)");
-        }
-    }
-
-	private void SetupDeleteSaveConfirmationDialog(BinaryDecisionDialogBox dialog, GameSaveItem saveItem)
-	{
-        dialog.SaveName = saveItem.NameLabel.Text;
-        dialog.Title = "Delete save?";
-        dialog.Message = $"Do you wish to delete: {saveItem.NameLabel.Text} Save?\nThis action can't be reversed";
-        AddChild(dialog);
-        dialog.Decision += (bool shouldDelete) =>
-        {
-            if (shouldDelete)
-            {
-                try
-                {
-                    DeleteSaveItem(saveItem);
-                    RepositionNodes();
-                    CheckSaveHolderHeight();
-                    RemoveChild(dialog);
-                    saveItem.QueueFree();
-                    dialog.QueueFree();
-                }catch(Exception ex)
-                {
-                    ExceptionHandler.HandleException(ex, true);
-                }
-            }
-            else
-            {
-                RemoveChild(dialog);
-                dialog.QueueFree();
-            }
-        };
-    }
-
+    /// <summary>
+    /// Deletes a save from system and save holders
+    /// </summary>
+    /// <param name="saveItem"></param>
     private void DeleteSaveItem(GameSaveItem saveItem)
     {
-        new GameSaveHelper().DeleteSave(saveItem.NameLabel.Text);
+        GameSaveHelper.DeleteSave(saveItem.NameLabel.Text);
         cumulativeHeight -= (int)saveItem.Size.Y;
         SavesHolder.RemoveChild(saveItem);
         saveNodes.Remove(saveItem);
+        RepositionNodes();
+        CheckSaveHolderHeight();
     }
 
+    /// <summary>
+    /// Repositions all nodes to adjust possible spaces, ex. in case deleted nodes.
+    /// </summary>
     private void RepositionNodes()
 	{
 		int nodeCount = 0;
@@ -183,6 +125,9 @@ public partial class GameLoaderMenuController : Control
         }
     }
 
+    /// <summary>
+    /// Checks and changes sizes of saves wrapper and holder to fit boxes nicely without spaces.
+    /// </summary>
 	private void CheckSaveHolderHeight()
 	{
 		if(cumulativeHeight > SavesHolder.Size.Y)
