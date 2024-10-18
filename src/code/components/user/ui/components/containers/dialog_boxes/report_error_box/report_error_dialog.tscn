@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqctrmff8807"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialog_boxes/report_error_box/ReportErrorDialogBox.cs" id="1_nghut"]
+[ext_resource type="Script" path="res://src/code/components/user/ui/components/containers/dialog_boxes/report_error_box/ReportErrorDialogBox.cs" id="1_nghut"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_25hfp"]
 
 [node name="ReportErrorDialog" type="Control" node_paths=PackedStringArray("ReportButton", "CancelButton", "DiscordInvite")]

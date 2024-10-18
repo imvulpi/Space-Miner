@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/code/components/processing/ui/menus/main/load_game/GameLoaderMenuController.cs" id="1_80slh"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="1_bl7h1"]
-[ext_resource type="PackedScene" uid="uid://xnolu346tmvx" path="res://src/code/components/user/ui/components/boards/dialog_boxes/binary_decision_box/binary_decision_dialog_box.tscn" id="2_eukja"]
+[ext_resource type="PackedScene" uid="uid://xnolu346tmvx" path="res://src/code/components/user/ui/components/containers/dialog_boxes/binary_decision_box/binary_decision_dialog_box.tscn" id="2_eukja"]
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="3_fu7de"]
 [ext_resource type="PackedScene" uid="uid://csta4b1js56ed" path="res://src/code/components/user/ui/menus/main/scenes/game_loader/game_save_item.tscn" id="4_y6n5m"]
 [ext_resource type="StyleBox" uid="uid://gkl5q6v5c5s7" path="res://src/resources/themes/grabbers/grabber_style.tres" id="6_y2ur8"]
