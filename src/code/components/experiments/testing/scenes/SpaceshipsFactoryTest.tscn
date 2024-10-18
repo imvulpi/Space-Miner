@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dddroxlu5xpht"]
+
+[ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/SpaceshipsFactoryTest.cs" id="1_2fk8r"]
+
+[node name="SpaceshipsFactoryTest" type="Node2D"]
+script = ExtResource("1_2fk8r")
+
+[node name="Spaceships" type="Node2D" parent="."]
