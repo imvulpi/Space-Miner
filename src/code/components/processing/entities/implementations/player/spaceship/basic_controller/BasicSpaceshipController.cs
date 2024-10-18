@@ -32,19 +32,15 @@ namespace SpaceMiner.src.code.components.processing.entities.implementations.pla
         public void Move(CharacterBody2D entity, double delta)
         {
             Vector2 positionMovement = GetPostitionChange((float)delta, entity.Rotation);
-            GD.Print($"UpdatedSpeed PRE {positionMovement} | Current Speed {currentSpeed}");
             positionMovement.X = positionMovement.X * currentSpeed * (float)delta;
             positionMovement.Y = positionMovement.Y * currentSpeed * (float)delta;
-            GD.Print($"UpdatedSpeed POST {positionMovement} | Current Speed {currentSpeed}");
 
             UpdateSpeed((float)delta);
             KinematicCollision2D collision2D = entity.MoveAndCollide(positionMovement);
             if(collision2D != null)
             {
-                GD.Print("Collision occured");
                 float speedLoss = 1 * currentSpeed * (float)Math.Cos(collision2D.GetAngle());
                 currentSpeed -= speedLoss;
-                GD.Print($"Speed loss: {speedLoss}");
             }
         }
 
@@ -72,13 +68,11 @@ namespace SpaceMiner.src.code.components.processing.entities.implementations.pla
             Vector2 directionVector = new(-MathF.Sin(rotation), MathF.Cos(rotation));
             if (Input.IsKeyPressed(Key.W))
             {
-                GD.Print("Pressing W");
                 IncreaseSpeed(Acceleration * delta);
             }
 
             if (Input.IsKeyPressed(Key.S))
             {
-                GD.Print("Pressing S");
                 IncreaseSpeed(-Acceleration * delta);
             }
 
