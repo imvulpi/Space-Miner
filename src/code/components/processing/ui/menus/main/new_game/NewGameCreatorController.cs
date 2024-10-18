@@ -23,7 +23,7 @@ public partial class NewGameCreatorController : Control, IMenuContainer
 
     public override void _Ready()
 	{
-        SaveName.TextChanged += SaveName_TextChanged; ;
+        SaveName.TextChanged += SaveName_TextChanged;
         WorldType.ItemSelected += WorldType_ItemSelected;
         Difficulties.ItemSelected += Difficulties_ItemSelected;
         CreateButton.Pressed += CreateButton_Pressed;
@@ -33,9 +33,9 @@ public partial class NewGameCreatorController : Control, IMenuContainer
     {
         try
         {
-            if (!ShouldCreateBeDisabled()) {
-                GameSettingCoupler coupler = new GameSettingCoupler();
-                GameSaveManager gameSaveManager = new GameSaveManager(gameSettings);
+            if (IsCreateable()) {
+                GameSettingCoupler coupler = new();
+                GameSaveManager gameSaveManager = new(gameSettings);
                 gameHelper.CreateSave(gameSettings);
                 coupler.Save(gameSettings);
                 gameSaveManager.Load(GetTree());
@@ -51,57 +51,57 @@ public partial class NewGameCreatorController : Control, IMenuContainer
     private void Difficulties_ItemSelected(long index)
     {
         gameSettings.GameDifficulty = (GameDifficulty)index;
-        CreateButton.Disabled = ShouldCreateBeDisabled();
-        RenderingServer.CanvasItemSetModulate(DifficultiesButton.GetCanvasItem(), new Color("#ffffff"));
+        CreateButton.Disabled = !IsCreateable();
+        RenderingServer.CanvasItemSetModulate(DifficultiesButton.GetCanvasItem(), Colors.White);
     }
 
     private void WorldType_ItemSelected(long index)
     {
         gameSettings.WorldType = (WorldType)index;
-        CreateButton.Disabled = ShouldCreateBeDisabled();
-        RenderingServer.CanvasItemSetModulate(WorldTypeButton.GetCanvasItem(), new Color("#ffffff"));
+        CreateButton.Disabled = !IsCreateable();
+        RenderingServer.CanvasItemSetModulate(WorldTypeButton.GetCanvasItem(), Colors.White);
     }
 
     private void SaveName_TextChanged(string newText)
     {
         if (new GameSaveHelper().CheckSaveNameAvailability(newText))
         {
-            RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), new Color("#ffffff"));
+            RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), Colors.White);
             gameSettings.SaveName = SaveName.Text;
-            CreateButton.Disabled = ShouldCreateBeDisabled();
+            CreateButton.Disabled = !IsCreateable();
         }
         else
         {
-            RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), new Color("#ff7081")) ;
+            RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), Colors.Red);
             CreateButton.Disabled = true;
         }
     }
 
-    private bool ShouldCreateBeDisabled()
+    private bool IsCreateable()
     {
         bool nameAvailable = gameHelper.CheckSaveNameAvailability(SaveName.Text);
         if (nameAvailable && WorldType.IsAnythingSelected() && Difficulties.IsAnythingSelected())
         {
-            return false;
+            return true;
         }
         else
         {
             if (!nameAvailable)
             {
-                RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), new Color("#ff7081"));
+                RenderingServer.CanvasItemSetModulate(SaveName.GetCanvasItem(), Colors.Red);
             }
 
             if (!WorldType.IsAnythingSelected())
             {
-                RenderingServer.CanvasItemSetModulate(WorldTypeButton.GetCanvasItem(), new Color("#ff7081"));
+                RenderingServer.CanvasItemSetModulate(WorldTypeButton.GetCanvasItem(), Colors.Red);
             }
 
             if (!Difficulties.IsAnythingSelected())
             {
-                RenderingServer.CanvasItemSetModulate(DifficultiesButton.GetCanvasItem(), new Color("#ff7081"));
+                RenderingServer.CanvasItemSetModulate(DifficultiesButton.GetCanvasItem(), Colors.Red);
             }
         }
-        return true;
+        return false;
     }
 
     public override void _Process(double delta) {}
