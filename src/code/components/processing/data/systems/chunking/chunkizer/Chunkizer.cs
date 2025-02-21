@@ -23,6 +23,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunki
                 {
                     if(node is Block block)
                     {
+                        block.BlockPosition = block.Position + ((nodeChunk * -1) * ChunkConstants.CHUNK_SIZE);
                         chunkNode.Info.BlocksData.Add(block);
                     }
                     chunkNode.AddChild(node);
@@ -33,6 +34,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunki
                     ChunkNode newChunkNode = CreateChunk(nodeChunk);
                     if (node is Block block)
                     {
+                        block.BlockPosition = block.Position + ((nodeChunk * -1) * ChunkConstants.CHUNK_SIZE);
                         newChunkNode.Info.BlocksData.Add(block);
                     }
                     chunks.Add(nodeChunk, newChunkNode);
@@ -123,7 +125,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunki
                     if (breakStructure)
                     {
                         node.GetParent()?.RemoveChild(node);
-                        node.Set("position", ChunkHelper.CalculateRelativePosition(node.Get("position").AsVector2()));
+                        node.Set("global_position", ChunkHelper.CalculateRelativePosition(node.Get("global_position").AsVector2()));
                         structurizedNodes.Add((node, chunkVector));
                     }
                 }

@@ -3,7 +3,7 @@ using SpaceMiner.src.code.components.processing.entities.interfaces;
 
 namespace SpaceMiner.src.code.components.processing.entities.implementations.player
 {
-    public interface IPlayerEntity : IMovableEntity, IRotateableEntity
+    public interface IPlayerEntity : IMoveableEntity, IRotateableEntity
     {
          
     }

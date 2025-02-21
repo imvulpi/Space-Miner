@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://u03ptc1aflls"]
 
 [ext_resource type="Script" path="res://src/code/components/user/special/campaign/main/MainCampaign.cs" id="1_gkxi4"]
-[ext_resource type="PackedScene" uid="uid://dsgvjuap0wckm" path="res://src/code/components/user/blocks/unique/barrier/barrier_block.tscn" id="2_54bca"]
+[ext_resource type="PackedScene" uid="uid://cjt21wrxg62ip" path="res://src/code/components/user/blocks/structures/orbital_materials/orbital_materials.tscn" id="2_k1y71"]
 
 [node name="MainCampaign" type="Node2D"]
 script = ExtResource("1_gkxi4")
@@ -10,11 +10,5 @@ script = ExtResource("1_gkxi4")
 unique_name_in_owner = true
 rotation = -0.000747383
 
-[node name="BarrierBlock" parent="Blocks" instance=ExtResource("2_54bca")]
-position = Vector2(256, 0)
-
-[node name="BarrierBlock3" parent="Blocks" instance=ExtResource("2_54bca")]
-position = Vector2(256, 64)
-
-[node name="BarrierBlock2" parent="Blocks" instance=ExtResource("2_54bca")]
-position = Vector2(256, -64)
+[node name="OrbitalMaterialsWarehouse" parent="Blocks" instance=ExtResource("2_k1y71")]
+position = Vector2(960, 0.717488)

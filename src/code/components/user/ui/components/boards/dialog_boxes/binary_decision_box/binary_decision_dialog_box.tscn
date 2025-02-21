@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/code/components/user/ui/components/boards/dialog_boxes/binary_decision_box/BinaryDecisionDialogBox.cs" id="1_cc2t4"]
 [ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_acy1o"]
 
-[node name="BinaryDecisionDialogBox" type="Control" node_paths=PackedStringArray("YesButton", "NoButton", "MessageLabel", "TitleLabel")]
+[node name="BinaryDecisionDialogBox" type="Control" node_paths=PackedStringArray("YesButton", "NoButton", "TitleLabel", "MessageLabel")]
 z_index = 4
 layout_mode = 3
 anchors_preset = 15
@@ -14,8 +14,8 @@ grow_vertical = 2
 script = ExtResource("1_cc2t4")
 YesButton = NodePath("YES")
 NoButton = NodePath("NO")
-MessageLabel = NodePath("Message")
 TitleLabel = NodePath("Title")
+MessageLabel = NodePath("Message")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

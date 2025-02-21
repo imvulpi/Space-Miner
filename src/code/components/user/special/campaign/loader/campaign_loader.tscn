@@ -10,4 +10,4 @@ characterBody = NodePath("Prospector")
 [node name="Chunks" type="Node2D" parent="."]
 
 [node name="Prospector" parent="." instance=ExtResource("2_fujmj")]
-position = Vector2(449.94, -119.254)
+position = Vector2(478, 268)

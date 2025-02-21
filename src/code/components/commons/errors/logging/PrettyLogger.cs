@@ -1,6 +1,8 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.processing.data.settings.user.couplers;
+using SpaceMiner.src.code.components.processing.data.settings.user.misc;
+using SpaceMiner.src.code.components.processing.data.settings.user.misc.error_logging;
 using System;
 using System.Diagnostics;
 
@@ -28,7 +30,16 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
             {
                 string errorLog = GetFormattedMessage(PrettyErrorType.Critical.ToString(), "user settings", "Loading User settings failed, could not initialize logger.");
                 GD.PushError($"{errorLog} - Exception message {ex.Message}");
-                throw;
+                userSettings = new UserSettings();
+                userSettings.MiscSettings = new MiscSettings()
+                {
+                    LoggingSettings = new ErrorLoggingSettings()
+                    {
+                        LogErrors = true,
+                        LogInfo = true,
+                        LogWarnings = true,
+                    }
+                };
             }
         }
 
@@ -45,7 +56,16 @@ namespace SpaceMiner.src.code.components.commons.errors.logging
             {
                 string errorLog = GetFormattedMessage(PrettyErrorType.Critical.ToString(), "user settings", "Loading User settings failed, could not initialize logger.");
                 GD.PushError($"{errorLog} - Exception message {ex.Message}");
-                throw;
+                userSettings = new UserSettings();
+                userSettings.MiscSettings = new MiscSettings()
+                {
+                    LoggingSettings = new ErrorLoggingSettings()
+                    {
+                        LogErrors = true,
+                        LogInfo = true,
+                        LogWarnings = true,
+                    }
+                };
             }
         }
 

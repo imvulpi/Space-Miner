@@ -6,7 +6,7 @@ using SpaceMiner.src.code.components.processing.data.systems.prefabs;
 namespace SpaceMiner.src.code.components.user.blocks.barrier_block
 {
     [ProtoContract]
-    public partial class BarrierBlock : Block
+    public partial class BarrierBlock : Block, IOrganizedStructure
     {
         public override string ID { get; set; } = "spaceminer.unique.barrier";
     }

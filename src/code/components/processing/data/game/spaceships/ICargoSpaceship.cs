@@ -8,7 +8,6 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
 {
     public interface ICargoSpaceship
     {
-        public float CargoCapacity { get; set; }
         public float LoadSpeed { get; set; }
     }
 }

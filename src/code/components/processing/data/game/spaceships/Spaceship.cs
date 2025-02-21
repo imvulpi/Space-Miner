@@ -16,5 +16,10 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
     {
         [ProtoMember(1)]
         public abstract string ID { get; set; }
+        [ProtoMember(2)]
+        public Vector2 SpaceshipPosition { get => Position; set => Position = value; }
+        [ProtoMember(3)]
+        public Vector2 GlobalSpaceshipPosition { get => GlobalPosition; set => GlobalPosition = value; }
+
     }
 }

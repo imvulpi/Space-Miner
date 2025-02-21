@@ -28,11 +28,8 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunks
         /// Saves a chunk. Requires chunk info: SaveName, Dimension, ChunkPosition
         /// </summary>
         /// <param name="chunkInfo"></param>
-        public void Save(IChunkInfo chunkInfo)
+        public void Save(IChunkInfo chunkInfo, string path)
         {
-            string path = OsPath.Join(ExternalPaths.SAVES_DIR, chunkInfo.SaveName, ExternalPaths.CHUNKS_DIR, 
-                                    chunkInfo.Dimension, ChunkHelper.GetChunkFilename(chunkInfo.ChunkPosition));
-
             using (var stream = new MemoryStream())
             {
                 Serializer.Serialize(stream, chunkInfo);

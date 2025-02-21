@@ -16,7 +16,7 @@ namespace SpaceMiner.src.code.components.user.blocks.unique.empty
         {
             if (blocksData is Block blockData)
             {
-                Block prefab = ResourceLoader.Load<PackedScene>(BlockPaths.EMPTY_BLOCK).Instantiate<BarrierBlock>();
+                Block prefab = ResourceLoader.Load<PackedScene>(InternalPaths.EMPTY_BLOCK).Instantiate<BarrierBlock>();
                 prefab.Position = blockData.BlockPosition;
                 prefab.Owner = blockData.Owner;
                 return prefab;

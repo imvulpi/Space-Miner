@@ -68,7 +68,7 @@ public partial class MainMenuController : Control, IMenuContainer
                 SaveName = latestSave,
             };
 
-            new GameSaveManager(settings).Load(GetTree());
+            new GameSaveLoader(settings).Load(GetTree());
         }
         else
         {

@@ -35,6 +35,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
                     {
                         SaveName = path.Split(new char[] { '\\', '/' })[^1]
                     };
+                    GD.Print(settings.SaveName);
                     GameSettingCoupler coupler = new GameSettingCoupler();
                     coupler.Load(settings);
                     if(settings.LastPlayed.CompareTo(latest) > 0)
@@ -83,8 +84,14 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
         /// <param name="settings">NOTE: Must contain SaveName</param>
         public void CreateSave(GameSaveSettings settings)
         {
-            string path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
-            DirectoryHelper.ValidateDirectory(path);
+            string save_dir_path = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR);
+            if (!Directory.Exists(save_dir_path))
+            {
+                Directory.CreateDirectory(save_dir_path);
+            }
+
+            string path = Path.Join(save_dir_path, settings.SaveName);
+            if(!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             PackedScene gameScene = GetGameScene(settings);
             ResourceSaver.Save(gameScene, Path.Join(path, ExternalPaths.SAVE_FILE));
         }

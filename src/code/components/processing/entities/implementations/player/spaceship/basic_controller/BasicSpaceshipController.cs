@@ -36,6 +36,8 @@ namespace SpaceMiner.src.code.components.processing.entities.implementations.pla
             positionMovement.Y = positionMovement.Y * currentSpeed * (float)delta;
 
             UpdateSpeed((float)delta);
+            currentSpeed = Mathf.Clamp(currentSpeed, 0, MaxSpeed);
+            positionMovement.Clamp(MaxSpeed, MaxSpeed);
             KinematicCollision2D collision2D = entity.MoveAndCollide(positionMovement);
             if(collision2D != null)
             {

@@ -15,11 +15,13 @@ using System.Text.Json.Serialization;
 public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsModify, IUserSettingsReceive, IUserSettingCheckable
 {
     public string Username { get; set; }
+    public string UUID { get; set; }
     public GraphicsSettings GraphicsSettings { get; set; }
     public AudioSettings AudioSettings { get; set; }
     public MiscSettings MiscSettings { get; set; }
     [JsonIgnore] public string Path { get; set; }
     public UserSettings(string path) {
+        UUID = Guid.NewGuid().ToString();
         Path = path;
         Username = "Unnamed";
         GraphicsSettings = new GraphicsSettings();
@@ -28,6 +30,7 @@ public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsMod
     }
 
     public UserSettings() {
+        UUID = Guid.NewGuid().ToString();
         Username = "Unnamed";
         GraphicsSettings = new GraphicsSettings();
         AudioSettings = new AudioSettings();
@@ -39,6 +42,7 @@ public class UserSettings : IEquatable<UserSettings>, ISetting, IUserSettingsMod
         UserSettings settings = JsonSerializer.Deserialize<UserSettings>(settingsContent);
         if (settings != null)
         {
+            UUID = settings.UUID;
             Username = settings.Username;
             GraphicsSettings = settings.GraphicsSettings;
             AudioSettings = settings.AudioSettings;

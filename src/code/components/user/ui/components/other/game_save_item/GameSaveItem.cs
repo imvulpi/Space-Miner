@@ -30,6 +30,7 @@ namespace SpaceMiner.src.code.components.user.ui.components.other
 
         private void DeleteButton_Pressed()
         {
+            GD.Print("Delete");
             DeleteSaveEvent?.Invoke(this);
         }
     }

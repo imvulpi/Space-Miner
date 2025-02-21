@@ -12,22 +12,25 @@ namespace SpaceMiner.src.code.components.processing.data.settings.couplers
     [RegisterSingleton]
     public class SettingCoupler : ISettingCoupler
     {
-        public void Load(ISetting setting)
+        public ISetting Load(ISetting setting)
         {
             string jsonText = File.ReadAllText(setting.Path);
             setting.Load(jsonText);
+            return setting;
         }
 
-        public void Load(ISetting setting, string path)
+        public ISetting Load(ISetting setting, string path)
         {
             string jsonText = File.ReadAllText(path);
             setting.Load(jsonText);
+            return setting;
         }
 
-        public void Save(ISetting setting)
+        public ISetting Save(ISetting setting)
         {
             string jsonText = setting.GetData();
             File.WriteAllText(setting.Path, jsonText);
+            return setting;
         }
 
         public void Save(ISetting setting, string path)

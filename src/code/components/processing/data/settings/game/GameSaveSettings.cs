@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.game
 {
-    public class GameSaveSettings : ISetting, IGameSettingModify, IGameSettingReceive
+    public class GameSaveSettings : IGameSetting
     {
         public string SaveName { get; set; }
         [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<WorldType>), WorldType.Prebuild)]
@@ -18,9 +18,18 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game
         [JsonIgnore] public string Path { get; set; }
 
         public GameSaveSettings() {
-            // TODO: Check if possible.
+            // TODO: Check if name is available.
             SaveName = "new_game";
             LastPlayed = DateTime.Now;
+        }
+
+        public GameSaveSettings(string saveName, WorldType worldType, GameDifficulty gameDifficulty, DateTime lastPlayed, string path)
+        {
+            SaveName = saveName;
+            WorldType = worldType;
+            GameDifficulty = gameDifficulty;
+            LastPlayed = lastPlayed;
+            Path = path;
         }
 
         public void Load(string settingsContent)

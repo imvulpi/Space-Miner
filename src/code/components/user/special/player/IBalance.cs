@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceMiner.src.code.components.processing.entities.interfaces
+namespace SpaceMiner.src.code.components.user.special.player
 {
-    public interface IMovableEntity
+    public interface IBalance
     {
-        public void Move();
+        public int Balance { get; set; }
     }
 }

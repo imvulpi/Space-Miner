@@ -40,6 +40,26 @@ namespace SpaceMiner.src.code.components.commons.other.IO
             return directoriesList.ToArray();
         }
 
+        public static void CopyDirectory(string dirPath, string destinationDirPath)
+        {
+            try
+            {
+                destinationDirPath = Path.Join(destinationDirPath, new DirectoryInfo(dirPath).Name);
+                ValidateUserDirectories(dirPath);
+                ValidateUserDirectories(destinationDirPath);
+
+                string[] filePaths = Directory.GetFiles(dirPath);
+                foreach (string file in filePaths)
+                {
+                    File.Copy(file, destinationDirPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                GD.Print($"Something went wrong: {ex}");
+            }
+        }
+
         /// <summary>
         /// Checks directories in a path and creates missing.<br></br>
         /// </summary>
@@ -59,10 +79,7 @@ namespace SpaceMiner.src.code.components.commons.other.IO
         {
             if (!Directory.Exists(path))
             {
-                Logger.Log(PrettyErrorType.ResourceNotFound, $"{path}", "Directory not found");
-                Logger.Log(PrettyInfoType.RepairAttempt, $"{path}", "Directory creation attempt");
                 Directory.CreateDirectory(path);
-                Logger.Log(PrettyInfoType.Success, $"{path} created successfully!");
             }
         }
     }

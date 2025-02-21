@@ -3,7 +3,7 @@
     public static class Logger
     {
         public static IPrettyLogger PrettyLogger = new PrettyLogger();
-        public const int SkipLoggerFramesAmount = 3;
+        public const int SkipLoggerFramesAmount = 0;
         public static string CriticalLog(PrettyErrorType errorType, string reason = "unknown", string description = "", string exceptionMessage = "")
         {
             return PrettyLogger.CriticalLog(errorType, reason, description, exceptionMessage);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceMiner.src.code.components.user.entities.asteroids;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;

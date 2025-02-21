@@ -1,18 +1,16 @@
 ﻿using Godot;
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
-using SpaceMiner.src.code.components.commons.errors.logging;
-using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
 using SpaceMiner.src.code.components.processing.data.game.chunks.chunk;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info;
+using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.node;
 using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.coupler;
 using SpaceMiner.src.code.components.user.blocks;
 using SpaceMiner.src.code.components.user.blocks.core.factories;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_manager
 {
@@ -31,11 +29,12 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
         public string PlaceName {  get; set; }
         public Node ConnectNode { get; set; }
         public BlockFactory BlockFactoryManager { get; set; }
-
         public List<Vector2> LoadedChunksPositions = new();
-        public Dictionary<Vector2, Node> LoadedChunks = new();
+        public Dictionary<Vector2, ChunkNode> LoadedChunks = new();
         public Vector2 LastChunk = Vector2.Inf;
         public ChunkCoupler ChunkCoupler = new();
+        public event EventHandler<ChunkNode> NewChunkLoaded;
+        public event EventHandler<ChunkNode> OldChunkUnloaded;
         public void Manage(Vector2 position)
         {
             if (ChunkDistance == 0 || ChunksDirectoryName == null || ChunksDirectoryName == String.Empty || ConnectNode == null || BlockFactoryManager == null)
@@ -58,7 +57,56 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
                 Unload(currentChunk);
             }
         }
-        
+
+        public void MarkChunks()
+        {
+            foreach ((Vector2 chunkPos, ChunkNode chunkNode) in LoadedChunks)
+            {
+                ColorRect colorRect = new ColorRect()
+                {
+                    UniqueNameInOwner = true,
+                    Name = "%DebugColor",
+                    Size = (Vector2.One * ChunkConstants.CHUNK_SIZE) * new Vector2(0.99f, 0.99f),
+                    Position = ChunkConstants.CHUNK_SIZE * new Vector2(0.01f, 0.01f),
+                    Color = new Color(0.396f, 1, 0.263f),
+                    ZIndex = -100
+                };
+                chunkNode.AddChild(colorRect);
+            }
+            NewChunkLoaded += Debug_NewChunkLoaded;
+            OldChunkUnloaded += Debug_OldChunkUnloaded;
+        }
+
+        private void Debug_OldChunkUnloaded(object sender, ChunkNode e)
+        {
+            if (e.HasNode("%DebugColor"))
+            {
+                e.RemoveChild(e.GetNode("%DebugColor"));
+            }
+        }
+
+        private void Debug_NewChunkLoaded(object sender, ChunkNode e)
+        {
+            ColorRect colorRect = new ColorRect()
+            {
+                UniqueNameInOwner = true,
+                Name = "%DebugColor",
+                Size = (Vector2.One * ChunkConstants.CHUNK_SIZE) * new Vector2(0.99f, 0.99f),
+                Position = ChunkConstants.CHUNK_SIZE * new Vector2(0.01f, 0.01f),
+                Color = new Color(0.396f, 1, 0.263f),
+                ZIndex = -100
+            };
+            e.AddChild(colorRect);
+        }
+
+        public void StopMarkChunks()
+        {
+            foreach ((Vector2 chunkPos, ChunkNode chunkNode) in LoadedChunks)
+            {
+                chunkNode.RemoveChild(chunkNode.GetNode("%DebugColor"));
+            }
+        }
+
         public void Load(Vector2 position)
         {
             for (int i = -ChunkDistance; i <= ChunkDistance; i++)
@@ -85,10 +133,11 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
                 Vector2 chunk = LoadedChunksPositions[i];
                 if (chunk.Y < minPos.Y || chunk.X < minPos.X || chunk.Y > maxPos.Y || chunk.X > maxPos.X)
                 {
-                    LoadedChunks.TryGetValue(chunk, out Node node);
+                    LoadedChunks.TryGetValue(chunk, out ChunkNode node);
 
                     if (node != null)
                     {
+                        OldChunkUnloaded?.Invoke(this, node);
                         LoadedChunks.Remove(chunk);
                         LoadedChunksPositions.Remove(chunk);
                         ConnectNode.RemoveChild(node);
@@ -112,9 +161,12 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
             try
             {
                 ChunkNode chunkNode = new ChunkNode(ChunkCoupler.Load(chunksDirectoryName, PlaceName, ChunkHelper.GetChunkFilename(chunkPosition)));
+                chunkNode.Name = ChunkHelper.GetChunkFilename(chunkPosition);
+                chunkNode.Position = chunkPosition * ChunkConstants.CHUNK_SIZE;
                 connectNode.AddChild(chunkNode);
                 LoadedChunks.Add(chunkPosition, chunkNode);
                 LoadBlocks(chunkNode.Info, chunkNode);
+                NewChunkLoaded?.Invoke(this, chunkNode);
             }
             catch (Exception)
             {
@@ -123,6 +175,7 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
                 emptyChunk.Name = chunkPosition.ToString();
                 connectNode.AddChild(emptyChunk);
                 LoadedChunks.Add(chunkPosition, emptyChunk);
+                NewChunkLoaded?.Invoke(this, emptyChunk);
             }
         }
     }

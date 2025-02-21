@@ -15,7 +15,10 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships.prospector
             if(spaceship is ProspectorSpaceship spaceshipData)
             {
                 ProspectorSpaceship prospectorSpaceship = ResourceLoader.Load<PackedScene>(SpaceshipPaths.PROSPECTOR_SPACESHIP).Instantiate<ProspectorSpaceship>();
-                prospectorSpaceship.CurrentCargo = spaceshipData.CurrentCargo;
+                prospectorSpaceship.CargoModule = spaceshipData.CargoModule;
+                GD.Print($"Spaceship data: {spaceshipData.SpaceshipPosition} {spaceshipData.GlobalSpaceshipPosition}");
+                prospectorSpaceship.Position = spaceshipData.SpaceshipPosition;
+                prospectorSpaceship.GlobalPosition = spaceshipData.GlobalSpaceshipPosition;
                 return prospectorSpaceship;
             }
             else

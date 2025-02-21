@@ -2,8 +2,13 @@
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
+using System;
+using System.Runtime.Serialization;
 
-public partial class GameMenuController : Node2D, IMenuContainer
+/// <summary>
+/// Mark for rework
+/// </summary
+public partial class GameMenuController : Control, IMenuContainer
 {
 	[Export] public Button ResumeButton { get; set; }
 	[Export] public Button SettingsButton { get; set; }

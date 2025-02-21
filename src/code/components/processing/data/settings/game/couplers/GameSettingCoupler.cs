@@ -19,7 +19,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
     internal class GameSettingCoupler : ISettingCoupler
     {
         private readonly string SavesPath = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR);
-        public void Load(ISetting setting)
+        public ISetting Load(ISetting setting)
         {
             setting.Path ??= TryConstructingPath(setting);
 
@@ -32,8 +32,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             {
                 throw new GameException(PrettyErrorType.OperationFailed, "GameSettingPath", "Game settings could not be loaded, path is null. Constructing path failed!");
             }
+            return setting;
         }
-        public void Save(ISetting setting)
+        public ISetting Save(ISetting setting)
         {
             setting.Path ??= TryConstructingPath(setting);
 
@@ -46,12 +47,12 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             {
                 throw new Exception("Game settings could not be saved. Constructing Path failed, path could not be determined (null).");
             }
+            return setting;
         }
         private string TryConstructingPath(ISetting setting)
         {
-            if (setting is IGameSettingReceive saveReceive)
+            if (setting is IGameSetting saveReceive)
             {
-                
                 return ConstructPath(saveReceive);
             }
             else
@@ -59,7 +60,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
                 throw new GameException(PrettyErrorType.Invalid, "GameSettingPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type.", "Error is most likely caused by using a wrong coupler!");
             }
         }
-        private string ConstructPath(IGameSettingReceive saveSettingReceive)
+        private string ConstructPath(IGameSetting saveSettingReceive)
         {
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {

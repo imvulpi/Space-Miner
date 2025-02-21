@@ -1,10 +1,17 @@
-[gd_scene load_steps=33 format=3 uid="uid://dirg6vtqgge8m"]
+[gd_scene load_steps=38 format=3 uid="uid://dirg6vtqgge8m"]
 
 [ext_resource type="Texture2D" uid="uid://dqimngdscbc1b" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector.png" id="1_pxmts"]
 [ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/prospector/ProspectorSpaceship.cs" id="1_vd31w"]
+[ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/CollectorModule.cs" id="2_swoul"]
 [ext_resource type="Texture2D" uid="uid://7pb818m0l6gg" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector_running_animation.png" id="2_uwm2k"]
 [ext_resource type="Texture2D" uid="uid://bs20h5jn8ey6g" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector_startup_animation.png" id="3_2cn3l"]
 [ext_resource type="AudioStream" uid="uid://cvo66oiquaeet" path="res://src/resources/sounds/spaceships/prospector/prospector_startup_sound.mp3" id="4_2s2hh"]
+[ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/prospector/SpaceshipHUD.cs" id="6_8ugd5"]
+[ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/CargoViewController.cs" id="8_citxq"]
+[ext_resource type="PackedScene" uid="uid://bpjdl12x8oihc" path="res://src/code/components/user/ui/menus/cargo/CargoMenu.tscn" id="9_ga201"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khxi4"]
+size = Vector2(108, 121)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ir5gv"]
 atlas = ExtResource("2_uwm2k")
@@ -216,8 +223,22 @@ color = Color(0.705882, 0.486275, 0, 1)
 color_ramp = SubResource("GradientTexture1D_s77pf")
 turbulence_noise_speed_random = 0.39
 
-[node name="Prospector" type="CharacterBody2D"]
+[node name="Prospector" type="CharacterBody2D" node_paths=PackedStringArray("spaceshipHUD", "CollectorModule", "cargoViewController")]
 script = ExtResource("1_vd31w")
+spaceshipHUD = NodePath("CanvasLayer")
+CollectorModule = NodePath("Collector")
+cargoViewController = NodePath("CanvasLayer/Main")
+
+[node name="Collector" type="Node2D" parent="." node_paths=PackedStringArray("ScanArea", "SpaceshipHUD")]
+script = ExtResource("2_swoul")
+ScanArea = NodePath("Area2D")
+SpaceshipHUD = NodePath("../CanvasLayer")
+
+[node name="Area2D" type="Area2D" parent="Collector"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector/Area2D"]
+position = Vector2(2, -0.5)
+shape = SubResource("RectangleShape2D_khxi4")
 
 [node name="spaceship" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qxapa")
@@ -247,6 +268,7 @@ position = Vector2(-12, -26)
 shape = SubResource("CircleShape2D_i4vwg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.75, 0.75)
 
 [node name="Main Engine Particles" type="GPUParticles2D" parent="."]
 position = Vector2(0, -25)
@@ -278,3 +300,85 @@ process_material = SubResource("ParticleProcessMaterial_aa0ou")
 position = Vector2(-28, -16)
 amount = 24
 process_material = SubResource("ParticleProcessMaterial_aa0ou")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("HintLabel", "LabelRight", "CargoCapacity", "Balance", "CargoButton")]
+script = ExtResource("6_8ugd5")
+HintLabel = NodePath("Hint")
+LabelRight = NodePath("RightTop")
+CargoCapacity = NodePath("Cargo/Capacity")
+Balance = NodePath("Balance")
+CargoButton = NodePath("Cargo/Button")
+
+[node name="Hint" type="Label" parent="CanvasLayer"]
+offset_right = 268.0
+offset_bottom = 23.0
+
+[node name="RightTop" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="Main" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("CargoButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_citxq")
+CargoMenuScene = ExtResource("9_ga201")
+CargoButton = NodePath("../Cargo/Button")
+
+[node name="Cargo" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -126.5
+offset_top = -36.0
+offset_right = 126.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Capacity" type="Label" parent="CanvasLayer/Cargo"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 40.0
+offset_bottom = 11.5
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Cargo"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 0
+text = "Cargo"
+
+[node name="Balance" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.472
+anchor_top = 0.899
+anchor_right = 0.472
+anchor_bottom = 0.899
+offset_left = -94.12
+offset_top = -11.46
+offset_right = 94.88
+offset_bottom = 11.54
+grow_vertical = 0
+text = "Balance:"

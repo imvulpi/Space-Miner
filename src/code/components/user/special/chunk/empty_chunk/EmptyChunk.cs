@@ -1,7 +1,11 @@
 using Godot;
+using SpaceMiner.src.code.components.processing.data.game.chunks.chunk;
+using SpaceMiner.src.code.components.processing.data.systems.chunking.chunks.chunk.info;
+using SpaceMiner.src.code.components.user.blocks;
 using System;
+using System.Collections.Generic;
 
-public partial class EmptyChunk : Node2D
+public partial class EmptyChunk : ChunkNode
 {
-    // Truly empty
+    // Empty but is it? 
 }

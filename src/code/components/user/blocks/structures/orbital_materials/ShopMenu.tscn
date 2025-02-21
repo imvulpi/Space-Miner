@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs2ktqpeg824p"]
+
+[ext_resource type="Script" path="res://src/code/components/user/blocks/structures/orbital_materials/ShopMenu.cs" id="1_sobky"]
+[ext_resource type="Script" path="res://src/code/components/user/blocks/structures/orbital_materials/ShopDataRow.cs" id="2_1e6np"]
+
+[node name="ShopMenu" type="Control" node_paths=PackedStringArray("Back", "Row", "ConnectNode")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sobky")
+Back = NodePath("Back")
+Row = NodePath("Data/DataRow")
+ConnectNode = NodePath("Data")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.462745)
+
+[node name="Data" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DataRow" type="Control" parent="Data" node_paths=PackedStringArray("ItemLabel", "SellPrice", "UserOwns", "AmountInput", "AmountAll", "SellButton")]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 128.0
+grow_horizontal = 2
+script = ExtResource("2_1e6np")
+ItemLabel = NodePath("Item")
+SellPrice = NodePath("Sell")
+UserOwns = NodePath("userOwn")
+AmountInput = NodePath("LineEdit")
+AmountAll = NodePath("Button")
+SellButton = NodePath("Button2")
+
+[node name="Item" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+offset_top = 23.0
+offset_right = 128.0
+offset_bottom = 55.0
+text = "
+"
+
+[node name="Sell" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="userOwn" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 12.0
+offset_right = 160.0
+offset_bottom = 35.0
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -66.0
+offset_bottom = -35.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -32.0
+offset_right = -124.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ALL"
+
+[node name="Button2" type="Button" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Sell"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_right = 103.0
+offset_bottom = 64.0
+text = "BACK
+"

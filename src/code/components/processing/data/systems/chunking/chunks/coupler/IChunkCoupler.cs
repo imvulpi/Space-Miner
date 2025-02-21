@@ -11,6 +11,6 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunks
     {
         public IChunkInfo Load(string saveName, string dimension, string formattedName);
         public IChunkInfo Load(string path);
-        public void Save(IChunkInfo chunkInfo);
+        public void Save(IChunkInfo chunkInfo, string path);
     }
 }

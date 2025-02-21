@@ -1,3 +1,30 @@
-[gd_scene format=3 uid="uid://bpjgtet31qsgm"]
+[gd_scene load_steps=2 format=3 uid="uid://bpjgtet31qsgm"]
 
-[node name="GameController" type="Node"]
+[ext_resource type="Script" path="res://src/code/components/user/special/GameController.cs" id="1_1pp3n"]
+
+[node name="GameController" type="Node" node_paths=PackedStringArray("Save")]
+script = ExtResource("1_1pp3n")
+Save = NodePath("CanvasLayer2/Button2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Button2" type="Button" parent="CanvasLayer2"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+offset_right = 77.0
+grow_vertical = 0
+text = "Save"

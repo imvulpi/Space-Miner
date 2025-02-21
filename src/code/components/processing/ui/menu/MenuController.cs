@@ -4,6 +4,9 @@ using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 
+/// <summary>
+/// Mark for rework
+/// </summary
 public partial class MenuController : Node
 {
 	public IMenuManager MenuManager { get; set; }

@@ -14,6 +14,9 @@ using static Godot.DisplayServer;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.user.controllers
 {
+    /// <summary>
+    /// Needs rework
+    /// </summary>
     public partial class UserSettingControllerNode : Control, IUserSettingController, IMenuContainer
     {
         public UserSettings Setting { get; set; }
