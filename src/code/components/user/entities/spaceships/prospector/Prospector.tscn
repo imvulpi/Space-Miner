@@ -1,10 +1,10 @@
 [gd_scene load_steps=38 format=3 uid="uid://dirg6vtqgge8m"]
 
-[ext_resource type="Texture2D" uid="uid://dqimngdscbc1b" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector.png" id="1_pxmts"]
+[ext_resource type="Texture2D" uid="uid://dqimngdscbc1b" path="res://src/resources/graphics/sprites/entities/spaceships/prospector/prospector.png" id="1_pxmts"]
 [ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/prospector/ProspectorSpaceship.cs" id="1_vd31w"]
 [ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/CollectorModule.cs" id="2_swoul"]
-[ext_resource type="Texture2D" uid="uid://7pb818m0l6gg" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector_running_animation.png" id="2_uwm2k"]
-[ext_resource type="Texture2D" uid="uid://bs20h5jn8ey6g" path="res://src/resources/graphics/sprites/spaceships/prospector/prospector_startup_animation.png" id="3_2cn3l"]
+[ext_resource type="Texture2D" uid="uid://7pb818m0l6gg" path="res://src/resources/graphics/sprites/entities/spaceships/prospector/prospector_running_animation.png" id="2_uwm2k"]
+[ext_resource type="Texture2D" uid="uid://bs20h5jn8ey6g" path="res://src/resources/graphics/sprites/entities/spaceships/prospector/prospector_startup_animation.png" id="3_2cn3l"]
 [ext_resource type="AudioStream" uid="uid://cvo66oiquaeet" path="res://src/resources/sounds/spaceships/prospector/prospector_startup_sound.mp3" id="4_2s2hh"]
 [ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/prospector/SpaceshipHUD.cs" id="6_8ugd5"]
 [ext_resource type="Script" path="res://src/code/components/user/entities/spaceships/CargoViewController.cs" id="8_citxq"]

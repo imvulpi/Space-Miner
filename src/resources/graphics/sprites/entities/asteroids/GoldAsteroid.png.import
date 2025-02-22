@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7pb818m0l6gg"
-path="res://.godot/imported/prospector_running_animation.png-c821e280a7494fe18b3ed2c120cb7e55.ctex"
+uid="uid://cslfkhif7frio"
+path="res://.godot/imported/GoldAsteroid.png-0920a86f627c86f39a7e79f9831667b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/resources/graphics/sprites/spaceships/prospector/prospector_running_animation.png"
-dest_files=["res://.godot/imported/prospector_running_animation.png-c821e280a7494fe18b3ed2c120cb7e55.ctex"]
+source_file="res://src/resources/graphics/sprites/entities/asteroids/GoldAsteroid.png"
+dest_files=["res://.godot/imported/GoldAsteroid.png-0920a86f627c86f39a7e79f9831667b2.ctex"]
 
 [params]
 

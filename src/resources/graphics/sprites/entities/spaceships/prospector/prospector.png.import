@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxi74vh1lxr37"
-path="res://.godot/imported/shop.jpg-8d93dfb3c538e65c4fa1ac406c60c1d0.ctex"
+uid="uid://dqimngdscbc1b"
+path="res://.godot/imported/prospector.png-3c6a8c3c4dfbd29626b053222b44f0b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/resources/graphics/shop.jpg"
-dest_files=["res://.godot/imported/shop.jpg-8d93dfb3c538e65c4fa1ac406c60c1d0.ctex"]
+source_file="res://src/resources/graphics/sprites/entities/spaceships/prospector/prospector.png"
+dest_files=["res://.godot/imported/prospector.png-3c6a8c3c4dfbd29626b053222b44f0b1.ctex"]
 
 [params]
 

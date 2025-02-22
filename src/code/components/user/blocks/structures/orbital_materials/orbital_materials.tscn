@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjt21wrxg62ip"]
 
 [ext_resource type="Script" path="res://src/code/components/user/blocks/structures/orbital_materials/OrbitalMaterialsWarehouse.cs" id="1_s1v7c"]
-[ext_resource type="Texture2D" uid="uid://dxi74vh1lxr37" path="res://src/resources/graphics/shop.jpg" id="2_aojh5"]
+[ext_resource type="Texture2D" uid="uid://dxi74vh1lxr37" path="res://src/resources/graphics/sprites/environment/structures/orbital_materials/shop.jpg" id="2_aojh5"]
 [ext_resource type="PackedScene" uid="uid://cs2ktqpeg824p" path="res://src/code/components/user/blocks/structures/orbital_materials/ShopMenu.tscn" id="2_faej7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_saxy0"]

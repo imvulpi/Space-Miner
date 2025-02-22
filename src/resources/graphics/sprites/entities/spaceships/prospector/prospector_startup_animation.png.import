@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bs20h5jn8ey6g"
-path="res://.godot/imported/prospector_startup_animation.png-51f3f760d275c37ea0e6b7ba286c7049.ctex"
+path="res://.godot/imported/prospector_startup_animation.png-4e66af4b52dd17858f07dc13ec4d3878.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/resources/graphics/sprites/spaceships/prospector/prospector_startup_animation.png"
-dest_files=["res://.godot/imported/prospector_startup_animation.png-51f3f760d275c37ea0e6b7ba286c7049.ctex"]
+source_file="res://src/resources/graphics/sprites/entities/spaceships/prospector/prospector_startup_animation.png"
+dest_files=["res://.godot/imported/prospector_startup_animation.png-4e66af4b52dd17858f07dc13ec4d3878.ctex"]
 
 [params]
 
