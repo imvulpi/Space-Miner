@@ -1,4 +1,4 @@
-<Project Sdk="Godot.NET.Sdk/4.2.2">
+<Project Sdk="Godot.NET.Sdk/4.3.0">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -10,6 +10,12 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\code\components\user\ui\menus\main\scenes\game_loader\" />
+    <Compile Remove="src\code\tests\**" />
+    <EmbeddedResource Remove="src\code\tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Hardware.Info" Version="100.1.1" />
+    <PackageReference Include="protobuf-net" Version="3.2.30" />
+    <InternalsVisibleTo Include="space_miner_tests" />
   </ItemGroup>
 </Project>

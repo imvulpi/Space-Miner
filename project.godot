@@ -35,8 +35,8 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="Space Miner"
-project/solution_directory="./src/code/components"
+project/assembly_name="space_miner"
+project/solution_directory="./src/code"
 
 [input]
 
