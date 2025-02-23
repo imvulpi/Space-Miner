@@ -1,11 +1,11 @@
 using System;
 using System.Reflection;
 using System.Linq;
-
 using Godot;
 using Godot.Collections;
 using GdUnit4;
 
+#nullable enable
 
 // GdUnit4 GDScript - C# API wrapper
 public partial class GdUnit4CSharpApi : Godot.GodotObject

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://hvltqonoeyhl"]
 
 [ext_resource type="Script" path="res://src/code/components/experiments/testing/scripts/SettingsMenuTest.cs" id="1_0fl45"]
-[ext_resource type="PackedScene" uid="uid://qm5y16bjnlgm" path="res://src/code/components/user/ui/menus/settings/scenes/settings_menu.tscn" id="2_jrv1s"]
+[ext_resource type="PackedScene" uid="uid://qm5y16bjnlgm" path="res://src/code/components/processing/ui/menus/main/settings/settings_menu.tscn" id="2_jrv1s"]
 
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3

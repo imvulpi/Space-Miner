@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqctrmff8807"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/ui/components/boards/dialog_boxes/report_error_box/ReportErrorDialogBox.cs" id="1_nghut"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_25hfp"]
+
+[node name="ReportErrorDialog" type="Control" node_paths=PackedStringArray("ReportButton", "CancelButton", "DiscordInvite")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nghut")
+ReportButton = NodePath("Control/Report")
+CancelButton = NodePath("Control/Close")
+DiscordInvite = NodePath("Control/Label")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -427.0
+offset_top = -207.5
+offset_right = 427.0
+offset_bottom = 207.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Report" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_25hfp")
+text = "Send report"
+
+[node name="Close" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -232.0
+offset_top = -32.0
+offset_right = -120.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("2_25hfp")
+text = "Close"
+
+[node name="Label" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.851
+offset_left = 10.0
+offset_top = 151.5
+offset_right = 10.0
+offset_bottom = 0.334991
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_25hfp")
+theme_override_constants/line_separation = 4
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "[center]Bug reports and other must be
+ submitted through our discord[center]"
+fit_content = true

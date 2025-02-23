@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bmhrmmsk50wiw"]
 
-[ext_resource type="Script" path="res://src/code/components/user/ui/components/scrollbars/AdvancedScrollbar.cs" id="1_x1s8f"]
+[ext_resource type="Script" path="res://src/code/components/processing/ui/components/scrollbars/AdvancedScrollbar.cs" id="1_x1s8f"]
 
 [node name="Scrolltest" type="Control"]
 layout_mode = 3

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://0tlxfuyib5rv"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/world/entities/asteroids/random_velocity_asteroid/RandomVelocityAsteroid.cs" id="1_31kta"]
+[ext_resource type="Texture2D" uid="uid://dqc6jb1hgm64c" path="res://src/resources/graphics/sprites/entities/asteroids/bronze_asteroid.png" id="2_yjro4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hrnh"]
+radius = 65.123
+
+[node name="RandomVelocityAsteroid" type="RigidBody2D" node_paths=PackedStringArray("Sprite")]
+gravity_scale = 0.0
+script = ExtResource("1_31kta")
+Sprite = NodePath("Sprite2D")
+MovementSpeed = 250.0
+RotationSpeed = 30
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yjro4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_6hrnh")

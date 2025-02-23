@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpcawrs08j0y"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/campaigns/_base/CampaignLoader.cs" id="1_y8hft"]
+[ext_resource type="PackedScene" uid="uid://dirg6vtqgge8m" path="res://src/code/components/processing/world/entities/spaceships/prospector/Prospector.tscn" id="2_fujmj"]
+
+[node name="CampaignLoader" type="Node2D" node_paths=PackedStringArray("characterBody")]
+script = ExtResource("1_y8hft")
+characterBody = NodePath("Prospector")
+
+[node name="Chunks" type="Node2D" parent="."]
+
+[node name="Prospector" parent="." instance=ExtResource("2_fujmj")]
+position = Vector2(478, 268)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ekf8phuwjltp"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/world/chunk/barrier_chunk/BarrierChunk.cs" id="1_ytrxq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwyg8"]
+
+[node name="BarrierChunk" type="Node2D" node_paths=PackedStringArray("StaticBody2D", "StaticCollisionShape")]
+script = ExtResource("1_ytrxq")
+StaticBody2D = NodePath("StaticBody2D")
+StaticCollisionShape = NodePath("StaticBody2D/CollisionShape2D")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_nwyg8")

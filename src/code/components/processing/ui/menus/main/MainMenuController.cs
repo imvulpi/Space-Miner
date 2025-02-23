@@ -49,6 +49,7 @@ public partial class MainMenuController : Control, IMenuContainer
             ConnectToNode = this,
             MenuNode = newMenuNode,
         };
+
         if(newMenuNode is IMenuContainer container)
         {
             container.Menu = menu;

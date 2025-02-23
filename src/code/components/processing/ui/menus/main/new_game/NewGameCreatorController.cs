@@ -35,7 +35,7 @@ public partial class NewGameCreatorController : Control, IMenuContainer
         {
             if (!ShouldCreateBeDisabled()) {
                 GameSettingCoupler coupler = new GameSettingCoupler();
-                GameSaveManager gameSaveManager = new GameSaveManager(gameSettings);
+                GameSaveLoader gameSaveManager = new GameSaveLoader(gameSettings);
                 gameHelper.CreateSave(gameSettings);
                 coupler.Save(gameSettings);
                 gameSaveManager.Load(GetTree());

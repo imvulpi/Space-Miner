@@ -107,7 +107,7 @@ public partial class GameLoaderMenuController : Control
 
                 try
                 {
-                    new GameSaveManager(settings).Load(GetTree());
+                    new GameSaveLoader(settings).Load(GetTree());
                 }catch(Exception ex)
                 {
                     ExceptionHandler.HandleException(ex, true);

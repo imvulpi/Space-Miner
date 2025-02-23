@@ -1,0 +1,145 @@
+[gd_scene load_steps=6 format=3 uid="uid://c61knoeisws56"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/ui/menus/main/MainMenuController.cs" id="1_iekvm"]
+[ext_resource type="FontFile" uid="uid://dlo47kof0nxhx" path="res://src/resources/graphics/ui/fonts/prstart.ttf" id="2_aii7r"]
+[ext_resource type="PackedScene" uid="uid://bc8r4qepvrbt7" path="res://src/code/components/processing/ui/menus/main/load_game/game_loader_menu.tscn" id="2_f4i3s"]
+[ext_resource type="Theme" uid="uid://bu65giqgig6rx" path="res://src/resources/themes/panels/menus/menu_theme.tres" id="2_sxr2c"]
+[ext_resource type="PackedScene" uid="uid://6ubm60jedm8g" path="res://src/code/components/processing/ui/menus/main/new_game/new_game_creator.tscn" id="3_mraio"]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("PlayButton", "ResumeButton", "LastPlayed", "NewGameButton", "QuitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iekvm")
+PlayButton = NodePath("Components/Buttons/Play")
+GameLoaderMenu = ExtResource("2_f4i3s")
+ResumeButton = NodePath("Components/Buttons/Control/Resume")
+LastPlayed = NodePath("Components/Buttons/Control/LastPlayed")
+NewGameButton = NodePath("Components/Buttons/NewGame")
+NewSaveMenu = ExtResource("3_mraio")
+QuitButton = NodePath("Components/Buttons/Quit")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.0156863, 0.0392157, 1)
+
+[node name="Components" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -270.0
+offset_right = 350.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="Control" parent="Components"]
+layout_mode = 1
+anchor_top = 0.033
+anchor_right = 0.471
+anchor_bottom = 0.944
+offset_top = 252.18
+offset_right = -376.8
+offset_bottom = -239.76
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Play" type="Button" parent="Components/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -100.0
+offset_right = 180.0
+offset_bottom = -60.0
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "PLAY"
+
+[node name="Control" type="Control" parent="Components/Buttons"]
+anchors_preset = 0
+offset_top = -40.0
+offset_right = 175.0
+
+[node name="Resume" type="Button" parent="Components/Buttons/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "RESUME"
+
+[node name="LastPlayed" type="Label" parent="Components/Buttons/Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 28.0
+offset_right = 170.0
+offset_bottom = 36.0
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+
+[node name="NewGame" type="Button" parent="Components/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.281
+anchor_right = 0.719
+anchor_bottom = 0.426
+offset_left = 0.5
+offset_top = 16.0
+offset_right = 180.5
+offset_bottom = 56.0
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "NEW GAME"
+
+[node name="Quit" type="Button" parent="Components/Buttons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.281
+anchor_top = 0.574
+anchor_right = 0.719
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = 73.444
+offset_right = 180.5
+offset_bottom = 113.444
+grow_vertical = 2
+theme = ExtResource("2_sxr2c")
+theme_override_font_sizes/font_size = 16
+text = "QUIT
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Components"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -352.0
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_aii7r")
+theme_override_font_sizes/normal_font_size = 32
+text = "Space Miner"
+fit_content = true
+autowrap_mode = 0
