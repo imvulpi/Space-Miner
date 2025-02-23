@@ -1,6 +1,6 @@
 <Project Sdk="Godot.NET.Sdk/4.3.0">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
@@ -8,9 +8,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Hardware.Info" Version="100.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
     <PackageReference Include="protobuf-net" Version="3.2.30" />
     <ProjectReference Include="..\..\..\space_miner.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="mocks\godot\" />
   </ItemGroup>
 </Project>

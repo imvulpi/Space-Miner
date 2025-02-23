@@ -38,6 +38,17 @@ window/stretch/mode="canvas_items"
 project/assembly_name="space_miner"
 project/solution_directory="./src/code"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_lookup_folder="tests"
+settings/test/flaky_check_enable=true
+ui/inspector/tree_sort_mode=1
+ui/toolbar/run_overall=true
+
 [input]
 
 ScrollDown={
