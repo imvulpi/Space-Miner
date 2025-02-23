@@ -1,15 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpjgtet31qsgm"]
+[gd_scene load_steps=4 format=3 uid="uid://bpjgtet31qsgm"]
 
 [ext_resource type="Script" path="res://src/code/components/processing/special/game/GameController.cs" id="1_1pp3n"]
+[ext_resource type="Script" path="res://src/code/components/processing/special/game/GameOverlayController.cs" id="2_ilrob"]
+[ext_resource type="PackedScene" uid="uid://0qvcmwj6y47g" path="res://src/code/components/processing/ui/menus/game/game_menu.tscn" id="3_a7gab"]
 
 [node name="GameController" type="Node" node_paths=PackedStringArray("Save")]
 script = ExtResource("1_1pp3n")
-Save = NodePath("CanvasLayer2/Button2")
+Save = NodePath("Overlay/Button2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
 layer = -128
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="Background"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,10 +19,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0807833, 0.0807833, 0.0807833, 1)
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="Overlay" type="CanvasLayer" parent="."]
 layer = 2
+script = ExtResource("2_ilrob")
+GameMenuScene = ExtResource("3_a7gab")
 
-[node name="Button2" type="Button" parent="CanvasLayer2"]
+[node name="Button2" type="Button" parent="Overlay"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0

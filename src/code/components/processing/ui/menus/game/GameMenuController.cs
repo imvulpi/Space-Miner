@@ -8,14 +8,14 @@ using System.Runtime.Serialization;
 /// <summary>
 /// Mark for rework
 /// </summary
-public partial class GameMenuController : Control, IMenuContainer
+public partial class GameMenuController : Control, SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest.IMenuInject
 {
 	[Export] public Button ResumeButton { get; set; }
 	[Export] public Button SettingsButton { get; set; }
 	[Export] public Button SaveButton { get; set; }
 	[Export] public Button SaveAndQuitButton { get; set; }
     [Export] public PackedScene SettingsScene { get; set; }
-    public IMenuManager MenuManager { get; set; }
+    public SpaceMiner.src.code.components.processing.ui.menu.interfaces.IMenuManager MenuManager { get; set; }
     public IMenu Menu { get; set; }
 
     public override void _Ready()
@@ -39,14 +39,14 @@ public partial class GameMenuController : Control, IMenuContainer
 
     private void SettingsButton_Pressed()
     {
-        DefaultMenu settingMenu = new()
+        Menu settingMenu = new()
         {
             ConnectToNode = Menu.ConnectToNode,
             MenuNode = SettingsScene.Instantiate(),
         };
 
-        MenuManager.RegisterMenu(settingMenu);
-        if(settingMenu.MenuNode is IMenuContainer container)
+        MenuManager.ConnectMenu(settingMenu);
+        if(settingMenu.MenuNode is SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest.IMenuInject container)
         {
             container.Menu = settingMenu;
             container.MenuManager = MenuManager;

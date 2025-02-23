@@ -35,7 +35,7 @@ MusicVolumeLabel = NodePath("Interactive/Audio/MusicAudio/Label")
 SoundsEffectsVolumeSlider = NodePath("Interactive/Audio/SoundEffectsAudio/HSlider")
 SoundsEffectsVolumeLabel = NodePath("Interactive/Audio/SoundEffectsAudio/Label")
 ErrorLoggingButton = NodePath("Interactive/Other/ErrorLogging/ErrorLoggingButton")
-ErrorLoggingMenu = ExtResource("7_3jwpk")
+ErrorLoggingMenuScene = ExtResource("7_3jwpk")
 BackButton = NodePath("BackButton")
 SaveSettingMenu = NodePath("SaveSettingsMenu")
 ApplyButton = NodePath("SaveSettingsMenu/Control/Board/Buttons/SaveButton")
@@ -53,14 +53,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.870588)
+color = Color(0, 0, 0, 0.968627)
 metadata/_edit_use_anchors_ = true
 
 [node name="Interactive" type="Control" parent="."]

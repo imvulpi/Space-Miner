@@ -5,13 +5,20 @@ namespace SpaceMiner.src.code.components.processing.ui.menu.interfaces
 {
     public interface IMenu
     {
-        void Open(Node connectNode);
+        void Open(Node connectNode = null);
         void Close();
         void Delete();
-        bool EscAction(IMenuManager manager);
         Node MenuNode { get; set; }
         Node ConnectToNode { get; set; }
-        Func<IMenuManager, bool> EscActionDelegate { get; set; }
-        IMenuManager Manager { get; set; }
+        int Priority { get; set; }
+        bool DisconectOnClose { get; set; }
+        public Action<IMenu, Node> OpenAction { get; set; }
+        public Action<IMenu> CloseAction { get; set; }
+        public Action<IMenu> Disconnect { get; set; }
+        /// <summary>
+        /// Use this function to execute code before closing or to stop closing from finishing in some cases.<br></br>
+        /// return True to intercept and stop from closing
+        /// </summary>
+        public Func<bool> InterceptClose { get; set; }
     }
 }

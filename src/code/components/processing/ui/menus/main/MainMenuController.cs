@@ -6,23 +6,44 @@ using SpaceMiner.src.code.components.processing.data.game.save;
 using SpaceMiner.src.code.components.processing.data.settings.game;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
+using SpaceMiner.src.code.components.processing.ui.menus._base.menu_manager_pro;
 using System;
 
-public partial class MainMenuController : Control, IMenuContainer
+public partial class MainMenuController : Control, IMenuInject
 {
     public IMenuManager MenuManager { get; set; }
     public IMenu Menu { get; set; }
     [Export] public Button PlayButton {  get; set; }
-    [Export] public PackedScene GameLoaderMenu { get; set; }
+    [Export] public PackedScene GameLoaderMenuScene { get; set; }
     [Export] public Button ResumeButton { get; set; }
     [Export] public Label LastPlayed { get; set; }
     [Export] public Button NewGameButton { get; set; }
-    [Export] public PackedScene NewSaveMenu { get; set; }
+    [Export] public PackedScene NewSaveMenuScene { get; set; }
     [Export] public Button QuitButton { get; set; }
+    private IMenu NewSaveMenu { get; set; }
+    private IMenu GameLoaderMenu { get; set; }
     public override void _EnterTree()
     {
-        MenuManager = new MenuManager();
-        MenuManager.MainMenuAction = (IMenuManager manager) => {}; // Can later ask whether player wants to quit.
+        MenuManager = new MenuManager()
+        {
+            ConnectNode = this
+        };
+        Node newMenuNode = NewSaveMenuScene.Instantiate();
+        Menu newSaveMenu = new Menu()
+        {
+            ConnectToNode = this,
+            MenuNode = newMenuNode,
+        };
+        NewSaveMenu = newSaveMenu;
+        MenuManager.ConnectMenu(newSaveMenu);
+
+        Menu gameLoaderMenu = new Menu()
+        {
+            ConnectToNode = this,
+            MenuNode = GameLoaderMenuScene.Instantiate()
+        };
+        GameLoaderMenu = gameLoaderMenu;
+        MenuManager.ConnectMenu(gameLoaderMenu);
     }
 
     public override void _Ready()
@@ -43,20 +64,7 @@ public partial class MainMenuController : Control, IMenuContainer
 
     private void NewGameButton_Pressed()
     {
-        Node newMenuNode = NewSaveMenu.Instantiate();
-        DefaultMenu menu = new DefaultMenu()
-        {
-            ConnectToNode = this,
-            MenuNode = newMenuNode,
-        };
-
-        if(newMenuNode is IMenuContainer container)
-        {
-            container.Menu = menu;
-            container.MenuManager = MenuManager;
-        }
-        MenuManager.RegisterMenu(menu);
-        menu.Open();
+        NewSaveMenu.Open();
     }
 
     private void ResumeButton_Pressed()
@@ -79,18 +87,14 @@ public partial class MainMenuController : Control, IMenuContainer
 
     private void PlayButton_Pressed()
     {
-        DefaultMenu menu = new DefaultMenu()
-        {
-            ConnectToNode = this,
-            MenuNode = GameLoaderMenu.Instantiate()
-        };
-        MenuManager.RegisterMenu(menu);
-        menu.Open();
+        GameLoaderMenu.Open();
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
 	{
-        MenuManager.ManageMenus();
+        if (Input.IsActionJustPressed("Esc"))
+        {
+            MenuManager.CurrentMenu?.Close();
+        }
     }
 }

@@ -15,11 +15,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_iekvm")
 PlayButton = NodePath("Components/Buttons/Play")
-GameLoaderMenu = ExtResource("2_f4i3s")
+GameLoaderMenuScene = ExtResource("2_f4i3s")
 ResumeButton = NodePath("Components/Buttons/Control/Resume")
 LastPlayed = NodePath("Components/Buttons/Control/LastPlayed")
 NewGameButton = NodePath("Components/Buttons/NewGame")
-NewSaveMenu = ExtResource("3_mraio")
+NewSaveMenuScene = ExtResource("3_mraio")
 QuitButton = NodePath("Components/Buttons/Quit")
 
 [node name="ColorRect" type="ColorRect" parent="."]
