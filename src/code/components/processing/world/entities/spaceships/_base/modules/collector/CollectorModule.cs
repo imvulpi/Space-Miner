@@ -1,5 +1,8 @@
-﻿using Godot;
+﻿using DryIoc;
+using Godot;
 using Godot.Collections;
+using GruInject.Core.Injection;
+using SpaceMiner.src.code.components.commons.other.DI;
 using SpaceMiner.src.code.components.user.entities.asteroids;
 using SpaceMiner.src.code.components.user.entities.entities;
 using System;
@@ -24,6 +27,10 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
         };
         public void Initialize()
         {
+            if (SpaceshipHUD == null && DIContainer.Container.IsRegistered<SpaceshipHUD>())
+            {
+                SpaceshipHUD = DIContainer.Container.Resolve<SpaceshipHUD>();
+            }
             timer ??= new Timer()
             {
                 WaitTime = 1
@@ -46,12 +53,14 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
 
                     if (Input.IsActionJustPressed("Collect"))
                     {
+                        SpaceshipHUD.LabelMiddle.Text = $"Asteroid {asteroid.AsteroidType}";
                         GD.Print($"Collecting {asteroid.AsteroidType} {asteroid.Name}");
                         if (CollectTypes.Contains(asteroid.AsteroidType))
                         {
                             collecting = true;
                             SpaceshipHUD.HintLabel.Text = "Collecting...";
                             timer.Start();
+                              
                             timer.Timeout += () =>
                             {
                                 int collectHit = CollectSpeedS.GetValueOrDefault(asteroid.AsteroidType, 500);

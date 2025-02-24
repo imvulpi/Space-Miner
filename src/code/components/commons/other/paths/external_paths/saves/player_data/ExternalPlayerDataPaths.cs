@@ -10,7 +10,6 @@ namespace SpaceMiner.src.code.components.commons.other.paths.external_paths
     {
         public const string PLAYER_DATA_DIR = "player_data";
         public const string PLAYER_DATA_FILE = "playerdata.bin";
-
         public const string SPACESHIP_FILE = "spaceship.bin";
     }
 }

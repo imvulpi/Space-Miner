@@ -8,16 +8,16 @@ using System.Runtime.Serialization;
 /// <summary>
 /// Mark for rework
 /// </summary
-public partial class GameMenuController : Control, SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest.IMenuInject
+public partial class GameMenuController : Control, IMenuInject
 {
 	[Export] public Button ResumeButton { get; set; }
 	[Export] public Button SettingsButton { get; set; }
 	[Export] public Button SaveButton { get; set; }
 	[Export] public Button SaveAndQuitButton { get; set; }
     [Export] public PackedScene SettingsScene { get; set; }
-    public SpaceMiner.src.code.components.processing.ui.menu.interfaces.IMenuManager MenuManager { get; set; }
+    public IMenuManager MenuManager { get; set; }
     public IMenu Menu { get; set; }
-
+    public event EventHandler SaveEvent;
     public override void _Ready()
 	{
         ResumeButton.Pressed += ResumeButton_Pressed;
@@ -28,13 +28,13 @@ public partial class GameMenuController : Control, SpaceMiner.src.code.component
 
     private void SaveAndQuitButton_Pressed()
     {
-        // TODO: Implement saving
+        SaveEvent?.Invoke(this, EventArgs.Empty);
         GetTree().Quit();
     }
 
     private void SaveButton_Pressed()
     {
-        // TODO: Implement saving
+        SaveEvent?.Invoke(this, EventArgs.Empty);
     }
 
     private void SettingsButton_Pressed()
@@ -46,11 +46,6 @@ public partial class GameMenuController : Control, SpaceMiner.src.code.component
         };
 
         MenuManager.ConnectMenu(settingMenu);
-        if(settingMenu.MenuNode is SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest.IMenuInject container)
-        {
-            container.Menu = settingMenu;
-            container.MenuManager = MenuManager;
-        }
         settingMenu.Open();
     }
 

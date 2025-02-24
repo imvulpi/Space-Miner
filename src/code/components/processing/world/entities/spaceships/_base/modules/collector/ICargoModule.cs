@@ -15,6 +15,7 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
         /// Cargo type and amount of it.
         /// </summary>
         public List<Cargo> CargoList { get; set; }
+        public EventHandler CargoChanged { get; set; }
 
         public void AddCargo(CargoType type, int amount);
         public void RemoveCargo(CargoType type, int amount);

@@ -8,6 +8,9 @@ namespace SpaceMiner.src.code.components.user.special.player
 {
     public interface IBalance
     {
-        public int Balance { get; set; }
+        public float Balance { get; set; }
+        public void AddBalance(float amount);
+        public void RemoveBalance(float amount);
+        public event EventHandler<float> BalanceChanged;
     }
 }

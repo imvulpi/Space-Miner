@@ -36,7 +36,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
             return factory;
         }
 
-        public Spaceship GetSavedSpaceship(IGameSetting gameSettings)
+        public Spaceship GetSavedSpaceship(IGameSettings gameSettings)
         {
             gameSettings.Path ??= Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, gameSettings.SaveName);
             string spaceshipPath = Path.Join(gameSettings.Path, ExternalPaths.PLAYER_DATA_DIR, ExternalPaths.SPACESHIP_FILE);
@@ -60,7 +60,7 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
             return null;
         }
 
-        public void SaveSpaceship(IGameSetting gameSettings, Spaceship spaceship)
+        public void SaveSpaceship(IGameSettings gameSettings, Spaceship spaceship)
         {
             gameSettings.Path ??= Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, gameSettings.SaveName);
             string playerDataDir = Path.Join(gameSettings.Path, ExternalPaths.PLAYER_DATA_DIR);

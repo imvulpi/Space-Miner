@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/code/components/processing/ui/menus/cargo/CargoMenu.cs" id="1_7jjnv"]
 [ext_resource type="Script" path="res://src/code/components/processing/ui/menus/cargo/CargoDataRow.cs" id="2_4um61"]
 
-[node name="CargoMenu" type="Control" node_paths=PackedStringArray("ConnectNode", "DataRow", "Back")]
+[node name="CargoMenu" type="Control" node_paths=PackedStringArray("ConnectNode", "DataRow", "MiddleLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,23 @@ grow_vertical = 2
 script = ExtResource("1_7jjnv")
 ConnectNode = NodePath("Data")
 DataRow = NodePath("DataRow")
-Back = NodePath("Button")
+MiddleLabel = NodePath("Label")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -11.5
+offset_right = 42.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "NO CARGO"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -22,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.741176)
+color = Color(0, 0, 0, 0.823529)
 
 [node name="DataRow" type="Control" parent="." node_paths=PackedStringArray("NameLabel", "AmountLabel", "WeightLabel")]
 visible = false
@@ -86,9 +102,3 @@ offset_right = 179.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 143.0
-offset_bottom = 40.0
-text = "Back"

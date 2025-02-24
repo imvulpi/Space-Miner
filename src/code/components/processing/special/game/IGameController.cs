@@ -10,7 +10,7 @@ namespace SpaceMiner.src.code.components.user.special
 {
     public interface IGameController
     {
-        public IGameSetting GameSettings { get; set; }
+        public IGameSettings GameSettings { get; set; }
         public void Initialize();
     }
 }

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using SpaceMiner.src.code.components.user.entities.spaceships;
 using System;
 using System.Collections.Generic;
@@ -8,25 +9,17 @@ public partial class CargoMenu : Control
 	public List<Cargo> CargoList;
 	[Export] public Control ConnectNode { get; set; }
 	[Export] public CargoDataRow DataRow { get; set; }
-	[Export] public Button Back { get; set; }
+	[Export] public Label MiddleLabel { get; set; }
 	public event EventHandler CloseMenu;
 	private int RowCount = 0;
 	public void Initialize()
 	{
-		Back.Pressed += () =>
-		{
-			CloseMenu?.Invoke(this, EventArgs.Empty);
-		};
+		Clear();
 
-		if (CargoList.Count <= 0)
+        if (CargoList.Count <= 0)
 		{
-			CargoDataRow newDataRow = DataRow.Duplicate() as CargoDataRow;
-			newDataRow.Position = new Vector2(newDataRow.Position.X, newDataRow.Size.Y);
-			newDataRow.NameLabel.Text = "NO DATA";
-			newDataRow.AmountLabel.Text = "";
-			newDataRow.WeightLabel.Text = "";
-			newDataRow.Visible = true;
-			ConnectNode.AddChild(newDataRow);
+			MiddleLabel.Text = "No cargo!";
+			MiddleLabel.Visible = true;
 		}
 		else
 		{
@@ -43,12 +36,14 @@ public partial class CargoMenu : Control
 			}
 		}
 	}
-
-    public override void _PhysicsProcess(double delta)
-    {
-		if (Input.IsActionJustPressed("Esc"))
+	private void Clear()
+	{
+		RowCount = 0;
+		MiddleLabel.Visible = false;
+		Array<Node> children = ConnectNode.GetChildren();
+		foreach (var child in children)
 		{
-			CloseMenu?.Invoke(this, EventArgs.Empty);
+			ConnectNode.RemoveChild(child);
 		}
-    }
+	}
 }

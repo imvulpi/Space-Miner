@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.game.spaceships
 {
-    public interface ISpaceship
+    public interface ISpaceship : ISpaceshipData
     {
         public void Init();
         public void Update(double delta);
+        public void UpdateParameters();
     }
 }

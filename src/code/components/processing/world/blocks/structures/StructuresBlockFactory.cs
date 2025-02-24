@@ -20,6 +20,12 @@ namespace SpaceMiner.src.code.components.user.blocks.structures
                 prefab.Position = orbitalMaterialsWarehouse.BlockPosition;
                 prefab.Owner = orbitalMaterialsWarehouse.Owner;
                 return prefab;
+            }else if(blocksData is StellarForge stellar)
+            {
+                StellarForge prefab = ResourceLoader.Load<PackedScene>(InternalPaths.STELLAR_FORGE_STRUCTURE).Instantiate<StellarForge>();
+                prefab.Position = stellar.BlockPosition;
+                prefab.Owner = stellar.Owner;
+                return prefab;
             }
             else
             {

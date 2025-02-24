@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://u03ptc1aflls"]
+[gd_scene load_steps=4 format=3 uid="uid://u03ptc1aflls"]
 
 [ext_resource type="Script" path="res://src/code/components/processing/campaigns/main/MainCampaign.cs" id="1_gkxi4"]
 [ext_resource type="PackedScene" uid="uid://cjt21wrxg62ip" path="res://src/code/components/processing/world/blocks/structures/orbital_materials/orbital_materials.tscn" id="2_k1y71"]
+[ext_resource type="PackedScene" uid="uid://ck1wgl8ytkox" path="res://src/code/components/processing/world/blocks/structures/stellar_forge/stellar_forge.tscn" id="3_ke7hb"]
 
 [node name="MainCampaign" type="Node2D"]
 script = ExtResource("1_gkxi4")
@@ -11,4 +12,8 @@ unique_name_in_owner = true
 rotation = -0.000747383
 
 [node name="OrbitalMaterialsWarehouse" parent="Blocks" instance=ExtResource("2_k1y71")]
-position = Vector2(960, 0.717488)
+visible = true
+position = Vector2(503.016, -20.6241)
+
+[node name="StellarForge" parent="Blocks" instance=ExtResource("3_ke7hb")]
+position = Vector2(-500, 0)

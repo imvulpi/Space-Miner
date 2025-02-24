@@ -5,7 +5,6 @@ using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.AccessControl;
 
 namespace SpaceMiner.src.code.components.processing.ui.menus._base.menu_manager_pro
 {
@@ -40,8 +39,6 @@ namespace SpaceMiner.src.code.components.processing.ui.menus._base.menu_manager_
 
         public void ConnectMenu(IMenu menu)
         {
-            GD.Print($"connecting menu: {menu}");
-
             if (menu.MenuNode is IMenuInject container)
             {
                 container.MenuManager = this;

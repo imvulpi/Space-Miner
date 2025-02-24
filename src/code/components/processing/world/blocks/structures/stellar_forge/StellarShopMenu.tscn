@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ntub2plj3bw"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/world/blocks/structures/stellar_forge/StellarShopMenu.cs" id="1_jbq85"]
+[ext_resource type="Script" path="res://src/code/components/processing/world/blocks/structures/stellar_forge/StellarDataRow.cs" id="2_0b7wl"]
+
+[node name="StellarShopMenu" type="Control" node_paths=PackedStringArray("Row", "ConnectNode", "MiddleLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jbq85")
+Row = NodePath("Data/DataRow")
+ConnectNode = NodePath("Data")
+MiddleLabel = NodePath("Label")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.462745)
+
+[node name="Data" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DataRow" type="Control" parent="Data" node_paths=PackedStringArray("ItemLabel", "BuyPrice", "UserOwns", "BuyButton")]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 97.0
+grow_horizontal = 2
+script = ExtResource("2_0b7wl")
+ItemLabel = NodePath("Item")
+BuyPrice = NodePath("Price")
+UserOwns = NodePath("userOwn")
+BuyButton = NodePath("LineEdit")
+
+[node name="Item" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 32.0
+text = "
+"
+
+[node name="Price" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="userOwn" type="Label" parent="Data/DataRow"]
+layout_mode = 1
+offset_top = 42.0
+offset_right = 160.0
+offset_bottom = 65.0
+
+[node name="LineEdit" type="Button" parent="Data/DataRow"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Buy"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32

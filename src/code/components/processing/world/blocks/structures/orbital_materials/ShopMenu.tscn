@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/code/components/processing/world/blocks/structures/orbital_materials/ShopMenu.cs" id="1_sobky"]
 [ext_resource type="Script" path="res://src/code/components/processing/world/blocks/structures/orbital_materials/ShopDataRow.cs" id="2_1e6np"]
 
-[node name="ShopMenu" type="Control" node_paths=PackedStringArray("Back", "Row", "ConnectNode")]
+[node name="ShopMenu" type="Control" node_paths=PackedStringArray("Row", "ConnectNode")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sobky")
-Back = NodePath("Back")
 Row = NodePath("Data/DataRow")
 ConnectNode = NodePath("Data")
 
@@ -118,10 +117,3 @@ offset_top = -32.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Sell"
-
-[node name="Back" type="Button" parent="."]
-layout_mode = 0
-offset_right = 103.0
-offset_bottom = 64.0
-text = "BACK
-"

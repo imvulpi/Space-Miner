@@ -28,6 +28,6 @@ namespace SpaceMiner.src.code.components.user.entities.asteroids
         /// Distance in blocks excluding Spawn radius and Safe radius from player where asteroids start despawning
         /// </summary>
         public int DespawnRadiusBlocks { get; set; }
-        public void Manage();
+        public void Initialize();
     }
 }

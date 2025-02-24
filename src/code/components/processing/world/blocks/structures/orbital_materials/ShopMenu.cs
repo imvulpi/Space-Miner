@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public partial class ShopMenu : Control
 {
 	public Dictionary<CargoType, int> Prices { get; set; }
-	[Export] public Button Back { get; set; }
 	[Export] public ShopDataRow Row { get; set; }
 	[Export] public Control ConnectNode { get; set; }
 	public Func<CargoType, int> GetUserCargo;
@@ -39,9 +38,5 @@ public partial class ShopMenu : Control
 			rowNumber++;
 			ConnectNode.AddChild(newRow);
 		}
-		Back.Pressed += () =>
-		{
-			CloseMenu?.Invoke(this, EventArgs.Empty);
-		};
 	}
 }

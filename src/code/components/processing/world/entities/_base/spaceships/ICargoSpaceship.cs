@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceMiner.src.code.components.user.entities.spaceships;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
 {
     public interface ICargoSpaceship
     {
-        public float LoadSpeed { get; set; }
+        public CargoModule CargoModule { get; set; }
     }
 }

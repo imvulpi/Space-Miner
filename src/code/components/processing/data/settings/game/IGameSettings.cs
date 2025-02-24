@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.game
 {
-    public interface IGameSetting : ISetting
+    public interface IGameSettings : ISettings
     {
         string SaveName { get; set; }
         WorldType WorldType { get; set; }

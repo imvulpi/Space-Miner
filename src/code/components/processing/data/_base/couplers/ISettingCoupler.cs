@@ -9,7 +9,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.couplers
 {
     public interface ISettingCoupler
     {
-        public ISetting Save(ISetting setting);
-        public ISetting Load(ISetting setting);
+        public ISettings Save(ISettings setting);
+        public ISettings Load(ISettings setting);
     }
 }

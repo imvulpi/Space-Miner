@@ -32,7 +32,7 @@ namespace SpaceMiner.src.code.components.user.entities.asteroids
         private Random random = new Random();
         private Node asteroidHolder;
         private List<AsteroidEntity> Asteroids = new();
-        public void Manage()
+        public void Initialize()
         {
             godotSpawnTimer ??= new()
             {

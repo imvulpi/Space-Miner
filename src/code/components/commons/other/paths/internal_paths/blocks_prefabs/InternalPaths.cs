@@ -11,5 +11,7 @@ namespace SpaceMiner.src.code.components.commons.other.paths.internal_paths
         public const string EMPTY_BLOCK = "res://src/code/components/processing/world/blocks/unique/empty/empty_block.tscn";
         public const string BARRIER_BLOCK = "res://src/code/components/processing/world/blocks/unique/barrier/barrier_block.tscn";
         public const string ORBITAL_MATERIALS_STRUCTURE = "res://src/code/components/processing/world/blocks/structures/orbital_materials/orbital_materials.tscn";
+        public const string STELLAR_FORGE_STRUCTURE = "res://src/code/components/processing/world/blocks/structures/stellar_forge/stellar_forge.tscn";
+
     }
 }

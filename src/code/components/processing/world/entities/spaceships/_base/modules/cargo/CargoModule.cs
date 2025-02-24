@@ -25,6 +25,7 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
         public int CurrentCapacity { get; set; } = 0;
         [ProtoMember(2)]
         public List<Cargo> CargoList { get; set; } = new List<Cargo>();
+        public EventHandler CargoChanged { get; set; }
 
         public int CalculateCargo()
         {
@@ -82,6 +83,7 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
                 CurrentCapacity -= weightLoss;
                 cargo.Weight -= weightLoss;
             }
+            CargoChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public Cargo GetCargo(CargoType type)
@@ -110,6 +112,7 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
                 cargo.Weight += totalCargoWeight;
                 CurrentCapacity += totalCargoWeight;
             }
+            CargoChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public int GetCargoWeight(CargoType cargoType)

@@ -1,4 +1,5 @@
-﻿using SpaceMiner.src.code.components.user.entities.asteroids;
+﻿using SpaceMiner.src.code.components.processing.world.entities.player;
+using SpaceMiner.src.code.components.user.entities.asteroids;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
         public float MaxSpeed { get; set; }
         public float Acceleration { get; set; }
         public float RotationSpeed { get; set; }
+        public PlayerEntity BoundToEntity { get; set; }
     }
 }

@@ -2,53 +2,43 @@
 using ProtoBuf;
 using SpaceMiner.src.code.components.processing.entities.implementations.player.spaceship;
 using SpaceMiner.src.code.components.processing.entities.implementations.player.spaceship.basic_controller;
+using SpaceMiner.src.code.components.processing.world.entities.player;
+using SpaceMiner.src.code.components.processing.world.entities.spaceships;
 using SpaceMiner.src.code.components.user.entities.asteroids;
 using SpaceMiner.src.code.components.user.entities.spaceships;
-using SpaceMiner.src.code.components.user.special.player;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospector
 {
     /// Hydrogen (Protium-1) and liquid Oxygen (LOX + LH2) Spaceship
     [ProtoContract]
-    public partial class ProspectorSpaceship : Spaceship, ISpaceship, ISpaceshipData, ICargoSpaceship
+    public partial class ProspectorSpaceship : Spaceship, ISpaceship, ICargoSpaceship, IStellarBoostHolder
     {
         public ISpaceshipController<CharacterBody2D> Controller { get; set; }
         public override string ID { get; set; } = "spaceminer.prospector";
         public string SpaceshipName { get; set; } = "Prospector";
         public float MaxFuelCapacity { get; set; } = 700000; // 700k
-        public float MaxSpeed { get; set; } = 500;
+        public float MaxSpeed { get; set; } = 450;
         public float Acceleration { get; set; } = 70;
         public float RotationSpeed { get; set; } = 9;
         public float CargoCapacity { get; set; } = 10000; // 10k (before: 300k)
         public float LoadSpeed { get; set; } = 22000; // 22k
-        [Export] public SpaceshipHUD spaceshipHUD { get; set;}
         [Export] public CollectorModule CollectorModule { get; set; }
-        [Export] public CargoViewController cargoViewController { get; set; }
         [ProtoMember(3)]
         public CargoModule CargoModule { get; set; }
-        public IPlayerData PlayerData { get; set; }
-
-        public ProspectorSpaceship()
-        {
-        }
+        public PlayerEntity BoundToEntity { get; set; }
+        [ProtoMember(4)]
+        public StellarBoosts StellarBoosts { get; set; }
 
         public override void _Ready()
         {
+            StellarBoosts ??= new StellarBoosts(this);
             Init();
-            cargoViewController.CargoModule = CargoModule;
+            StellarBoosts.ApplyBoosts();
             CollectorModule.Initialize();
             CollectorModule.Collected = (int amount, AsteroidType type) =>
             {
                 CargoModule.AddCargo(CargoModule.AsteroidToCargo(type), amount);
-                spaceshipHUD.CargoCapacity.Text = $"{CargoModule.CurrentCapacity}/{CargoModule.MaxCapacity}";
-                if (CargoModule.CurrentCapacity >= CargoModule.MaxCapacity) {
-                    spaceshipHUD.LabelRight.Text = "No space!";
-                }
             };
         }
 
@@ -78,6 +68,18 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships.prospec
         {
             Controller.Move(this, delta);
             Controller.Rotate(this, delta);
+        }
+
+        public void UpdateParameters()
+        {
+            if(Controller is BasicSpaceshipController basicSpaceshipController)
+            {
+                basicSpaceshipController.Deceleration = Acceleration * 2;
+                basicSpaceshipController.Acceleration = Acceleration;
+                basicSpaceshipController.MaxSpeed = MaxSpeed;
+                basicSpaceshipController.RotationSpeed = RotationSpeed;
+            }
+            CargoModule.MaxCapacity = (int)CargoCapacity;
         }
     }
 }

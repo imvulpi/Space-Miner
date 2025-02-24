@@ -19,7 +19,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
     internal class GameSettingCoupler : ISettingCoupler
     {
         private readonly string SavesPath = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR);
-        public ISetting Load(ISetting setting)
+        public ISettings Load(ISettings setting)
         {
             setting.Path ??= TryConstructingPath(setting);
 
@@ -34,7 +34,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             }
             return setting;
         }
-        public ISetting Save(ISetting setting)
+        public ISettings Save(ISettings setting)
         {
             setting.Path ??= TryConstructingPath(setting);
 
@@ -49,9 +49,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
             }
             return setting;
         }
-        private string TryConstructingPath(ISetting setting)
+        private string TryConstructingPath(ISettings setting)
         {
-            if (setting is IGameSetting saveReceive)
+            if (setting is IGameSettings saveReceive)
             {
                 return ConstructPath(saveReceive);
             }
@@ -60,7 +60,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.game.couplers
                 throw new GameException(PrettyErrorType.Invalid, "GameSettingPath", "Settings path is null. Could not construct a path since the settings are not of SaveSetting type.", "Error is most likely caused by using a wrong coupler!");
             }
         }
-        private string ConstructPath(IGameSetting saveSettingReceive)
+        private string ConstructPath(IGameSettings saveSettingReceive)
         {
             if (saveSettingReceive.SaveName != "" || saveSettingReceive.SaveName != null)
             {

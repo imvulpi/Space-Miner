@@ -5,14 +5,14 @@ using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 using System;
 
-public partial class MainMenuNodeController : Node2D, SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest.IMenuInject
+public partial class MainMenuNodeController : Node2D, IMenuInject
 {
 	[Export] public Button ResumeButton { get; set; }
 	[Export] public Button SettingsButton { get; set; }
 	[Export] public Button SaveButton { get; set; }
 	[Export] public Button SaveAndQuitButton { get; set; }
     [Export] public PackedScene SettingsScene { get; set; }
-    public SpaceMiner.src.code.components.processing.ui.menu.interfaces.IMenuManager MenuManager { get; set; }
+    public IMenuManager MenuManager { get; set; }
     public IMenu Menu { get; set; }
 
     public override void _Ready()
