@@ -12,6 +12,10 @@ namespace SpaceMiner.src.code.components.processing.world.entities.spaceships
     [ProtoContract]
     public class StellarBoosts : IStellarBoosts
     {
+        public StellarBoosts()
+        {
+
+        }
         public StellarBoosts(Spaceship spaceship)
         {
             Spaceship = spaceship;

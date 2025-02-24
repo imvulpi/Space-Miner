@@ -40,22 +40,19 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
         {
             gameSettings.Path ??= Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, gameSettings.SaveName);
             string spaceshipPath = Path.Join(gameSettings.Path, ExternalPaths.PLAYER_DATA_DIR, ExternalPaths.SPACESHIP_FILE);
-            try
+            if (File.Exists(spaceshipPath))
             {
-                if (File.Exists(spaceshipPath))
+                GD.Print("Exists");
+                //using FileStream fs = File.OpenRead(spaceshipPath);
+                using var fs = new FileStream(spaceshipPath, FileMode.Open);
+
+                Spaceship deserializedSpaceship = Serializer.Deserialize<Spaceship>(fs);
+                GD.Print($"spaceship: {deserializedSpaceship}");
+                if (deserializedSpaceship != null)
                 {
-                    using FileStream fs = File.OpenRead(spaceshipPath);
-                    Spaceship deserializedSpaceship = Serializer.Deserialize<Spaceship>(fs);
-                    if (deserializedSpaceship != null)
-                    {
-                        Spaceship recreatedSpaceship = SpaceshipFactory.GetSpaceship(deserializedSpaceship);
-                        return recreatedSpaceship;
-                    }
+                    Spaceship recreatedSpaceship = SpaceshipFactory.GetSpaceship(deserializedSpaceship);
+                    return recreatedSpaceship;
                 }
-            }
-            catch (Exception)
-            {
-                return null;
             }
             return null;
         }
@@ -68,13 +65,11 @@ namespace SpaceMiner.src.code.components.processing.data.game.spaceships
             Directory.CreateDirectory(playerDataDir);
             if (!File.Exists(spaceshipPath))
             {
-                using var file = (File.Create(spaceshipPath));
+                using var file = (new FileStream(spaceshipPath, FileMode.CreateNew));
             }
 
-            using (FileStream fs = File.OpenWrite(spaceshipPath))
-            {
-                Serializer.Serialize(fs, spaceship as ProspectorSpaceship);
-            }
+            using var fs = new FileStream(spaceshipPath, FileMode.Truncate);
+            Serializer.Serialize(fs, spaceship);    
         }
     }
 }

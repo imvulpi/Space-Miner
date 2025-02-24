@@ -27,8 +27,9 @@ public partial class ShopMenu : Control
 				if (int.TryParse(newRow.AmountInput.Text, out int amountInt))
 				{
                     SellConfirmed.Invoke(type, amountInt);
-				}
-			};
+                    newRow.UserOwns.Text = $"{GetUserCargo(type)}";
+                }
+            };
 			newRow.Visible = true;
 			newRow.Position = new Vector2(newRow.Position.X, 10 + rowNumber * newRow.Size.Y);
 			rowNumber++;

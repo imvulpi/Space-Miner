@@ -46,9 +46,10 @@ namespace SpaceMiner.src.code.components.processing.world.entities.player
             Spaceship spaceship = SpaceshipCoupler.GetSavedSpaceship(GameSettings);
             if (spaceship == null)
             {
+                GD.Print("Spaceship is null!");
                 ProspectorSpaceship prospectorSpaceship = new();
                 spaceship = SpaceshipCoupler.SpaceshipFactory.GetSpaceship(prospectorSpaceship);
-                SpaceshipCoupler.SaveSpaceship(GameSettings, spaceship);
+                SpaceshipCoupler.SaveSpaceship(GameSettings, prospectorSpaceship);
             }
             return spaceship;
         }
@@ -83,8 +84,9 @@ namespace SpaceMiner.src.code.components.processing.world.entities.player
 
         public void SavePlayer(PlayerEntity player)
         {
-            if(player.MovementNode is Spaceship spaceship)
+            if(player.MovementNode is ProspectorSpaceship spaceship)
             {
+                GD.Print($"Saving spaceship {spaceship.Position} {spaceship.GlobalPosition} {spaceship.CargoCapacity}");
                 SpaceshipCoupler.SaveSpaceship(GameSettings, spaceship);
             }
             PlayerDataCoupler.SavePlayerData(GameSettings.SaveName, player.PlayerData.UUID, (player.PlayerData as PlayerData));

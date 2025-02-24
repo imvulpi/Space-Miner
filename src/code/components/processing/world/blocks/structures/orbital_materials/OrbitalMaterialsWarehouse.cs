@@ -105,8 +105,11 @@ public partial class OrbitalMaterialsWarehouse : Block, IOrganizedStructure
             {
                 if (CargoSpaceship != null)
                 {
-                    PlayerEntity.PlayerData.AddBalance(price * amountInt);
-                    CargoSpaceship.CargoModule.RemoveCargo(cargoType, amountInt);
+                    if (CargoSpaceship.CargoModule.GetCargo(cargoType).Amount >= amountInt)
+                    {
+                        PlayerEntity.PlayerData.AddBalance(price * amountInt);
+                        CargoSpaceship.CargoModule.RemoveCargo(cargoType, amountInt);
+                    }
                 }
             }
         };

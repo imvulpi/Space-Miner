@@ -43,7 +43,10 @@ public partial class CargoMenu : Control
 		Array<Node> children = ConnectNode.GetChildren();
 		foreach (var child in children)
 		{
-			ConnectNode.RemoveChild(child);
+			if (child != DataRow)
+			{
+				ConnectNode.RemoveChild(child);
+			}
 		}
 	}
 }

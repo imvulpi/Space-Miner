@@ -9,6 +9,7 @@ using SpaceMiner.src.code.components.processing.world.entities.player;
 using SpaceMiner.src.code.components.processing.data.systems.world;
 using SpaceMiner.src.code.components.commons.other.DI;
 using DryIoc;
+using System.Security.Cryptography.X509Certificates;
 
 public partial class GameController : Node, IGameController
 {
@@ -54,6 +55,7 @@ public partial class GameController : Node, IGameController
     }
     private void Save()
     {
+        GD.Print("Saving");
         PlayerEntityHandler.SavePlayer(PlayerEntity);
     }
 

@@ -31,6 +31,7 @@ public partial class MainMenuController : Control, IMenuInject
         Node newMenuNode = NewSaveMenuScene.Instantiate();
         Menu newSaveMenu = new Menu()
         {
+            DisconectOnClose = false,
             ConnectToNode = this,
             MenuNode = newMenuNode,
         };
@@ -39,6 +40,7 @@ public partial class MainMenuController : Control, IMenuInject
 
         Menu gameLoaderMenu = new Menu()
         {
+            DisconectOnClose = false,
             ConnectToNode = this,
             MenuNode = GameLoaderMenuScene.Instantiate()
         };
