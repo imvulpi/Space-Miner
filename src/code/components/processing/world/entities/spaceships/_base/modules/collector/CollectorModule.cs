@@ -50,10 +50,9 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
                     foundAsteroid = true;
                     asteroidBeingCollected = asteroid;
                     if (collecting) break;
-
+                    SpaceshipHUD.LabelMiddle.Text = $"Asteroid {asteroid.AsteroidType}";
                     if (Input.IsActionJustPressed("Collect"))
                     {
-                        SpaceshipHUD.LabelMiddle.Text = $"Asteroid {asteroid.AsteroidType}";
                         GD.Print($"Collecting {asteroid.AsteroidType} {asteroid.Name}");
                         if (CollectTypes.Contains(asteroid.AsteroidType))
                         {
@@ -89,6 +88,10 @@ namespace SpaceMiner.src.code.components.user.entities.spaceships
                     {
                         SpaceshipHUD.HintLabel.Text = "Press E to collect";
                     }
+                }
+                else
+                {
+                    SpaceshipHUD.LabelMiddle.Text = "";
                 }
             }
 

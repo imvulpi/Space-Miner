@@ -28,10 +28,6 @@ public partial class ShopMenu : Control
 				{
                     SellConfirmed.Invoke(type, amountInt);
 				}
-				else
-				{
-					newRow.AmountAll.Text = $"Bad input {newRow.AmountInput.Text}";
-				}
 			};
 			newRow.Visible = true;
 			newRow.Position = new Vector2(newRow.Position.X, 10 + rowNumber * newRow.Size.Y);

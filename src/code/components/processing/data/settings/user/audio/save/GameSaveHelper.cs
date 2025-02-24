@@ -2,9 +2,7 @@
 using SpaceMiner.src.code.components.commons.errors;
 using SpaceMiner.src.code.components.commons.errors.exceptions;
 using SpaceMiner.src.code.components.commons.errors.logging;
-using SpaceMiner.src.code.components.commons.other.IO;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
-using SpaceMiner.src.code.components.commons.other.paths.internal_paths;
 using SpaceMiner.src.code.components.processing.data.settings.game;
 using SpaceMiner.src.code.components.processing.data.settings.game.couplers;
 using System;
@@ -92,39 +90,6 @@ namespace SpaceMiner.src.code.components.processing.data.game.save
 
             string path = Path.Join(save_dir_path, settings.SaveName);
             if(!Directory.Exists(path)) { Directory.CreateDirectory(path); }
-            PackedScene gameScene = GetGameScene(settings);
-            ResourceSaver.Save(gameScene, Path.Join(path, ExternalPaths.SAVE_FILE));
-        }
-
-        private PackedScene GetGameScene(GameSaveSettings settings)
-        {
-            if (Godot.FileAccess.FileExists(InternalPaths.GAME_SCENE))
-            {
-                string gameSceneString = Godot.FileAccess.GetFileAsString(InternalPaths.GAME_SCENE);
-                string destPath = Path.Join(OS.GetUserDataDir(), ExternalPaths.SAVES_DIR, settings.SaveName);
-                DirectoryHelper.ValidateDirectory(destPath);
-                if (gameSceneString != "" && Godot.FileAccess.GetOpenError() == Error.Ok)
-                {
-
-                    File.WriteAllText(Path.Join(destPath, "game.tscn"), gameSceneString);
-                    return ResourceLoader.Load<PackedScene>(InternalPaths.GAME_SCENE);
-                }
-                else if(gameSceneString == "")
-                {
-                    // Godot error
-                    Error fileAccessError = Godot.FileAccess.GetOpenError();
-                    throw new GameException(PrettyErrorType.GeneralError, $"{InternalPaths.GAME_SCENE}/{fileAccessError}", "Could not get the contents of the game scene.");
-                }
-                else
-                {
-                    // Very rare, but could happen when data is corrupted, for example when freeing objects and deffering a call the data could become corrupted in some cases.
-                    throw new GameException(PrettyErrorType.Critical, $"{InternalPaths.GAME_SCENE}", "The game scene could not be retrieved. (Report this)");
-                }
-            }
-            else
-            {
-                throw new GameException(PrettyErrorType.ResourceNotFound, $"{InternalPaths.GAME_SCENE}", "Game scene is missing from the project. (Report this)");
-            }
         }
     }
 }
