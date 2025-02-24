@@ -8,7 +8,7 @@ using SpaceMiner.src.code.components.processing.data.settings.game.couplers;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
 using System;
 
-public partial class NewGameCreatorController : Control, IMenuContainer
+public partial class NewGameCreatorController : Control, IMenuInject
 {
     private readonly GameSaveSettings gameSettings = new();
     private readonly GameSaveHelper gameHelper = new();
@@ -35,11 +35,10 @@ public partial class NewGameCreatorController : Control, IMenuContainer
         {
             if (!ShouldCreateBeDisabled()) {
                 GameSettingCoupler coupler = new GameSettingCoupler();
-                GameSaveManager gameSaveManager = new GameSaveManager(gameSettings);
+                GameSaveLoader gameSaveManager = new GameSaveLoader(gameSettings);
                 gameHelper.CreateSave(gameSettings);
                 coupler.Save(gameSettings);
                 gameSaveManager.Load(GetTree());
-                Menu.Close();
             }
         }
         catch(Exception ex)

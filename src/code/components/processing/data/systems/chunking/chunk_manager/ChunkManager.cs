@@ -168,8 +168,9 @@ namespace SpaceMiner.src.code.components.processing.data.systems.chunking.chunk_
                 LoadBlocks(chunkNode.Info, chunkNode);
                 NewChunkLoaded?.Invoke(this, chunkNode);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                //GD.Print($"{ex}\n\n");
                 EmptyChunk emptyChunk = ResourceLoader.Load<PackedScene>(InternalPaths.EMPTY_CHUNK_SCENE).Instantiate<EmptyChunk>();
                 emptyChunk.Position = chunkPosition * ChunkConstants.CHUNK_SIZE;
                 emptyChunk.Name = chunkPosition.ToString();

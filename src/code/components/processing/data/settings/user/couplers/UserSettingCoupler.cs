@@ -11,14 +11,14 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.couplers
         public UserSettingCoupler() { 
             
         }
-        public ISetting Load(ISetting setting)
+        public ISettings Load(ISettings setting)
         {
             setting.Path ??= Path.Join(OS.GetUserDataDir(), ExternalPaths.USER_SETTING);
             string jsonText = File.ReadAllText(setting.Path);
             setting.Load(jsonText);
             return setting;
         }
-        public ISetting Save(ISetting setting)
+        public ISettings Save(ISettings setting)
         {
             setting.Path ??= Path.Join(OS.GetUserDataDir(), ExternalPaths.USER_SETTING);
             string jsonText = setting.GetData();

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck1wgl8ytkox"]
+
+[ext_resource type="Texture2D" uid="uid://cq2dgbuh5vsb8" path="res://src/resources/graphics/sprites/environment/structures/stellar_forge/stellar_forge.jpg" id="1_m2iy4"]
+[ext_resource type="Script" path="res://src/code/components/processing/world/blocks/structures/stellar_forge/StellarForge.cs" id="1_ypjqx"]
+[ext_resource type="PackedScene" uid="uid://c5ntub2plj3bw" path="res://src/code/components/processing/world/blocks/structures/stellar_forge/StellarShopMenu.tscn" id="2_jdlt8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdqco"]
+size = Vector2(512, 512)
+
+[node name="StellarForge" type="Node2D" node_paths=PackedStringArray("ShopArea")]
+script = ExtResource("1_ypjqx")
+ShopArea = NodePath("Area2D")
+ShopMenuScene = ExtResource("2_jdlt8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m2iy4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_pdqco")

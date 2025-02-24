@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://gf7312c80dt6"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/special/scene_manager/SceneManager.cs" id="1_wfgie"]
+[ext_resource type="PackedScene" uid="uid://bmpp2hol5j1wr" path="res://src/code/components/processing/special/load/load.tscn" id="2_j737d"]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource("1_wfgie")
+metadata/SceneManager = true
+
+[node name="Load" parent="." node_paths=PackedStringArray("SceneManager") instance=ExtResource("2_j737d")]
+SceneManager = NodePath("..")

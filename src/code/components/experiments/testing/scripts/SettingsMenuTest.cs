@@ -1,29 +1,24 @@
 using Godot;
-using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
-using System;
+using SpaceMiner.src.code.components.processing.ui.menus._base.menu_manager_pro;
 
 public partial class SettingsMenuTest : Control
 {
 	[Export] public PackedScene SettingsScene { get; set; }
 	private MenuManager MenuManager = new();
+	public IMenu Menu { get; set; }
 	public override void _Ready()
 	{
-		MenuManager.MainMenuAction = (IMenuManager manager) =>
+        Menu menu = new()
+        {
+            ConnectToNode = this,
+            MenuNode = SettingsScene.Instantiate(),
+        };
+		Menu = menu;
+        MenuManager.MainMenuAction = (IMenuManager manager) =>
 		{
-			DefaultMenu menu = new()
-			{
-				ConnectToNode = this,
-				MenuNode = SettingsScene.Instantiate(),
-			};
-
-			manager.RegisterMenu(menu);
-            if (menu.MenuNode is IMenuContainer container)
-			{
-				container.Menu = menu;
-				container.MenuManager = MenuManager;
-			}
+			manager.ConnectMenu(menu);
 			menu.Open();
 		};
 	}
@@ -31,6 +26,9 @@ public partial class SettingsMenuTest : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		MenuManager.ManageMenus();
+		if (Input.IsActionJustPressed("Esc"))
+		{
+			Menu.Open();
+		}
 	}
 }

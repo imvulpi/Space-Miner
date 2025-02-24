@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace SpaceMiner.src.code.components.processing.data.settings.game
 {
-    public class GameSaveSettings : IGameSetting
+    public class GameSaveSettings : IGameSettings
     {
         public string SaveName { get; set; }
         [JsonFallbackConverter(typeof(JsonDefaultEnumConverter<WorldType>), WorldType.Prebuild)]

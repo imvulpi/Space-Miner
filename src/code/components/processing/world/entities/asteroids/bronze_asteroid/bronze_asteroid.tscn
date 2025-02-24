@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://o8afvespwng0"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/world/entities/asteroids/bronze_asteroid/BronzeAsteroid.cs" id="1_ewqed"]
+[ext_resource type="Texture2D" uid="uid://dqc6jb1hgm64c" path="res://src/resources/graphics/sprites/entities/asteroids/bronze_asteroid.png" id="2_lft87"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mo3q1"]
+radius = 65.0308
+
+[node name="BronzeAsteroid" type="Node2D" node_paths=PackedStringArray("RigidBody", "Sprite")]
+script = ExtResource("1_ewqed")
+RigidBody = NodePath("RigidBody2D")
+Sprite = NodePath("RigidBody2D/Sprite2D")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+can_sleep = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_mo3q1")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("2_lft87")

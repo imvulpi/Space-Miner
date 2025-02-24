@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Space Miner"
-run/main_scene="res://src/code/components/user/special/entry.tscn"
+run/main_scene="res://src/code/components/processing/special/load/entry.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name=".spaceminer"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 
 GruInjectStart="*res://src/code/components/commons/godot/GruInject/API/Start/GruInjectStart.cs"
 ErrorHolder="*res://src/code/components/processing/special/exceptions/ErrorHolder.cs"
-EntryRegistry="*res://src/code/components/user/special/EntryRegistry.cs"
+EntryRegistry="*res://src/code/components/processing/special/load/EntryRegistry.cs"
 
 [debug]
 
@@ -35,8 +35,19 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="Space Miner"
-project/solution_directory="./src/code/components"
+project/assembly_name="space_miner"
+project/solution_directory="./src/code"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_lookup_folder="tests"
+settings/test/flaky_check_enable=true
+ui/inspector/tree_sort_mode=1
+ui/toolbar/run_overall=true
 
 [input]
 
@@ -58,6 +69,11 @@ Esc={
 Collect={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+]
+}
+Inventory={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 

@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://ruas55ln4gh5"]
+
+[ext_resource type="Script" path="res://src/code/components/processing/world/chunk/effects/bouncy_surface/BouncySurfaceController.cs" id="1_4l1gx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgwho"]
+size = Vector2(128.976, 18.1042)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5f2i8"]
+size = Vector2(116.673, 120.104)
+
+[node name="BounceBox" type="Node2D" node_paths=PackedStringArray("BouncyArea")]
+script = ExtResource("1_4l1gx")
+BouncyArea = NodePath("BouncySurface")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.59119, 0, 0.277324, 1)
+
+[node name="BouncySurface" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BouncySurface"]
+position = Vector2(51.052, -7.62939e-06)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_fgwho")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1.76777, -0.0520515)
+shape = SubResource("RectangleShape2D_5f2i8")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 34.0
+offset_top = -20.0
+offset_right = 39.0
+offset_bottom = 20.0

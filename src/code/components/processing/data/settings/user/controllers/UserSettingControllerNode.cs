@@ -1,14 +1,11 @@
 ﻿using Godot;
-using GruInject.API.Nodes;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.graphics;
-using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.size;
 using SpaceMiner.src.code.components.commons.godot.project_settings.display.window.stretch;
 using SpaceMiner.src.code.components.commons.other.paths.external_paths;
 using SpaceMiner.src.code.components.experiments.testing.scripts.MenusTest;
 using SpaceMiner.src.code.components.processing.data.settings.couplers;
 using SpaceMiner.src.code.components.processing.ui.menu;
 using SpaceMiner.src.code.components.processing.ui.menu.interfaces;
-using System;
 using System.IO;
 using static Godot.DisplayServer;
 
@@ -17,7 +14,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
     /// <summary>
     /// Needs rework
     /// </summary>
-    public partial class UserSettingControllerNode : Control, IUserSettingController, IMenuContainer
+    public partial class UserSettingControllerNode : Control, IUserSettingController, IMenuInject
     {
         public UserSettings Setting { get; set; }
         public SettingCoupler SettingCoupler { get; set; }
@@ -41,7 +38,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         [Export] public Label SoundsEffectsVolumeLabel { get; set; }
         [ExportSubgroup("Misc")]
         [Export] public Button ErrorLoggingButton { get; set; }
-        [Export] public PackedScene ErrorLoggingMenu { get; set; }
+        [Export] public PackedScene ErrorLoggingMenuScene { get; set; }
         public ErrorLoggingSettingsMenu LoggingSettings { get; set; }
         [ExportGroup("Controller")]
         [Export] public Button BackButton { get; set; }
@@ -52,7 +49,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         [Export] public Button CloseButton { get; set; }
         public IMenuManager MenuManager { get; set; }
         public IMenu Menu { get; set; }
-
+        private Menu ErrorLoggingMenu { get; set; }
         public override void _Ready()
         {
             Setting = new(Path.Join(Godot.OS.GetUserDataDir(), ExternalPaths.USER_SETTING));
@@ -86,7 +83,7 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
             CancelButton.Pressed += CancelButton_Pressed;
             CloseButton.Pressed += CloseButton_Pressed;
 
-            Menu.EscActionDelegate = (IMenuManager _manager) =>
+            Menu.InterceptClose += () =>
             {
                 SaveSettingMenu.Visible = !SaveSettingMenu.Visible;
                 return true;
@@ -121,12 +118,16 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
         private void CancelButton_Pressed()
         {
             SettingCoupler.Load(Setting); // Cancels the setting
+            Menu.InterceptClose = null; // Disabling interception
+            ErrorLoggingMenu?.Disconnect?.Invoke(ErrorLoggingMenu);
             Menu.Close();
         }
 
         private void ApplyButton_Pressed()
         {
             SettingCoupler.Save(Setting);
+            Menu.InterceptClose = null; // Disabling interception
+            ErrorLoggingMenu?.Disconnect?.Invoke(ErrorLoggingMenu);
             Menu.Close();
         }
 
@@ -140,13 +141,14 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
 
         private void ErrorLoggingButton_Pressed()
         {
-            DefaultMenu menu = new()
+            Menu menu = new()
             {
-                MenuNode = ErrorLoggingMenu.Instantiate(),
-                ConnectToNode = GetTree().Root
+                DisconectOnClose = false,
+                MenuNode = ErrorLoggingMenuScene.Instantiate(),
             };
             if(menu.MenuNode is ErrorLoggingSettingsMenu loggingSettings)
             {
+                ErrorLoggingMenu = menu;
                 LoggingSettings = loggingSettings;
                 if(Setting.MiscSettings.LoggingSettings != null)
                 {
@@ -157,9 +159,9 @@ namespace SpaceMiner.src.code.components.processing.data.settings.user.controlle
                 LoggingSettings.ErrorLogging.Pressed += ErrorLogging_Pressed;
                 LoggingSettings.WarningLogging.Pressed += WarningLogging_Pressed;
                 LoggingSettings.InfoLogging.Pressed += InfoLogging_Pressed;
-            }
-            MenuManager.RegisterMenu(menu);
-            menu.Open();    
+                MenuManager.ConnectMenu(menu);
+                menu.Open();
+            } 
         }
 
         private void InfoLogging_Pressed()
